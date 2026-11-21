@@ -25,6 +25,24 @@ def key(s: str) -> str:
     return "".join(ch for ch in s.lower() if ch.isalnum())
 
 
+def confined(path_str, write=False):
+    """Resolve a path and refuse it unless it is inside the current folder.
+
+    During a run the current folder is panel/, and these scripts are allowed to run without asking.
+    They must not become a way around the read block (reading files outside the panel) or around
+    the write protection (overwriting the method, its scripts or the settings).
+    """
+    base = Path.cwd().resolve()
+    target = Path(path_str).resolve()
+    try:
+        rel = target.relative_to(base)
+    except ValueError:
+        raise SystemExit(f"Refusing {path_str}: it is outside the current folder ({base}).")
+    if write and rel.parts and rel.parts[0].lower() in ("method", ".claude"):
+        raise SystemExit(f"Refusing to write {path_str}: method/ and .claude/ are read-only.")
+    return path_str
+
+
 def main() -> int:
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8")
@@ -33,6 +51,8 @@ def main() -> int:
     ap.add_argument("rankings")
     ap.add_argument("--output", "--out", dest="out", required=True)
     a = ap.parse_args()
+    a.draw, a.rankings = confined(a.draw), confined(a.rankings)
+    a.out = confined(a.out, write=True)
 
     draw = json.loads(Path(a.draw).read_text(encoding="utf-8"))
     data = json.loads(Path(a.rankings).read_text(encoding="utf-8"))

@@ -13,12 +13,16 @@ If rounds/ already holds an unfinished run, the new session resumes it from prog
 
 Output saved in panel/runs/<date-time>.txt. Exit codes:
     0  finished: there is a new report.html
+    3  files in method/ or .claude/ changed during the run (results not trustworthy)
     2  interrupted (usage limit, failed isolation or another reason): see the output
     1  could not start
 """
 
 import argparse
+import hashlib
+import os
 import shutil
+import stat
 import subprocess
 import sys
 import time
@@ -46,6 +50,30 @@ If rounds/ already holds an unfinished run (progress.md without round 5 finished
 The author is not available during the run and must not be asked anything. Only stop if an isolation test fails; in that case, explain what happened and do not work around it.
 
 When you finish, answer in the language set in config.md with: the full path of report.html, a ten-line summary of what the panel concluded, and a short list of what you found ambiguous, contradictory or hard to follow in the method itself."""
+
+
+PROTECTED = ("method", ".claude")
+
+
+def protected_files(panel: Path) -> list:
+    return sorted(f for d in PROTECTED for f in (panel / d).rglob("*") if f.is_file())
+
+
+def fingerprint(panel: Path) -> dict:
+    return {f.relative_to(panel).as_posix(): hashlib.sha256(f.read_bytes()).hexdigest()
+            for f in protected_files(panel)}
+
+
+def set_read_only(panel: Path, read_only: bool) -> None:
+    """Mark method/ and .claude/ files read-only at the filesystem level during the run.
+
+    The deny rules in settings.json match paths as written; on a case-insensitive filesystem a
+    write to METHOD/scripts/report.py could slip past Edit(/method/**). A read-only file refuses
+    the write whatever spelling reaches it.
+    """
+    for f in protected_files(panel):
+        mode = f.stat().st_mode
+        os.chmod(f, (mode & ~stat.S_IWRITE & ~stat.S_IWGRP & ~stat.S_IWOTH) if read_only else (mode | stat.S_IWRITE))
 
 
 def reports(panel: Path) -> dict:
@@ -82,10 +110,23 @@ def main() -> int:
     start = time.time()
     print(f"Isolated run started in {panel} (output in {log}). It can take from tens of minutes to hours.")
     sys.stdout.flush()
-    with open(log, "w", encoding="utf-8") as out:
-        proc = subprocess.run([claude, "-p", PROMPT, "--allowedTools", TOOLS, "--output-format", "text"],
-                              cwd=panel, stdout=out, stderr=subprocess.STDOUT, text=True, encoding="utf-8")
+    original = fingerprint(panel)
+    set_read_only(panel, True)
+    try:
+        with open(log, "w", encoding="utf-8") as out:
+            proc = subprocess.run([claude, "-p", PROMPT, "--allowedTools", TOOLS, "--output-format", "text"],
+                                  cwd=panel, stdout=out, stderr=subprocess.STDOUT, text=True, encoding="utf-8")
+    finally:
+        set_read_only(panel, False)
     text = log.read_text(encoding="utf-8")
+    now = fingerprint(panel)
+    changed = sorted(k for k in original.keys() | now.keys() if original.get(k) != now.get(k))
+    if changed:
+        print("WARNING: files in method/ or .claude/ changed during the run, which must never happen:")
+        for k in changed:
+            print(f"  {k}")
+        print("Do not trust this run's results. Re-assemble the panel with assemble_panel.py before running again.")
+        return 3
     minutes = round((time.time() - start) / 60)
 
     new = [p for p, t in reports(panel).items() if p not in before or t > before[p]]

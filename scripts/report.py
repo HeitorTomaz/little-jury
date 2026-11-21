@@ -195,6 +195,24 @@ def report_out(errors, warnings) -> int:
     return 1 if errors else 0
 
 
+def confined(path_str, write=False):
+    """Resolve a path and refuse it unless it is inside the current folder.
+
+    During a run the current folder is panel/, and these scripts are allowed to run without asking.
+    They must not become a way around the read block (reading files outside the panel) or around
+    the write protection (overwriting the method, its scripts or the settings).
+    """
+    base = Path.cwd().resolve()
+    target = Path(path_str).resolve()
+    try:
+        rel = target.relative_to(base)
+    except ValueError:
+        raise SystemExit(f"Refusing {path_str}: it is outside the current folder ({base}).")
+    if write and rel.parts and rel.parts[0].lower() in ("method", ".claude"):
+        raise SystemExit(f"Refusing to write {path_str}: method/ and .claude/ are read-only.")
+    return path_str
+
+
 def main() -> int:
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8")
@@ -204,6 +222,9 @@ def main() -> int:
     ap.add_argument("--template", required=True)
     ap.add_argument("--output", "--out", dest="out")
     a = ap.parse_args()
+    a.template, a.file = confined(a.template), confined(a.file)
+    if a.out:
+        a.out = confined(a.out, write=True)
 
     template_html = Path(a.template).read_text(encoding="utf-8")
     before_t, block_t, after_t = split(template_html)

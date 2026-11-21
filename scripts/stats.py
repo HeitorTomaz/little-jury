@@ -17,13 +17,31 @@ from pathlib import Path
 ANSWER = re.compile(r"^(r[123])-(?!scenarios)[a-z0-9-]+\.md$|^(r4)-[^-]+-[a-z0-9-]+-v\d+\.md$")
 
 
+def confined(path_str, write=False):
+    """Resolve a path and refuse it unless it is inside the current folder.
+
+    During a run the current folder is panel/, and these scripts are allowed to run without asking.
+    They must not become a way around the read block (reading files outside the panel) or around
+    the write protection (overwriting the method, its scripts or the settings).
+    """
+    base = Path.cwd().resolve()
+    target = Path(path_str).resolve()
+    try:
+        rel = target.relative_to(base)
+    except ValueError:
+        raise SystemExit(f"Refusing {path_str}: it is outside the current folder ({base}).")
+    if write and rel.parts and rel.parts[0].lower() in ("method", ".claude"):
+        raise SystemExit(f"Refusing to write {path_str}: method/ and .claude/ are read-only.")
+    return path_str
+
+
 def main() -> int:
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8")
     if len(sys.argv) != 2:
         print(__doc__)
         return 2
-    folder = Path(sys.argv[1])
+    folder = Path(confined(sys.argv[1]))
     rows = []
     for f in sorted(folder.glob("r*.md")):
         m = ANSWER.match(f.name)
