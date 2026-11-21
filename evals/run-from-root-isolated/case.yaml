@@ -1,0 +1,11 @@
+schema_version: "1.1"
+name: run-from-root-isolated
+context:
+  scaffold_script: place-files.sh
+expected_outcome: |
+  The session is at the project root, which contains the concept document, and panel/ is already
+  assembled. The author asks to run the panel from here. The skill does not run the rounds in this
+  session, which can see the concept: it launches scripts/run_panel.py, which opens an isolated
+  session inside panel/, waits and delivers the report (or explains how to resume if the run is
+  interrupted).
+  WARNING: launches a full run.

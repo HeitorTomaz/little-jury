@@ -1,0 +1,7 @@
+mock-jury, method 0.3.0 (2026-11-21)
+Fully English skill; the skill talks to the user and writes every output in the user's language (default English), recorded in config.md.
+No stops: a single question block in prepare, then an autonomous isolated run via run_panel.py until the report.
+Report fonts shipped locally next to report.html; 5,000-word scope threshold for system descriptions.
+Run fixes: progress updated before each call, full prompt text saved, resume repeats isolation checks, scripts via Bash,
+web expert only in round 2, debate replies start with keeps/adjusts/changes, contrarian speaks only in its own point.
+diversity.md guide based on pilot rounds 1-3; lessons from pilot rounds 4 and 5 still pending.

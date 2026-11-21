@@ -1,0 +1,17 @@
+schema_version: "1.1"
+name: prepare-change-in-system
+context:
+  scaffold_script: place-files.sh
+expected_outcome: |
+  The session is at the root of a small repository (a library loans system, written in English) and
+  the author, writing in Brazilian Portuguese, asks to prepare the evaluation of the plan
+  docs/fines-plan.md. The skill identifies the change type and writes everything for the author in
+  Brazilian Portuguese (config.md Language: Brazilian Portuguese). It extracts from code and docs
+  the affected area (loans, renewal, return, roles), marks the divergence between the README (2
+  renewals) and the code (1 renewal) as [divergent] with references to both sides, records the
+  reservation TODO as [undefined], and keeps out of the inputs the justifications in the code
+  comment, the CLAUDE.md and the plan, recording them in prep/removed.md. It writes the short pitch
+  in two parts (system today + change), the full description with parts A (current) and B (change,
+  items linked to part A), current-user personas derived from the roles plus one or two non-users,
+  and the change-type dimensions. It records its decisions in prep/decisions.md, assembles panel/
+  and stops, as the request says, without launching the run.
