@@ -26,7 +26,9 @@ Arguments for this invocation: `$ARGUMENTS`
 
 Natural-language requests ("prepare a panel for this concept", "run the panel") count the same as the commands.
 
-**The author is asked only once**, in the question block at the start of preparation: the project, who it is for, and what they want to decide with the evaluation. After that, everything continues without intervention until the report opens in the browser.
+**The author is asked only once**, in the question block at the start of preparation: the project, who it is for, and what they want to decide with the evaluation. After that, everything continues without intervention until the report opens in the browser, unless the author asked for the optional **checkpoints** (after round 1 and before the debate): the run then saves everything, stops, and `/mock-jury run` continues it.
+
+**Re-evaluation.** When `panel/rounds/` already has a completed run of an earlier version of the same project, `prepare` treats the revised version as a re-evaluation: same persona profiles and models, fresh instances, the earlier problems checked in round 3 and a comparison (resolved, partly, unresolved, new) in the report. See section 8 of `references/prepare.md`.
 
 Isolation is what gives the panel its value: if a persona sees the author's decision history, the arguments the author used to defend the idea, the code with its comments, or another persona's answer, it stops being an independent opinion. That is why the run never happens in the session that prepared it: the script `scripts/run_panel.py` opens a new Claude Code session (`claude -p`) with its working directory inside `panel/`, where the read block and the context exclusions apply.
 
@@ -73,7 +75,7 @@ Read `references/prepare.md` and follow it. Depending on the type, it also point
 
 In this session the method is **copied inside `panel/method/`**. Read `method/run.md` and follow it; it points to the other files in `method/`. Do not read the reference files in this skill's folder: with the read block active they may be out of reach, and the local copy is the version of the method this panel was set up with, which keeps runs from the same folder comparable.
 
-The run has no stops: it continues until the report and only stops if an isolation test fails.
+The run continues until the report. It stops only if an isolation test fails or at the optional checkpoints recorded in `config.md` (`- Checkpoints:`), where it saves everything and ends; `/mock-jury run` resumes it.
 
 ## Files in this skill
 

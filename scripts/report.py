@@ -27,6 +27,7 @@ CLASSIFICATIONS = {"hypothesis", "proven problem"}
 PRIORITIES = {"high", "medium", "low"}
 CATEGORIES = {"design", "audience", "production", "scope", "market"}
 TYPES = {"concept", "system", "change"}
+STATUSES = {"resolved", "partly", "unresolved", "new"}
 
 
 def split(html: str):
@@ -168,6 +169,33 @@ def validate(d: dict, example: dict, default_labels: dict):
             warnings.append(f"{where}: no 'point'; it will be shown without its debate point")
         for k in ["proposedBy", "support", "against"]:
             check_ids(c.get(k), f"{where}.{k}")
+
+    if "audienceDefined" in meta and not isinstance(meta.get("audienceDefined"), bool):
+        errors.append(f"meta.audienceDefined must be true or false (got {meta.get('audienceDefined')!r})")
+    for i, x in enumerate(d.get("pitchIssues", [])):
+        where = f"pitchIssues[{i}]"
+        for k in ["sentence", "understoodAs"]:
+            if not x.get(k):
+                errors.append(f"{where}: missing '{k}' (every pitch problem quotes the text and how it was read)")
+        if not x.get("intended"):
+            warnings.append(f"{where}: no 'intended'; the reader will not see what the pitch meant to say")
+        check_ids(x.get("who"), f"{where}.who")
+    for i, x in enumerate(d.get("audienceSplit", [])):
+        where = f"audienceSplit[{i}]"
+        for k in ["group", "wants"]:
+            if not x.get(k):
+                errors.append(f"{where}: missing '{k}'")
+        if not x.get("cost"):
+            warnings.append(f"{where}: no 'cost'; say what choosing this group would cost")
+        check_ids(x.get("who"), f"{where}.who")
+    if d.get("audienceSplit") and meta.get("audienceDefined", True) is not False:
+        warnings.append("audienceSplit is filled but meta.audienceDefined is not false: the panel average stays visible")
+    for i, x in enumerate(d.get("comparison", [])):
+        where = f"comparison[{i}]"
+        if not x.get("problem"):
+            errors.append(f"{where}: missing 'problem'")
+        if x.get("status") not in STATUSES:
+            errors.append(f"{where}.status is invalid: {x.get('status')!r} (resolved, partly, unresolved or new)")
 
     launch = d.get("launch")
     if launch:

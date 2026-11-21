@@ -4,4 +4,4 @@ focus: trace
 weight: 1
 ---
 
-prep/config.md uses the dimension ids clarity, relevance, value, adaptation and would_accept.
+prep/config.md uses the dimension ids relevance (round 1), value, adaptation and would_accept (round 2), and has no clarity score.

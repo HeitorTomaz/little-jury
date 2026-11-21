@@ -1,0 +1,13 @@
+schema_version: "1.1"
+name: prepare-reevaluation
+context:
+  scaffold_script: place-files.sh
+expected_outcome: |
+  The project root has a revised concept (v0.2) of a fictional two-player co-op lighthouse game, and
+  panel/ already holds a completed v0.1 run of the same project. The skill detects a re-evaluation,
+  keeps the same persona profiles and models, writes new neutral inputs for v0.2 (removing the
+  author's "fixes everything" and "best idea" claims), and writes two moderator-only files:
+  moderator/changes.md (what changed, before and after) and moderator/previous-problems.md (the three
+  v0.1 problems, numbered, with source). None of the earlier run reaches panel/input/ or personas.md;
+  config.md says "- Re-evaluation of: v0.1". The earlier run stays untouched. It stops after
+  assembling, as the request says, without launching the run.

@@ -7,12 +7,15 @@ The run cannot happen in the session that prepared the panel, because that sessi
 concept, the code and what was removed from the inputs. This script starts `claude -p` with the
 working directory in panel/, where the read blocking, the CLAUDE.md exclusions and the absence of
 git state apply (see check_isolation.py), and allows only the tools the method needs. There are no
-stops: the moderator goes all the way to the report and only stops if an isolation test fails.
+stops unless config.md asks for checkpoints: the moderator goes all the way to the report and only
+stops at a requested checkpoint or if an isolation test fails.
 
-If rounds/ already holds an unfinished run, the new session resumes it from progress.md.
+If rounds/ already holds an unfinished run (or one paused at a checkpoint), the new session resumes it
+from progress.md.
 
 Output saved in panel/runs/<date-time>.txt. Exit codes:
     0  finished: there is a new report.html
+    4  paused at a checkpoint that config.md asked for: review, then run again to continue
     3  files in method/ or .claude/ changed during the run (results not trustworthy)
     2  interrupted (usage limit, failed isolation or another reason): see the output
     1  could not start
@@ -43,11 +46,11 @@ TOOLS = ",".join([
     "Bash(claude --version)",
 ])
 
-PROMPT = """Read method/run.md and follow it to run this panel to the end, with no stops.
+PROMPT = """Read method/run.md and follow it to run this panel to the end, with no stops other than the checkpoints config.md asks for: if config.md asks for checkpoints, stop at them as method/run.md says.
 
-If rounds/ already holds an unfinished run (progress.md without round 5 finished), resume it as the method's resume section says. Otherwise, start a new run.
+If rounds/ already holds an unfinished run (progress.md without round 5 finished, possibly paused at a checkpoint), resume it as the method's resume section says. Otherwise, start a new run.
 
-The author is not available during the run and must not be asked anything. Only stop if an isolation test fails; in that case, explain what happened and do not work around it.
+The author is not available during the run and must not be asked anything. Apart from the requested checkpoints, only stop if an isolation test fails; in that case, explain what happened and do not work around it.
 
 When you finish, answer in the language set in config.md with: the full path of report.html, a ten-line summary of what the panel concluded, and a short list of what you found ambiguous, contradictory or hard to follow in the method itself."""
 
@@ -74,6 +77,17 @@ def set_read_only(panel: Path, read_only: bool) -> None:
     for f in protected_files(panel):
         mode = f.stat().st_mode
         os.chmod(f, (mode & ~stat.S_IWRITE & ~stat.S_IWGRP & ~stat.S_IWOTH) if read_only else (mode | stat.S_IWRITE))
+
+
+def paused_at(panel: Path):
+    """Return the `- Paused:` line of the most recent progress.md, or None."""
+    progress = sorted((panel / "rounds").glob("*/progress.md"), key=lambda f: f.stat().st_mtime)
+    if not progress:
+        return None
+    for line in progress[-1].read_text(encoding="utf-8").splitlines():
+        if line.strip().lower().startswith("- paused:"):
+            return line.strip()[len("- paused:"):].strip(), progress[-1].parent
+    return None
 
 
 def reports(panel: Path) -> dict:
@@ -128,6 +142,17 @@ def main() -> int:
         print("Do not trust this run's results. Re-assemble the panel with assemble_panel.py before running again.")
         return 3
     minutes = round((time.time() - start) / 60)
+
+    paused = paused_at(panel)
+    if paused:
+        checkpoint, folder = paused
+        before_debate = "debate" in checkpoint.lower() or checkpoint.startswith("checkpoint 2")
+        target, note = ("r4-agenda.md", " (you may edit the agenda before continuing)") if before_debate else ("r1.md", " (are the voices distinct?)")
+        print(f"Paused after {minutes} min at {checkpoint}.")
+        print(f"1. Look at {folder / target}{note}.")
+        print("2. To continue: run this script again (or /mock-jury run at the project root).")
+        print("\n--- moderator's answer ---\n" + text[-3000:])
+        return 4
 
     new = [p for p, t in reports(panel).items() if p not in before or t > before[p]]
     if proc.returncode == 0 and new:

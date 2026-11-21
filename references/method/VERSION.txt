@@ -1,4 +1,12 @@
-mock-jury, method 0.4.0 (2026-11-21)
+mock-jury, method 0.5.0 (2026-11-21)
+0.5.0: clarity is no longer a score; the moderator runs a comprehension check on round 1 and reports pitch
+problems apart from project problems. Strength questions in every round and a rule against criticism by
+obligation. Round 3 with one user per model and a defender and a critic for each central rule. Contrarian
+pack with an index; the contrarian may request up to six answers in full (two calls). Settled items skip the
+debate; non-independent convergence and splits by model are recorded. One file per round. Persona texts
+never promise tools; prompts flag a missing tool. Undefined audience: no averaging, audienceSplit section.
+Optional checkpoints (after round 1, before the debate). Re-evaluation mode with comparison.md. The panel
+never recommends running itself again.
 0.4.0: quick wins. Experts propose, in round 2, the smallest change that would fix the most serious
 problem they found; every debate reply adds the smallest change to a rule or decision that would solve the
 point, and what is lost; a point with two or more different proposals gets a second turn where participants

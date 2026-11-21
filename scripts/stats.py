@@ -3,10 +3,11 @@
 Usage:
     python method/scripts/stats.py rounds/v<version>
 
-Counts the words of each saved answer (r1-*.md, r2-*.md, r3-*.md and r4-*-v*.md replies), reads the
-model from the three-line header the moderator writes, and shows the mean per round and per model,
-and how many answers have the same number of headings (a sign of uniform shape).
-Does not count the moderator's files (scenarios, agenda, pack, debate, syntheses).
+Reads the one-file-per-round layout (r1.md, r2.md, r3.md and r4-debate-replies.md). Each answer is a
+section that starts with a `## ` heading followed by a `- Model: <model> (<agent type>)` line; headings
+inside an answer are part of the answer, not new sections. Counts the words of each answer and shows
+the mean per round and per model, and how many answers have the same number of headings (a sign of
+uniform shape). Does not count the moderator's files (scenarios, agenda, pack, debate synthesis).
 """
 
 import re
@@ -14,7 +15,8 @@ import sys
 from collections import defaultdict
 from pathlib import Path
 
-ANSWER = re.compile(r"^(r[123])-(?!scenarios)[a-z0-9-]+\.md$|^(r4)-[^-]+-[a-z0-9-]+-v\d+\.md$")
+ROUND_FILES = (("r1", "r1.md"), ("r2", "r2.md"), ("r3", "r3.md"), ("r4", "r4-debate-replies.md"))
+MODEL_LINE = re.compile(r"^-\s*Model:\s*([A-Za-z0-9.-]+)", re.I)
 
 
 def confined(path_str, write=False):
@@ -35,6 +37,32 @@ def confined(path_str, write=False):
     return path_str
 
 
+def sections(text: str):
+    """Yield (title, model, body) for each answer section of a round file."""
+    lines = text.splitlines()
+    starts = []
+    for i, line in enumerate(lines):
+        if not line.startswith("## "):
+            continue
+        following = [l for l in lines[i + 1:i + 4] if l.strip()]
+        if following and MODEL_LINE.match(following[0]):
+            starts.append(i)
+    for k, i in enumerate(starts):
+        end = starts[k + 1] if k + 1 < len(starts) else len(lines)
+        block = lines[i + 1:end]
+        model = "?"
+        body = []
+        for line in block:
+            mm = MODEL_LINE.match(line)
+            if mm and model == "?":
+                model = mm.group(1).lower()
+                continue
+            if model != "?" and not body and re.match(r"^-\s*Date:", line, re.I):
+                continue
+            body.append(line)
+        yield lines[i][3:].strip(), model, "\n".join(body)
+
+
 def main() -> int:
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8")
@@ -43,25 +71,21 @@ def main() -> int:
         return 2
     folder = Path(confined(sys.argv[1]))
     rows = []
-    for f in sorted(folder.glob("r*.md")):
-        m = ANSWER.match(f.name)
-        if not m:
+    for rnd, name in ROUND_FILES:
+        f = folder / name
+        if not f.exists():
             continue
-        rnd = m.group(1) or m.group(2)
-        text = f.read_text(encoding="utf-8")
-        head = "\n".join(text.splitlines()[:5]).lower()
-        mm = re.search(r"model[^a-z]*([a-z0-9.-]+)", head)
-        model = mm.group(1) if mm else "?"
-        words = len(re.findall(r"\w+", text))
-        headings = len(re.findall(r"^#{1,6} ", text, re.M))
-        rows.append((rnd, f.name, model, words, headings))
+        for title, model, body in sections(f.read_text(encoding="utf-8")):
+            words = len(re.findall(r"\w+", body))
+            headings = len(re.findall(r"^#{1,6} ", body, re.M))
+            rows.append((rnd, title, model, words, headings))
 
     if not rows:
         print("No answers found.")
         return 1
-    print("file | round | model | words | headings")
-    for rnd, name, model, words, headings in rows:
-        print(f"{name} | {rnd} | {model} | {words} | {headings}")
+    print("answer | round | model | words | headings")
+    for rnd, title, model, words, headings in rows:
+        print(f"{title} | {rnd} | {model} | {words} | {headings}")
 
     def means(k):
         groups = defaultdict(list)

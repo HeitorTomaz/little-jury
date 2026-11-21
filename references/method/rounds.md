@@ -9,6 +9,7 @@
 - Round 3 — Extreme scenarios
 - Round 4 — Contrarian and debate
 - Round 5 — Consolidation
+- Re-evaluation
 
 In the questions below, "the project" and "use" must be replaced with the domain's vocabulary (for games: "the game", "play"). Dimension names come from `config.md`. Write the questions, like everything sent to personas, in the language set in `config.md` (`- Language:`).
 
@@ -25,11 +26,11 @@ In the questions below, "the project" and "use" must be replaced with the domain
 | 2 | users | general rules, persona, `02-full-description.md`, **their own round 1 answer**, list in drawn order (if active) | other people's answers |
 | 2 | experts | general rules, persona, `02-full-description.md`, drawn list (only the relevant expert), specific questions | users' round 1 |
 | 2 | destroyer | general rules, persona, `02-full-description.md` | everything else |
-| 3 | experts and 2 users | general rules, persona, `02-full-description.md`, the scenarios | other people's answers, the author's concerns as such |
-| 4 | contrarian | general rules, persona, `02-full-description.md`, the contrarian pack | the author's concerns |
+| 3 | experts and 2 users | general rules, persona, `02-full-description.md`, the scenarios (in a re-evaluation, also the checks built from the earlier problems) | other people's answers, the author's concerns as such, anything from an earlier run |
+| 4 | contrarian | general rules, persona, `02-full-description.md`, the contrarian pack; then up to six answers in full, on request | the author's concerns |
 | 4 | participants of each point | general rules, persona, `02-full-description.md`, the summary of the point, the excerpt of their own previous answer | the author's concerns |
 
-`moderator/author-concerns.md` and `config.md` never go to anyone. The concerns inspire the scenarios, but the scenarios are written as situations, without saying they came from the author.
+`moderator/author-concerns.md` and `config.md` never go to anyone. The concerns inspire the scenarios, but the scenarios are written as situations, without saying they came from the author. In a re-evaluation, `moderator/changes.md` and `moderator/previous-problems.md` never go to anyone either, and no persona receives anything from the earlier run: every instance is new.
 
 ## Prompt skeleton
 
@@ -45,6 +46,8 @@ must not ask for files: answer only from the text below. Your answer will be sav
 
 ## Your persona
 <the persona's block in personas.md, with its id>
+<if the persona's text mentions a tool it does not have in this round: "In this round you have no web access.
+Do not claim to have checked anything; mark [not verified] every external fact you rely on.">
 
 ## Material for this round
 <full text of the input file; in round 2, also your round 1 answer and the drawn list>
@@ -73,9 +76,17 @@ Input: `01-short-pitch.md`. Questions:
 5. Would you try it? Why?
 6. On what device or in what situation do you picture yourself using this? Why? *(omit if it makes no sense for the domain)*
 7. Where do you usually discover products like this? *(omit if it makes no sense)*
-8. Scores from 1 to 5 for **<clarity>** and **<curiosity>**, each with the justification before the number.
+8. Score from 1 to 5 for **<curiosity>**, with the justification before the number.
 
-Output: `r1-<id>.md`. Then record in "Moderator notes" in `progress.md` whether the scores came out uniform (all equal on one dimension), whether the objections repeat almost word for word and whether the voices sound distinct. There is no stop: go on to round 2. Near-identical voices go into `diversity.md` as a limit.
+**Clarity is not a score.** In two runs, all eight users gave the same clarity score with different justifications: with a short pitch, the uniformity comes from the text, not from the personas. Clarity is measured instead by the comprehension check below.
+
+Output: `r1.md`, one section per user.
+
+### Comprehension check (moderator)
+
+Compare each answer to question 1 and each confusion in question 3 with what the pitch meant to say. List the **pitch problems**: sentences or ideas that half of the users or more understood differently from what was intended, with the sentence, what it meant to say, how it was understood and by whom. They are problems of the **text**, not of the project, and the report shows them separately (`pitchIssues`). In a real run, three sentences of the pitch were misunderstood by half of the panel or more. Record the check in "Moderator notes" in `progress.md`.
+
+Then record there too whether the curiosity scores came out uniform, whether the objections repeat almost word for word and whether the voices sound distinct. Unless `config.md` asks for checkpoints (`run.md`, section 8), there is no stop: go on to round 2. Near-identical voices go into `diversity.md` as a limit.
 
 ## Round 2 — In-depth analysis (isolated)
 
@@ -96,26 +107,28 @@ The script returns, for each agent, the reordered table. Use exactly that table 
 1. How do you picture the first 15 minutes of use?
 2. At what moment would you get confused, bored or frustrated?
 3. What part would you ignore or wish did not exist?
-4. What would make you come back? And what would make you give up?
-5. Which of your round 1 questions did the description answer, and which remain open? *(separates a presentation gap from a design problem)*
-6. Additional questions for users in `config.md` (for example, reaction to the revenue model).
-7. Scores from 1 to 5 for **<value>**, **<ease>** and **<would_try>**, each with the justification before the number. Then review your round 1 scores: for each one that changes, say **what in the description** caused the change; if nothing specific caused it, keep the score.
-8. *(if the list is active)* For each item on the list, say what it suggests and whether it is easy to say, write and remember. Then rank all of them, from the best fit for the project to the worst, and say whether you would reject any.
+4. What would you keep no matter what changes, and why?
+5. What would make you come back? And what would make you give up?
+6. Which of your round 1 questions did the description answer, and which remain open? *(separates a presentation gap from a design problem)*
+7. Additional questions for users in `config.md` (for example, reaction to the revenue model).
+8. Scores from 1 to 5 for **<value>**, **<ease>** and **<would_try>**, each with the justification before the number. Then review your round 1 score (**<curiosity>**): if it changes, say **what in the description** caused the change; if nothing specific caused it, keep the score.
+9. *(if the list is active)* For each item on the list, say what it suggests and whether it is easy to say, write and remember. Then rank all of them, from the best fit for the project to the worst, and say whether you would reject any.
 
-Question 7 asks for the cause of the change because, in the pilot, all 8 users gave clarity 3 in round 1 and all went up to 4 in round 2; part of it was real, part looked like anchoring.
+Question 8 asks for the cause of the change because, in the pilot, all 8 users gave the same round 1 score and all moved it by one point in round 2; part of it was real, part looked like anchoring.
 
 ### Experts (all)
 
 1. Which rules contradict each other or conflict? Quote both rules in each case.
 2. Is there a strategy, shortcut or use that would always or almost always win? Describe it step by step.
-3. Which rule or part costs the most to build relative to what it adds?
-4. What would you cut from the first version?
-5. For the most serious problem you found, what is the **smallest change** to a rule or decision that would solve it, and what is lost with it?
-6. What information is missing to evaluate it?
-7. What is the smallest test that could show whether the core activity works, within the means the author has declared?
-8. *(if `config.md` asks for it)* Through which channel do you recommend the first launch, and why?
-9. The expert's specific questions, from `config.md`.
-10. *(only the expert who ranks the list)* Rank the list by your own criterion and, if you have web access, check for conflicts in the indicated sources, saying what you could not check.
+3. What is the strongest part of the proposal, and why does it work?
+4. Which rule or part costs the most to build relative to what it adds?
+5. What would you cut from the first version?
+6. For the most serious problem you found, what is the **smallest change** to a rule or decision that would solve it, and what is lost with it?
+7. What information is missing to evaluate it?
+8. What is the smallest test that could show whether the core activity works, within the means the author has declared?
+9. *(if `config.md` asks for it)* Through which channel do you recommend the first launch, and why?
+10. The expert's specific questions, from `config.md`.
+11. *(only the expert who ranks the list)* Rank the list by your own criterion and, if you have web access, check for conflicts in the indicated sources, saying what you could not check.
 
 For the expert with web access, add to the format: "For each external fact, cite the source (address and date accessed). Mark **[not verified]** everything you could not access or confirm, and say why (interactive form, CAPTCHA, connection error). Do not use the web for anything beyond what these questions ask."
 
@@ -123,7 +136,7 @@ For the expert with web access, add to the format: "For each external fact, cite
 
 "Present the three strongest arguments for this project to fail. For each one: (a) the claim; (b) the chain of reasoning, grounded in what is written in the description; (c) what would bring this argument down. Do not attack what is not written; if the argument depends on a gap, say so."
 
-Output: `r2-<id>.md` per agent. After saving, run the list analysis if active (see `outputs.md`).
+Output: `r2.md`, one section per agent. After saving, run the list analysis if active (see `outputs.md`).
 
 ## Round 3 — Extreme scenarios (moderator, experts and 2 users)
 
@@ -134,21 +147,24 @@ Write 5 to 8 hypothetical situations in `rounds/v<version>/r3-scenarios-proposed
 - `moderator/author-concerns.md`, rewritten as concrete situations ("The user does X in the first minute and then Y"), without saying they are the author's concerns;
 - contradictions, dominant strategies and gaps that came up in rounds 1 and 2;
 - the author's goals for the evaluation (`config.md`), so the scenarios test what the author needs to decide;
-- **rule variants** proposed by the author or raised by the panel, presented as **anonymous alternatives** ("Consider two versions of rule Z: A… and B…"), without attributing a preference to anyone. In the pilot, this tested two rule changes and returned concrete conditions for adopting them.
+- **rule variants** proposed by the author or raised by the panel, presented as **anonymous alternatives** ("Consider two versions of rule Z: A… and B…"), without attributing a preference to anyone. In the pilot, this tested two rule changes and returned concrete conditions for adopting them;
+- in a re-evaluation, the earlier problems, as checks against the current text (see "Re-evaluation").
 
 ### Choose the participants
 
 - All experts.
-- The **2 users with the most opposed positions on the same central rule**. Record the rule and the reason for the choice in `progress.md`.
-- Keep **at least two models** among the participants (in the pilot, all six were on the same model, and the round lost variety). If the two most opposed users are on the same model as most experts, choose another equally opposed pair or record the limitation.
+- **Two users, one from each model**, chosen so that, for each central rule discussed in the scenarios, there is **at least one defender and one critic** among the participants (counting experts too). Record the rules, who defends and who criticizes each, and the reason for the choice in `progress.md`.
+- This keeps at least two models in the round (in the pilot, all six participants were on the same model, and the round lost variety). If no pair of users covers every central rule, choose the pair that covers the most and record the limitation.
 
 ### Question
 
-"For each scenario, describe what would happen **according to the written rules**. When the description does not decide the outcome, say which gap prevents the answer. Classify each outcome as a **hypothesis**, or as a **proven problem** only when it follows directly from two written rules that contradict each other — in that case, quote both. For the variants, say under what conditions each version works better."
+"For each scenario, describe what would happen **according to the written rules**. When the description does not decide the outcome, say which gap prevents the answer. Classify each outcome as a **hypothesis**, or as a **proven problem** only when it follows directly from two written rules that contradict each other — in that case, quote both. For the variants, say under what conditions each version works better. Finally, say which of these rules held up well in the scenarios, and why."
 
 ### Consolidate
 
-Save the answers in `r3-<id>.md` and write `r3-scenarios.md` with one table per scenario: participant, outcome, classification. Criterion for classification disagreements: a contradiction with an **experience intention**, with a goal marked **[undefined]** or with a rule that is only **[proposed]** stays a **hypothesis**; record whoever classified it differently as a dissent.
+Save the answers in `r3.md`, one section per participant, and write `r3-scenarios.md` with one table per scenario: participant, model, outcome, classification. Criterion for classification disagreements: a contradiction with an **experience intention**, with a goal marked **[undefined]** or with a rule that is only **[proposed]** stays a **hypothesis**; record whoever classified it differently as a dissent.
+
+**Split by model.** When a classification or a position splits exactly along model lines, record it as "split by model", do not resolve it by majority, and keep it as a hypothesis. In a real run, the classification of one scenario split exactly by model: the three participants on one model said "proven problem", the three on the other said "hypothesis".
 
 ## Round 4 — Contrarian and debate
 
@@ -156,33 +172,42 @@ Save the answers in `r3-<id>.md` and write `r3-scenarios.md` with one table per 
 
 The material from rounds 1 to 3 does not fit whole in one prompt (in the pilot, about 357 KB). Build the **contrarian pack** in `rounds/v<version>/r4-contrarian-pack.md`:
 
-- **As verbatim text**, marked `[verbatim: r2-<id>.md]`:
-  - the experts' answers to the contradiction and dominant-strategy questions;
-  - the most repeated criticism among users, in the excerpt of each user who made it;
+- **As verbatim text**, marked `[verbatim: r2.md, <id>]`:
+  - the experts' answers to the contradiction, dominant-strategy and strongest-part questions;
+  - **everything users said they would keep**;
+  - every excerpt where **three or more participants said the same thing**, with who said it (this includes the most repeated criticism);
   - **every** mention of strengths, from any participant;
   - the destroyer's three arguments.
 - **As your summary**, marked `[moderator summary]`: the rest, per participant.
 - A table of every user's scores in both rounds and the count of who mentioned each recurring criticism.
+- An **index of every answer**: one numbered line per answer (round, persona id, one-line summary), so the contrarian can ask for any of them.
 - External evaluations, if any, identified as external.
 
-Tell the contrarian in the prompt that only the excerpts marked as verbatim are original text. Ask for:
+The contrarian also receives the full description (`02-full-description.md`), to check the panel's criticisms against the text. Tell it in the prompt that only the excerpts marked as verbatim are original text, and that it may **request up to six answers in full**, by index number.
+
+The contrarian works in **two calls**:
+
+1. **First call:** the pack and the description. Ask for its findings so far on the five items below, and for the list of answers it wants in full (up to six index numbers), each with the reason.
+2. **Second call:** send the requested answers verbatim, with its first findings, and ask for the final findings on the five items.
+
+Items to ask for:
 
 1. Criticisms repeated by several personas without grounding in the description's text (cite the rule that would refute them or the absence of a rule that would support them).
 2. Premises nobody checked.
 3. Strengths ignored or mentioned once and forgotten.
-4. Where the panel agreed too quickly, separating agreement on **contradictions verifiable in the text** (expected) from agreement on **recommendations** (where the risk lies).
+4. Where the panel agreed too quickly, separating agreement on **contradictions verifiable in the text** (expected) from agreement on **recommendations** (where the risk lies). Include errors of attribution or exaggeration in the moderator's own summary.
 5. The point you consider most important to take to the debate, and why.
 
-Save it in `r4-contrarian.md`.
+Save both calls and the list of requested answers in `r4-contrarian.md`. It is worth the extra call: in a real run, the full answers the contrarian requested revealed two attribution errors in the moderator's own summary, two panel exaggerations and one premise nobody had checked against the text.
 
 ### 4b. Agenda
 
-Propose 3 to 5 points, the most controversial ones. Mandatory:
+Propose 3 to 5 points, the most controversial ones. Items that are already **settled** (for example, a contradiction every expert pointed out) do not go to the debate: send them straight to consolidation and list them in `r4-agenda.md` under "Settled, not debated". This saves calls without losing anything. Mandatory:
 
 - **the list**, when active: count of the rankings (from `list-analysis.json`), rejections, order effect and conflicts found by the expert with web access. The author did not state a preference and you must not suggest one;
 - **a slot for the contrarian's point** (question 5). The contrarian speaks only on that point, with one reply, like the others; it does not take part in the other points, so that the debate does not lean towards the adversary with more speaking turns.
 
-Choose the points with the author's goals for the evaluation in mind too (`config.md`). For each point, say who takes part and why, and save the agenda in `r4-agenda.md` and in `progress.md`. There is no stop: go on to the debate.
+Choose the points with the author's goals for the evaluation in mind too (`config.md`). For each point, say who takes part and why, and save the agenda in `r4-agenda.md` and in `progress.md`. Unless `config.md` asks for checkpoints (`run.md`, section 8), there is no stop: go on to the debate. At checkpoint 2, the author may edit `r4-agenda.md`; when the run resumes, use the agenda as it is in the file.
 
 ### 4c. Debate
 
@@ -194,9 +219,30 @@ For each point:
    - **Smallest change:** the smallest change to a rule or decision that would solve the problem in this point, and what is lost with it; or "no change needed", and why. Big redesigns are not what is asked: the aim is the change that costs least for the effect it has.
 3. Collect the smallest changes of the point (the **quick wins** of the consolidation), merging the ones that say the same thing. Run a **second turn** if someone said **changes** or if the point has **two or more different proposals**: the new summary lists the proposals (without saying who made them), and each participant says, in one line each, whether they **support** or **oppose** each proposal, and why, besides keeping, adjusting or changing their position. **Two turns at most.**
 4. Record each participant's final position, who disagreed, and, for each quick win, who proposed it, who supported it and who opposed it. A proposal supported only by the one who made it still goes on record. Agreement is not required.
+5. **Non-independent convergence.** If half or more of a point's participants change position in the same direction after reading the same argument, record it as non-independent convergence, in `r4-debate.md` and in `diversity.md`: it does not count as several independent agreements.
+6. **Split by model.** If the final positions on a point split exactly along model lines, record it as "split by model" and do not resolve it by majority (see round 3).
 
-Save the replies in `r4-<point>-<id>-v<turn>.md` and the synthesis in `r4-debate.md`.
+Save the replies in `r4-debate-replies.md`, one `## <point> — <id> — turn <n>` section per reply, and the synthesis in `r4-debate.md`.
 
 ## Round 5 — Consolidation (moderator, no agents)
 
-Produce the files in `outputs.md`, in this order: `concept-review.md`, `strengths-and-risks.md`, `design-alternatives.md`, `mvp-hypotheses.md`, `list.md` (if active), `diversity.md`, `report-data.json` and `report.html` (with the `fonts/` folder next to it, which the script copies). Mark round 5 as completed in `progress.md` and finish with the full path of **`report.html`**, a short summary of what the panel concluded and what you found ambiguous in the method. The session that launched the run opens the report for the author: it is the skill's output for the person, and the `.md` files in the folder are the memory for Claude.
+Produce the files in `outputs.md`, in this order: `concept-review.md`, `strengths-and-risks.md`, `design-alternatives.md`, `mvp-hypotheses.md`, `comparison.md` (re-evaluation only), `list.md` (if active), `diversity.md`, `report-data.json` and `report.html` (with the `fonts/` folder next to it, which the script copies). Items settled before the debate enter here, with the evidence from rounds 2 and 3.
+
+Rules for the consolidation:
+
+- Keep the **pitch problems** (comprehension check) apart from the project's problems: they say how the pitch was read, not whether the project works.
+- When the audience is undefined (`## Audience` in `config.md`), do not average profiles that want opposite things: record what each group wants and what choosing each audience would cost.
+- **Never recommend running the panel again**: that is the author's decision.
+
+Mark round 5 as completed in `progress.md` and finish with the full path of **`report.html`**, a short summary of what the panel concluded and what you found ambiguous in the method. Add one line telling the author that ideas or decisions that came up while the panel ran go in `prep/next-version-notes.md`, never in the panel's inputs. The session that launched the run opens the report for the author: it is the skill's output for the person, and the `.md` files in the folder are the memory for Claude.
+
+## Re-evaluation
+
+When `config.md` says `- Re-evaluation of: v<earlier version>`, this run evaluates a revised version of a project the panel already saw. It asks for things a first run does not:
+
+- **Same persona profiles and models** as the earlier run, so that differences come from the project and not from the panel. The instances are always new: no persona receives anything from the earlier run.
+- **Moderator-only files**, never passed to personas: `moderator/changes.md` (what changed between the versions: item, before, after, marker) and `moderator/previous-problems.md` (the earlier problems, numbered P1, P2…, with source file and classification).
+- **Rounds 1 and 2 stay fully independent**: nothing about the earlier problems or the changes enters them, so the personas look at the project and not for the old problems.
+- **Round 3** adds the earlier problems as **checks against the current text**, written neutrally ("Check against the current description whether …"), never saying that they were problems before. Each check keeps its P number in `r3-scenarios-proposed.md`, which no persona sees.
+- **You read the earlier run only during consolidation**, not before: your scenarios, summaries and agenda must not be steered by it.
+- **Comparison output:** `comparison.md` and the report's `comparison` key: each earlier problem as `resolved`, `partly` or `unresolved`, with the evidence from this run, plus the `new` problems the changes created.

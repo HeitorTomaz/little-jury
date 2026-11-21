@@ -157,6 +157,14 @@ main section > .wrap > h2{font-size:clamp(26px,4vw,34px); letter-spacing:-0.01em
 .change dt{font-family:var(--sans); font-size:14.5px; font-weight:600}
 .change dd{margin:2px 0 0}
 
+/* Pitch problems, comparison, audience */
+.quote{font-family:var(--serif); font-style:italic; border-left:3px solid var(--rule); padding-left:12px; margin:0 0 10px; max-width:66ch}
+.status{display:inline-block; font-family:var(--sans); font-size:13.5px; font-weight:600; padding:2px 10px; border-radius:999px; margin-bottom:6px}
+.status.resolved{background:var(--soft-for); color:var(--for)}
+.status.partly{background:var(--soft-hyp); color:var(--hyp)}
+.status.unresolved{background:var(--soft-against); color:var(--against)}
+.status.new{background:var(--ink); color:var(--ground)}
+
 /* What to test first */
 ol.tests{list-style:none; counter-reset:test; margin:22px 0 0; padding:0}
 ol.tests > li{counter-increment:test; display:grid; grid-template-columns:44px 1fr; gap:0 14px; padding:18px 0; border-top:1px solid var(--rule)}
@@ -283,6 +291,26 @@ footer{margin-top:56px; padding:20px 0 48px; border-top:1px solid var(--rule); f
   "level_1": "low",
   "level_2": "medium",
   "level_3": "high",
+  "pitchTitle": "Pitch problems",
+  "pitchNav": "Pitch",
+  "pitchIntro": "Sentences or ideas in the short pitch that half of the users or more read differently from what was intended. These are problems of the text, not of the project: rewording is enough to fix them.",
+  "pitchIntended": "What it meant to say",
+  "pitchUnderstood": "How it was read",
+  "pitchWho": "Read this way by {who}.",
+  "comparisonTitle": "Since the previous version",
+  "comparisonNav": "Changes",
+  "comparisonIntro": "Each problem from the previous evaluation, checked against the current version, and the new problems the changes created.",
+  "status_resolved": "resolved",
+  "status_partly": "partly resolved",
+  "status_unresolved": "not resolved",
+  "status_new": "new",
+  "audienceTitle": "Who it is for",
+  "audienceNav": "Audience",
+  "audienceIntro": "The audience is not defined yet, so the panel does not average profiles that want opposite things. Each group, what it wants and what choosing it would cost.",
+  "audienceWants": "What they want",
+  "audienceCost": "What choosing this group would cost",
+  "audienceWho": "In the panel: {who}.",
+  "noMeanNote": "No panel average: the audience is not defined, and averaging profiles that want opposite things would hide the split.",
   "tensionsTitle": "Where the panel split",
   "tensionsNav": "Splits",
   "tensionsIntro": "Each split shows both sides, who held each one, the panel's proposal, what it costs and how to test it.",
@@ -398,7 +426,8 @@ footer{margin-top:56px; padding:20px 0 48px; border-top:1px solid var(--rule); f
     "domain": "example",
     "type": "concept",
     "usersLabel": "Users",
-    "language": "English"
+    "language": "English",
+    "audienceDefined": true
   },
   "summary": [
     "Example sentence: the panel's most important conclusion, in one sentence.",
@@ -406,11 +435,6 @@ footer{margin-top:56px; padding:20px 0 48px; border-top:1px solid var(--rule); f
     "Example sentence: what only real people using the project can answer."
   ],
   "dimensions": [
-    {
-      "id": "clarity",
-      "name": "Clarity",
-      "description": "Understood the proposal from the short pitch"
-    },
     {
       "id": "curiosity",
       "name": "Curiosity",
@@ -439,7 +463,6 @@ footer{margin-top:56px; padding:20px 0 48px; border-top:1px solid var(--rule); f
       "profile": "Example profile, low tolerance for complexity",
       "model": "model X",
       "scores": {
-        "clarity": 3,
         "curiosity": 2,
         "value": 2,
         "ease": 2,
@@ -456,7 +479,6 @@ footer{margin-top:56px; padding:20px 0 48px; border-top:1px solid var(--rule); f
       "profile": "Example profile, high tolerance for complexity",
       "model": "model Y",
       "scores": {
-        "clarity": 4,
         "curiosity": 5,
         "value": 4,
         "ease": 3,
@@ -473,7 +495,6 @@ footer{margin-top:56px; padding:20px 0 48px; border-top:1px solid var(--rule); f
       "profile": "Example profile, from the audience the author imagines",
       "model": "model X",
       "scores": {
-        "clarity": 4,
         "curiosity": 3,
         "value": 3,
         "ease": 4,
@@ -483,6 +504,24 @@ footer{margin-top:56px; padding:20px 0 48px; border-top:1px solid var(--rule); f
       "attracted": "Example sentence.",
       "putOff": "Example sentence.",
       "dropOut": "Example sentence."
+    }
+  ],
+  "pitchIssues": [
+    {
+      "sentence": "Example sentence from the pitch.",
+      "intended": "Example of what it meant.",
+      "understoodAs": "Example of how it was read.",
+      "who": [
+        "user-a",
+        "user-b"
+      ]
+    }
+  ],
+  "comparison": [
+    {
+      "problem": "Example problem from the previous version.",
+      "status": "partly",
+      "note": "Example note on the change."
     }
   ],
   "tensions": [
@@ -526,6 +565,42 @@ footer{margin-top:56px; padding:20px 0 48px; border-top:1px solid var(--rule); f
       "proposal": "Example proposal.",
       "loss": "What is lost, in the example.",
       "experiment": "Example test."
+    }
+  ],
+  "quickWins": [
+    {
+      "point": "Example point",
+      "change": "Example of the smallest change.",
+      "solves": "Example sentence.",
+      "loss": "Example sentence.",
+      "proposedBy": [
+        "expert-a"
+      ],
+      "support": [
+        "user-a"
+      ],
+      "against": [
+        "destroyer"
+      ]
+    }
+  ],
+  "audienceSplit": [
+    {
+      "group": "Example group A",
+      "wants": "Example of what this group wants.",
+      "cost": "Example of the cost.",
+      "who": [
+        "user-a"
+      ]
+    },
+    {
+      "group": "Example group B",
+      "wants": "Example of what this group wants instead.",
+      "cost": "Example of another cost.",
+      "who": [
+        "user-b",
+        "user-c"
+      ]
     }
   ],
   "risks": [
@@ -658,23 +733,6 @@ footer{margin-top:56px; padding:20px 0 48px; border-top:1px solid var(--rule); f
   ],
   "limits": [
     "Example limit of this run, taken from diversity.md."
-  ],
-  "quickWins": [
-    {
-      "point": "Example point",
-      "change": "Example of the smallest change.",
-      "solves": "Example sentence.",
-      "loss": "Example sentence.",
-      "proposedBy": [
-        "expert-a"
-      ],
-      "support": [
-        "user-a"
-      ],
-      "against": [
-        "destroyer"
-      ]
-    }
   ]
 }
 </script>
@@ -787,6 +845,32 @@ footer{margin-top:56px; padding:20px 0 48px; border-top:1px solid var(--rule); f
   }
   function empty(w, t){ add(w, h('p', 'empty', t || L('emptySection'))); }
 
+  /* Pitch problems (optional) */
+  if(n(D.pitchIssues)){
+    var wpi = section('pitch', L('pitchTitle'), L('pitchNav'), L('pitchIntro'));
+    var upi = h('ul', 'plain');
+    D.pitchIssues.forEach(function(x){
+      var li = h('li'); add(li, h('p', 'quote', x.sentence));
+      var dl = h('dl', 'pair'); pair(dl, L('pitchIntended'), x.intended, true); pair(dl, L('pitchUnderstood'), x.understoodAs, true); add(li, dl);
+      if(n(x.who)) add(li, h('p', 'who', L('pitchWho', {who: who(x.who)})));
+      add(upi, li);
+    });
+    add(wpi, upi);
+  }
+
+  /* Since the previous version (optional) */
+  if(n(D.comparison)){
+    var wcm = section('comparison', L('comparisonTitle'), L('comparisonNav'), L('comparisonIntro'));
+    var rank = {'unresolved':0, 'new':1, 'partly':2, 'resolved':3};
+    var ucm = h('ul', 'plain');
+    D.comparison.slice().sort(function(a,b){ return (rank[a.status]||0) - (rank[b.status]||0); }).forEach(function(x){
+      var li = h('li'); add(li, h('span', 'status ' + (rank[x.status] !== undefined ? x.status : 'new'), L('status_' + x.status)));
+      add(li, h('h3', null, x.problem)); if(x.note) add(li, h('p', null, x.note));
+      add(ucm, li);
+    });
+    add(wcm, ucm);
+  }
+
   /* Where the panel split */
   var wt = section('tensions', L('tensionsTitle'), L('tensionsNav'), L('tensionsIntro'));
   var leg = h('div', 'ev-legend'); add(leg, ev('observation'), ev('hypothesis'), ev('proven problem'));
@@ -850,6 +934,19 @@ footer{margin-top:56px; padding:20px 0 48px; border-top:1px solid var(--rule); f
       add(wsc, g);
     });
   } else empty(wsc, L('noQuickWins'));
+
+  /* Who it is for (optional) */
+  if(n(D.audienceSplit)){
+    var wau = section('audience', L('audienceTitle'), L('audienceNav'), L('audienceIntro'));
+    var col = h('div', 'columns');
+    D.audienceSplit.forEach(function(x){
+      var art = h('article', 'opinion'); add(art, h('h3', null, x.group));
+      var dl = h('dl'); pair(dl, L('audienceWants'), x.wants); pair(dl, L('audienceCost'), x.cost); add(art, dl);
+      if(n(x.who)) add(art, h('p', 'who', L('audienceWho', {who: who(x.who)})));
+      add(col, art);
+    });
+    add(wau, col);
+  }
 
   /* What to test first */
   var wh = section('test', L('testTitle'), L('testNav'), L('testIntro'));
@@ -927,14 +1024,19 @@ footer{margin-top:56px; padding:20px 0 48px; border-top:1px solid var(--rule); f
       bt.addEventListener('click', function(){ var open = trc.hidden; trc.hidden = !open; bt.setAttribute('aria-expanded', open ? 'true' : 'false'); tog.textContent = open ? L('close') : L('readEvaluation'); });
       add(tbody, tr, trc);
     });
-    var trm = h('tr', 'mean'); add(trm, h('td', 'name muted sans', L('panelMean')));
-    dims.forEach(function(d){
-      var vals = users.map(function(u){ return (u.scores||{})[d.id]; }).filter(function(v){ return typeof v === 'number'; });
-      var avg = vals.length ? vals.reduce(function(a,b){ return a+b; }, 0)/vals.length : 0;
-      var sep = document.documentElement.lang === 'en' ? '.' : ',';
-      var td = h('td'); add(td, h('div', 'score c' + (avg ? Math.max(1, Math.min(5, Math.round(avg))) : 0), avg ? avg.toFixed(1).replace('.', sep) : '–')); add(trm, td);
-    });
-    add(tbody, trm); add(tb, tbody); add(box, tb); add(wm, box);
+    var showMean = m.audienceDefined !== false;
+    if(showMean){
+      var trm = h('tr', 'mean'); add(trm, h('td', 'name muted sans', L('panelMean')));
+      dims.forEach(function(d){
+        var vals = users.map(function(u){ return (u.scores||{})[d.id]; }).filter(function(v){ return typeof v === 'number'; });
+        var avg = vals.length ? vals.reduce(function(a,b){ return a+b; }, 0)/vals.length : 0;
+        var sep = document.documentElement.lang === 'en' ? '.' : ',';
+        var td = h('td'); add(td, h('div', 'score c' + (avg ? Math.max(1, Math.min(5, Math.round(avg))) : 0), avg ? avg.toFixed(1).replace('.', sep) : '–')); add(trm, td);
+      });
+      add(tbody, trm);
+    }
+    add(tb, tbody); add(box, tb); add(wm, box);
+    if(!showMean) add(wm, h('p', 'footnote', L('noMeanNote')));
     add(wm, h('p', 'footnote', L('scoresNote')));
   } else empty(wm);
 

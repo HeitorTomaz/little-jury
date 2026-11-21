@@ -2,7 +2,7 @@
 
 This session is open at the project root and can read the concept document, the code and the change plan. It is the only moment when anyone on the panel's side sees that material. The job here is to turn it into **neutral** inputs, set up a `panel/` folder from which the run cannot see anything else, start the isolated run and deliver the report.
 
-**The author is asked only once, in the question block of section 2.** After that, everything continues to the report without asking them anything. Decide what they did not answer using the skill's recommendations, and record each decision in `prep/decisions.md` for them to check later.
+**The author is asked only once, in the question block of section 2.** After that, everything continues to the report without asking them anything, except at the optional checkpoints if they asked for them. Decide what they did not answer using the skill's recommendations, and record each decision in `prep/decisions.md` for them to check later.
 
 **Language:** ask the questions in the language the author is using in the conversation (default English) and record it in `config.md` as `- Language: <language>`. Everything prep writes (inputs, personas, config values, author concerns, `removed.md`, `decisions.md`) is in that language. The isolated run reads the language from `config.md`.
 
@@ -15,14 +15,14 @@ This session is open at the project root and can read the concept document, the 
 5. Self-check
 6. Setting up the folder
 7. Run and deliver
-8. A new version of an earlier evaluation
+8. Re-evaluation of a revised version
 
 ---
 
 ## 1. Evaluation type and reading the material
 
 - If the current directory is `panel/` or inside it, stop: preparation must run at the root.
-- If `panel/` already exists, read `panel/config.md` to learn what was evaluated before, and also see section 8.
+- If `panel/` already exists with a completed run of an earlier version of the same project, this is a **re-evaluation**: read `panel/config.md` to learn what was evaluated before, confirm it in the question block and follow section 8 as well.
 - Decide the type with the table in `SKILL.md`:
   - **concept:** look for the concept document at the root (and only there; do not sweep the disk). Follow this file.
   - **system:** follow this file and `references/extract-system.md`, which says how to extract what the system does from code, documentation and comments.
@@ -40,6 +40,8 @@ Ask **a single block of questions**, in the author's language, only about what t
 | **What the author wants to decide with this evaluation** (go or no-go, what to cut, what to test first, whether a change is worth the risk…) | goes into `config.md` as the objective; the moderator uses it to choose scenarios, the debate agenda and the emphasis of the consolidation. It **never** goes to the personas |
 | **What the author wants to test or fears** (concerns) | becomes `moderator/author-concerns.md` |
 
+If the author has not settled who the project is for, say so in the question block and record `- Defined: no` under `## Audience` in `config.md`: the panel will then record what each group wants instead of averaging profiles that want opposite things (section 4).
+
 The other items, when the material does not answer them:
 
 | Item | Why it matters |
@@ -53,8 +55,10 @@ The other items, when the material does not answer them:
 | Is there a list for the panel to rank? (names, slogans, variants) | turns on the list, the draw and the report section |
 | Which external facts need checking against a source (store rules, regulations, trademarks, platform documentation) | defines the questions for the expert with web access |
 | Size: lean (default) or full | see `composition.md` |
+| **Checkpoints** (optional, off by default): "Do you want to check the run after round 1 (are the voices distinct?) and before the debate (adjust the agenda)?" | at each checkpoint the run saves everything and stops; the author looks, may edit the agenda, and continues with `/mock-jury run` |
+| For a re-evaluation: confirm that it is a revised version of the project evaluated in `rounds/v<earlier>/`, and ask what changed if the material does not say | see section 8 |
 
-In the same block, say what happens next: the run takes from tens of minutes to a few hours, makes about 50 to 70 agent calls (it may span more than one usage window of the plan) and ends with the report open in the browser. External evaluations made in another AI tool can be placed in `panel/input/external/` before the author answers; after that there is no way to include them in this run.
+In the same block, say what happens next: the run takes from tens of minutes to a few hours, makes about 50 to 70 agent calls (it may span more than one usage window of the plan) and ends with the report open in the browser (or pauses at the checkpoints, if the author wants them). External evaluations made in another AI tool can be placed in `panel/input/external/` before the author answers; after that there is no way to include them in this run.
 
 Do not ask the author which list item they prefer; the panel must not know.
 
@@ -141,16 +145,23 @@ Same format as the domain profile: the general rules for all personas, then each
 - Extracted scope: <whole system | areas>   (system and change types)
 - Size: lean | full
 - Preparation date: <date>
+- Checkpoints: none | after round 1, before the debate
+- Re-evaluation of: none | v<earlier version>
+
+## Audience
+- Defined: yes | no
+- <if yes: who the project is for, as the author declared it>
+<!-- If no: the moderator does not average profiles that want opposite things; it records what each group wants and what each audience choice would cost (report section "Who it is for"). -->
 
 ## Author's objectives with this evaluation
 - <what they want to decide; guides scenarios, agenda and consolidation; never goes to the personas>
 
 ## Grid dimensions (scores from 1 to 5, higher is better for the project)
-<!-- Change type: use the dimensions in change.md (clarity, relevance, value, adaptation, would_accept). -->
+<!-- Change type: use the dimensions in change.md (relevance, value, adaptation, would_accept). -->
 <!-- System type: the same as below; "Would try" means "would keep using or start using". -->
+<!-- Clarity is not a score: the moderator checks comprehension of the short pitch in round 1 and reports pitch problems separately. -->
 | id | name | description | round |
 |---|---|---|---|
-| clarity | Clarity | Understood the proposal from the short pitch | 1 |
 | curiosity | Curiosity | The proposal made them want to know more | 1 |
 | value | <Expected value / Expected fun / ...> | <...> | 2 |
 | ease | Ease of entry | How easy the proposal seems to start using | 2 |
@@ -189,6 +200,8 @@ Same format as the domain profile: the general rules for all personas, then each
   system without real users etc.; they go in as limits in diversity.md>
 ```
 
+When the audience is undefined (`- Defined: no`), still build the user personas to cover the candidate audiences; the moderator then reports what each group wants and what choosing it would cost, instead of a panel average.
+
 In a system that has no users yet besides the author, the user personas are in practice potential users: in "Usually uses" write what each one uses today instead of this system, and record this under "Notes for the moderator".
 
 ## 5. Self-check
@@ -201,6 +214,7 @@ There is no author review before the run. Instead, check it yourself and fix wha
 - [ ] No passage from `removed.md`, no author objective and no author concern appears in the inputs.
 - [ ] The personas meet the requirements of `composition.md` (someone outside the audience, someone from the imagined audience, spread tolerances, opposite motivations) and pass the opposite-pair test.
 - [ ] Every question that requires external checking goes to the expert with web access, and no question to a tool-less persona depends on a tool.
+- [ ] No persona text promises a tool: the web expert is written as "when this persona has web access in a round, it checks…" (see `composition.md`).
 - [ ] `config.md` records the language, and everything you wrote is in it.
 - [ ] `prep/decisions.md` lists what you decided on the author's behalf.
 
@@ -234,7 +248,9 @@ panel/
 ├─ input/02-full-description.md
 ├─ input/03-list.md                 if any
 ├─ input/external/README.md
-└─ moderator/author-concerns.md
+├─ moderator/author-concerns.md
+├─ moderator/changes.md             re-evaluation only
+└─ moderator/previous-problems.md   re-evaluation only
 ```
 
 Check that nothing from `removed.md`, `decisions.md`, the concept document, the change plan or the code was written inside `panel/`.
@@ -255,15 +271,24 @@ python <skill-folder>/scripts/run_panel.py <project-root>/panel --open
 1. the full path of `report.html`, which is already open in the browser: it is the deliverable for them;
 2. in a few lines, what the panel concluded, from `concept-review.md`;
 3. where to see what you decided on their behalf (`prep/decisions.md`) and what was removed from the inputs (`prep/removed.md`);
-4. that the `.md` files in `panel/rounds/v<version>/` are for Claude: to continue the conversation about the project in a future session, just point Claude at that folder.
+4. that the `.md` files in `panel/rounds/v<version>/` are for Claude: to continue the conversation about the project in a future session, just point Claude at that folder;
+5. that new ideas the author has during or after the run go in `prep/next-version-notes.md`, never in the panel's inputs: the inputs of a run are not changed while it runs, and the notes feed the next version.
+
+**Paused at a checkpoint** (exit code 4, only when the author asked for checkpoints): tell the author which checkpoint it is, what to look at (`panel/rounds/v<version>/r1.md` after round 1, or `panel/rounds/v<version>/r4-agenda.md` before the debate, which they may edit), and that `/mock-jury run` at the project root continues the run.
 
 **Interrupted:** tell the author at which stage it stopped (from `progress.md`) and how to resume: `/mock-jury run` at the project root, after the usage limit resets. The script resumes where it stopped.
 
-## 8. A new version of an earlier evaluation
+## 8. Re-evaluation of a revised version
 
-- Earlier outputs stay in `rounds/v<earlier-version>/`, each with a copy of the inputs it used; do not delete them.
-- In a repository, a change evaluation after a system evaluation (or another change) uses the same `panel/` folder: give the version a name that says what was evaluated (for example, `v2.3-billing-change`).
-- Write new inputs from the updated material. You may overwrite `input/` and `moderator/`, because the earlier run kept its own copy.
-- Keep the same personas and the same model distribution, unless the author asks otherwise: that is what makes versions comparable.
+Use this when `panel/rounds/` already has a completed run of an earlier version of the same project and the author revised it. A re-evaluation asks for things a first run does not.
+
+- **Same persona profiles and the same model distribution** as the earlier run: that is what makes the versions comparable. The instances are always fresh: no persona receives anything from the earlier run, ever.
+- **Earlier outputs stay** in `rounds/v<earlier-version>/`, each with a copy of the inputs it used; do not delete them. Give the new version a name that says what it is (for example, `v0.4` or `v2.3-billing-change`).
+- **Write new inputs** from the revised material, with the same neutrality rules. You may overwrite `input/` and `moderator/author-concerns.md`, because the earlier run kept its own copy.
+- **Two moderator-only files**, never passed to any persona:
+  - `moderator/changes.md`: a table of what changed between the versions (item, before, after, marker), so the moderator knows where to look;
+  - `moderator/previous-problems.md`: the earlier run's problems, numbered P1, P2…, each with its source file and classification (observation, hypothesis, proven problem).
+- **Rounds 1 and 2 stay fully independent.** The earlier problems enter only in round 3, as checks against the current text written neutrally ("Check against the current description whether …"), never saying they were problems before; giving them earlier would anchor the personas on the old problems instead of the new text.
+- The moderator reads the earlier run only during consolidation, and writes `comparison.md` (each earlier problem as resolved, partly resolved or unresolved, plus the new problems the changes created); the report shows it as "Since the previous version".
+- In `config.md`: `- Re-evaluation of: v<earlier version>`.
 - Run `assemble_panel.py` again to update `method/` and `template/` if the skill changed; the script warns if the method version changed, and the author must be told, because it affects the comparison.
-- Update the version in `config.md`.

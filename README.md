@@ -12,7 +12,7 @@ The jury deliberates; **you decide**. The report never gives a verdict.
 
 ## What it is good at, and what it is not
 
-**Good at:** contradictions between your own rules, dominant strategies and loopholes, gaps in the specification, audience splits (what attracts one profile and drives away another), the smallest test for your main hypothesis, and checking external facts against their sources (store rules, platform docs, trademarks).
+**Good at:** contradictions between your own rules, dominant strategies and loopholes, gaps in the specification, audience splits (what attracts one profile and drives away another), the smallest test for your main hypothesis, quick wins (the smallest change that would solve each problem, and what it costs), sentences of your pitch that readers misunderstand, and checking external facts against their sources (store rules, platform docs). Trademark registries often cannot be checked automatically (interactive forms, CAPTCHAs); the report marks them [not verified].
 
 **Not:** telling you whether people will actually like it, predicting market interest, or giving approval percentages. Simulated opinions are not research, and the report says so.
 
@@ -21,10 +21,12 @@ The jury deliberates; **you decide**. The report never gives a verdict.
 1. **You ask once.** Run `/mock-jury prepare` at the root of your project. The skill reads your material and asks one block of questions: who the project is for, what you want to decide with the evaluation, what worries you, and anything the material does not answer.
 2. **It writes neutral inputs.** It strips your arguments in favor of the idea, your comparisons with other products and the justifications in code comments, and records what it removed in `prep/removed.md` so you can check later.
 3. **It runs the jury in isolation.** It assembles a `panel/` folder and starts a separate Claude Code session inside it. That session cannot read the rest of your project: reads outside the folder are blocked, the project's `CLAUDE.md` files and git history are kept out of its context, and the personas run as subagents with no tools at all.
-4. **Five rounds, no stops:** first impression, detailed analysis, extreme scenarios, debate (with a consensus challenger) and consolidation.
+4. **Five rounds:** first impression, detailed analysis, extreme scenarios, debate (with a consensus challenger) and consolidation. By default there are no stops; if you ask for the optional **checkpoints** in the question block, the run pauses after round 1 (to see whether the voices are distinct) and before the debate (to adjust the agenda), and `/mock-jury run` continues it.
 5. **You get the report.** `report.html` opens in your browser. The `.md` files next to it are the jury's full record, written for Claude to pick up in a later session.
 
 The skill talks to you and writes everything in the language you use with Claude Code. English is the default.
+
+**Revised versions.** Run `/mock-jury prepare` again after revising the project and the skill treats it as a re-evaluation: the same persona profiles and models (fresh instances that know nothing of the earlier run), the earlier problems checked against the new text, and a report section showing each one as resolved, partly resolved or unresolved, plus the new problems the changes created.
 
 ## Requirements
 
@@ -97,6 +99,10 @@ The skill creates two folders at the root of your project:
 Decide whether to commit them or add them to `.gitignore`; the skill asks during preparation.
 
 **Before the run:** close any editor tabs with your concept, plan or code. The editor can share the open file with Claude Code sessions.
+
+**Fewer confirmations:** preparation writes several files in `prep/` and `panel/`. In the default permission mode, Claude Code asks you to confirm each one; switch to auto-accept edits (Shift+Tab) before `/mock-jury prepare` to avoid that. The isolated run itself does not ask: its tools are allowed in advance.
+
+**Ideas during the run:** write them in `prep/next-version-notes.md`, never in the panel's inputs. A run's inputs do not change while it runs; the notes feed the next version.
 
 ## Repository layout
 

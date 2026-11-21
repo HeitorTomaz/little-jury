@@ -64,10 +64,11 @@ As in `prepare.md`. Include the alternatives the author considered: they become 
 
 | id | name | description | round |
 |---|---|---|---|
-| clarity | Clarity | Understood what changes from the short pitch | 1 |
 | relevance | Relevance | The change matters for how they use it | 1 |
 | value | Expected value | How much the change improves their use | 2 |
 | adaptation | Ease of adaptation | How costly it is to get used to the change (5 = almost nothing) | 2 |
 | would_accept | Would accept | Willingness to accept the change without leaving the system | 2 |
+
+Clarity is not a score: in round 1 the moderator checks whether the users understood what changes and reports the pitch problems (sentences half of them or more understood differently from what was meant) separately from the problems of the change.
 
 - In `config.md`, fill in `Type: change`, the plan file, the source commit and the extracted areas.

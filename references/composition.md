@@ -53,11 +53,11 @@ Four roles in the lean panel. Adapt the name to the domain, but keep the functio
 | **Core of the proposal** | game designer | product designer | service specialist | what the person does minute by minute; what can be cut without loss |
 | **Build** | technical producer | product engineer | operations specialist | which part is most expensive; what must exist to test the main hypothesis |
 | **Systems and loopholes** | systems specialist | security, abuse and edge-case specialist | finance or risk specialist | which combination of rules produces what nobody foresaw; which shortcut always works |
-| **Market (with web)** | publishing specialist | launch and app-store specialist | market and regulation specialist | who would look for this and where; checks external facts in official documentation |
+| **Market (with web)** | publishing specialist | launch and app-store specialist | market and regulation specialist | who would look for this and where; when it has web access in a round, checks external facts in official documentation |
 
 In the full panel, add a fifth tied to the domain (game: narrative designer; app: user research or accessibility; business: legal).
 
-Write each expert with what they evaluate and three or four typical questions. The expert with web access is the **only one** with internet access, and only to check facts against a source; they mark **[not verified]** whatever they cannot access (trademark registries with interactive forms, CAPTCHAs or connection errors were common in the pilot).
+Write each expert with what they evaluate and three or four typical questions. The expert with web access is the **only one** with internet access, and only to check facts against a source; they mark **[not verified]** whatever they cannot access (trademark registries with interactive forms, CAPTCHAs or connection errors were common in the pilot). **Write the persona text without promising a tool**: "when this persona has web access in a round, it checks … and marks [not verified] what it could not check". The web expert only has web access in round 2; in rounds 3 and 4 it runs without it, and a persona text that says "checks the official documentation" would contradict the tools it gets.
 
 ## Adversaries
 
@@ -79,6 +79,7 @@ Copy them to the top of `personas.md`, adapting the word "project" to the domain
 - Do not propose solutions before describing the problem.
 - You are a simulation. Do not claim what "users" think in general; say what someone with your profile would probably think.
 - When you give a score, write the justification first and only then the number.
+- Do not invent criticism to look rigorous. If something works for your profile, say so and say why; a strength is as useful as a problem.
 
 ## Model distribution
 
@@ -95,7 +96,7 @@ Model diversity reduces artificial convergence: in the pilot, the four experts o
 Rules:
 
 - **The same model per persona in every round.** Switching midway confuses a change of opinion with a change of model.
-- **Every round with more than one participant has at least two models.** In round 3, choose the two users so the mix is kept.
+- **Every round with more than one participant has at least two models.** In round 3, the two users are one from each model, chosen so that each central rule discussed has at least one defender and one critic among the participants.
 - If a model is not available on the account, use another, record the switch and note it in `diversity.md`.
 - Record the model of each call in `progress.md`.
 
