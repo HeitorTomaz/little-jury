@@ -26,7 +26,7 @@ Everything goes in `rounds/v<version>/`, written in the language set in `config.
 |---|---|
 | `concept-review.md` | The panel's synthesis: what the proposal is according to the panel, whom it seems to serve and whom it does not, the 3 to 5 main findings, what remains open |
 | `strengths-and-risks.md` | Strengths and criticisms, each with evidence (file and persona), classification (observation, hypothesis, proven problem) and uncertainties |
-| `design-alternatives.md` | Suggested changes; each one says **what problem it solves, what benefit it expects and what is lost**, who defended it and who disagreed. Check them against the author's decisions that limit the recommendations (`config.md`) |
+| `design-alternatives.md` | Starts with the **quick wins, grouped by debate point** (the smallest change to a rule or decision that would solve each point): for each, the change, what it solves, what is lost, who proposed it, who supported it and who opposed it (from the debate replies, plus the experts' round 2 answers). Then the larger suggested changes; each one says **what problem it solves, what benefit it expects and what is lost**, who defended it and who disagreed. Check all of them against the author's decisions that limit the recommendations (`config.md`) |
 | `mvp-hypotheses.md` | Hypotheses only real people can answer, with a minimal test within the author's means, a confirmation signal and a priority |
 | `list.md` | If active: the panel's final order, the individual rankings with the order in which each agent received the list, rejections, order effect, arguments, and what the expert with web access found or could not check |
 | `diversity.md` | Evaluation of the panel itself; guide in `method/diversity.md` |
@@ -71,6 +71,7 @@ The template's example data is fictitious and neutral ("User A", "Item A"). Do n
 | `dimensions` | those in `config.md`, with the same `id`, in round order. The **last** one colors the seats of the table at the top of the report (willingness to try or to accept) |
 | `users[]` | `id`, `name`, `profile` (one line), `model`, final `scores`: round 2 scores for that round's dimensions; for round 1 dimensions (clarity and curiosity), the score revised in round 2 when the persona revised it, otherwise the round 1 score; `understood`, `attracted`, `putOff`, `dropOut` (one sentence each, from rounds 1 and 2) |
 | `tensions[]` | disagreements from the debate and from round 2: `title`, `evidence`, `severity` (1 to 3), `for` and `against` with `who` (ids) and `text`, `proposal`, `loss`, `experiment`. Reactions to a revenue model go here |
+| `quickWins[]` | the quick wins from the debate (the smallest changes proposed), one entry per proposal: `point` (the debate point, as a short title), `change`, `solves`, `loss`, `proposedBy`, `support` and `against` (ids). Merged proposals list every proposer. Ordered by point; inside a point, the report sorts by support |
 | `risks[]` | `title`, `category` (`design`, `audience`, `production`, `scope` or `market`), `severity` and `likelihood` (1 to 3), `description`, `who` |
 | `strengths[]` | `title`, `description`, `who` |
 | `experts[]` | `id`, `role`, `opinion`, `mainProblem`, `recommendation` |

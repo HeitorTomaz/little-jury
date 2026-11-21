@@ -54,7 +54,7 @@ The other items, when the material does not answer them:
 | Which external facts need checking against a source (store rules, regulations, trademarks, platform documentation) | defines the questions for the expert with web access |
 | Size: lean (default) or full | see `composition.md` |
 
-In the same block, say what happens next: the run takes from tens of minutes to a few hours, makes about 45 to 65 agent calls (it may span more than one usage window of the plan) and ends with the report open in the browser. External evaluations made in another AI tool can be placed in `panel/input/external/` before the author answers; after that there is no way to include them in this run.
+In the same block, say what happens next: the run takes from tens of minutes to a few hours, makes about 50 to 70 agent calls (it may span more than one usage window of the plan) and ends with the report open in the browser. External evaluations made in another AI tool can be placed in `panel/input/external/` before the author answers; after that there is no way to include them in this run.
 
 Do not ask the author which list item they prefer; the panel must not know.
 

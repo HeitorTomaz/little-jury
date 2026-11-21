@@ -145,6 +145,18 @@ main section > .wrap > h2{font-size:clamp(26px,4vw,34px); letter-spacing:-0.01em
 .outcome dt{font-family:var(--sans); font-size:14.5px; font-weight:600}
 .outcome dd{margin:4px 0 0; font-size:16px}
 
+/* Quick wins */
+.point{margin-top:26px}
+.point > h3{font-family:var(--sans); font-size:15px; font-weight:600; color:var(--ink-2); margin-bottom:4px}
+.change{display:grid; grid-template-columns:auto 1fr; gap:4px 18px; padding:16px 0; border-top:1px solid var(--rule)}
+.tally{display:flex; flex-direction:column; gap:4px; font-family:var(--sans); font-size:14px; min-width:72px; padding-top:3px}
+.tally .yes{color:var(--for); font-weight:600} .tally .no{color:var(--against); font-weight:600}
+.change h4{font-family:var(--serif); font-size:19px; font-weight:600; margin:0 0 6px; max-width:52ch}
+.change dl{display:grid; gap:6px 24px; margin:8px 0 6px}
+@media (min-width:760px){ .change dl{grid-template-columns:1fr 1fr} }
+.change dt{font-family:var(--sans); font-size:14.5px; font-weight:600}
+.change dd{margin:2px 0 0}
+
 /* What to test first */
 ol.tests{list-style:none; counter-reset:test; margin:22px 0 0; padding:0}
 ol.tests > li{counter-increment:test; display:grid; grid-template-columns:44px 1fr; gap:0 14px; padding:18px 0; border-top:1px solid var(--rule)}
@@ -284,6 +296,17 @@ footer{margin-top:56px; padding:20px 0 48px; border-top:1px solid var(--rule); f
   "loss": "What is lost",
   "experiment": "How to test",
   "noTensions": "The panel recorded no splits.",
+  "quickWinsTitle": "Quick wins",
+  "quickWinsNav": "Quick wins",
+  "quickWinsIntro": "For each point of the debate, the smallest change to a rule or decision that would solve the problem, the cheapest fix for its effect: what it solves, what is lost, and who supported or opposed it.",
+  "quickWinSolves": "What it solves",
+  "quickWinLoss": "What is lost",
+  "quickWinProposedBy": "Proposed by {who}.",
+  "quickWinSupport": "Supported by {who}.",
+  "quickWinAgainst": "Opposed by {who}.",
+  "tallyFor": "{count} for",
+  "tallyAgainst": "{count} against",
+  "noQuickWins": "The panel recorded no quick wins.",
   "testTitle": "What to test first",
   "testNav": "What to test",
   "testIntro": "Questions the panel cannot answer: only real people using the project can. In order of priority.",
@@ -383,78 +406,276 @@ footer{margin-top:56px; padding:20px 0 48px; border-top:1px solid var(--rule); f
     "Example sentence: what only real people using the project can answer."
   ],
   "dimensions": [
-    {"id": "clarity", "name": "Clarity", "description": "Understood the proposal from the short pitch"},
-    {"id": "curiosity", "name": "Curiosity", "description": "The proposal made them want to know more"},
-    {"id": "value", "name": "Expected value", "description": "How they imagine using it would be"},
-    {"id": "ease", "name": "Ease of entry", "description": "How easy it looks to start using"},
-    {"id": "would_try", "name": "Would try", "description": "Willingness to try it"}
+    {
+      "id": "clarity",
+      "name": "Clarity",
+      "description": "Understood the proposal from the short pitch"
+    },
+    {
+      "id": "curiosity",
+      "name": "Curiosity",
+      "description": "The proposal made them want to know more"
+    },
+    {
+      "id": "value",
+      "name": "Expected value",
+      "description": "How they imagine using it would be"
+    },
+    {
+      "id": "ease",
+      "name": "Ease of entry",
+      "description": "How easy it looks to start using"
+    },
+    {
+      "id": "would_try",
+      "name": "Would try",
+      "description": "Willingness to try it"
+    }
   ],
   "users": [
-    {"id": "user-a", "name": "User A", "profile": "Example profile, low tolerance for complexity", "model": "model X",
-     "scores": {"clarity": 3, "curiosity": 2, "value": 2, "ease": 2, "would_try": 2},
-     "understood": "Example sentence.", "attracted": "Example sentence.", "putOff": "Example sentence.", "dropOut": "Example sentence."},
-    {"id": "user-b", "name": "User B", "profile": "Example profile, high tolerance for complexity", "model": "model Y",
-     "scores": {"clarity": 4, "curiosity": 5, "value": 4, "ease": 3, "would_try": 5},
-     "understood": "Example sentence.", "attracted": "Example sentence.", "putOff": "Example sentence.", "dropOut": "Example sentence."},
-    {"id": "user-c", "name": "User C", "profile": "Example profile, from the audience the author imagines", "model": "model X",
-     "scores": {"clarity": 4, "curiosity": 3, "value": 3, "ease": 4, "would_try": 3},
-     "understood": "Example sentence.", "attracted": "Example sentence.", "putOff": "Example sentence.", "dropOut": "Example sentence."}
+    {
+      "id": "user-a",
+      "name": "User A",
+      "profile": "Example profile, low tolerance for complexity",
+      "model": "model X",
+      "scores": {
+        "clarity": 3,
+        "curiosity": 2,
+        "value": 2,
+        "ease": 2,
+        "would_try": 2
+      },
+      "understood": "Example sentence.",
+      "attracted": "Example sentence.",
+      "putOff": "Example sentence.",
+      "dropOut": "Example sentence."
+    },
+    {
+      "id": "user-b",
+      "name": "User B",
+      "profile": "Example profile, high tolerance for complexity",
+      "model": "model Y",
+      "scores": {
+        "clarity": 4,
+        "curiosity": 5,
+        "value": 4,
+        "ease": 3,
+        "would_try": 5
+      },
+      "understood": "Example sentence.",
+      "attracted": "Example sentence.",
+      "putOff": "Example sentence.",
+      "dropOut": "Example sentence."
+    },
+    {
+      "id": "user-c",
+      "name": "User C",
+      "profile": "Example profile, from the audience the author imagines",
+      "model": "model X",
+      "scores": {
+        "clarity": 4,
+        "curiosity": 3,
+        "value": 3,
+        "ease": 4,
+        "would_try": 3
+      },
+      "understood": "Example sentence.",
+      "attracted": "Example sentence.",
+      "putOff": "Example sentence.",
+      "dropOut": "Example sentence."
+    }
   ],
   "tensions": [
-    {"title": "Example tension", "evidence": "hypothesis", "severity": 3,
-     "for": {"who": ["user-b"], "text": "Example argument for."},
-     "against": {"who": ["user-a", "expert-a"], "text": "Example argument against."},
-     "proposal": "Example proposal.", "loss": "What is lost, in the example.", "experiment": "Example test."},
-    {"title": "Example contradiction", "evidence": "proven problem", "severity": 2,
-     "for": {"who": ["expert-b"], "text": "Example rule 1."},
-     "against": {"who": ["expert-a"], "text": "Example rule 2, which contradicts the first."},
-     "proposal": "Example proposal.", "loss": "What is lost, in the example.", "experiment": "Example test."}
+    {
+      "title": "Example tension",
+      "evidence": "hypothesis",
+      "severity": 3,
+      "for": {
+        "who": [
+          "user-b"
+        ],
+        "text": "Example argument for."
+      },
+      "against": {
+        "who": [
+          "user-a",
+          "expert-a"
+        ],
+        "text": "Example argument against."
+      },
+      "proposal": "Example proposal.",
+      "loss": "What is lost, in the example.",
+      "experiment": "Example test."
+    },
+    {
+      "title": "Example contradiction",
+      "evidence": "proven problem",
+      "severity": 2,
+      "for": {
+        "who": [
+          "expert-b"
+        ],
+        "text": "Example rule 1."
+      },
+      "against": {
+        "who": [
+          "expert-a"
+        ],
+        "text": "Example rule 2, which contradicts the first."
+      },
+      "proposal": "Example proposal.",
+      "loss": "What is lost, in the example.",
+      "experiment": "Example test."
+    }
   ],
   "risks": [
-    {"title": "Example risk", "category": "design", "severity": 3, "likelihood": 2,
-     "description": "Example description.", "who": ["destroyer", "expert-a"]},
-    {"title": "Another example risk", "category": "production", "severity": 2, "likelihood": 2,
-     "description": "Example description.", "who": ["expert-b"]}
+    {
+      "title": "Example risk",
+      "category": "design",
+      "severity": 3,
+      "likelihood": 2,
+      "description": "Example description.",
+      "who": [
+        "destroyer",
+        "expert-a"
+      ]
+    },
+    {
+      "title": "Another example risk",
+      "category": "production",
+      "severity": 2,
+      "likelihood": 2,
+      "description": "Example description.",
+      "who": [
+        "expert-b"
+      ]
+    }
   ],
   "strengths": [
-    {"title": "Example strength", "description": "Example description.", "who": ["user-b", "user-c"]}
+    {
+      "title": "Example strength",
+      "description": "Example description.",
+      "who": [
+        "user-b",
+        "user-c"
+      ]
+    }
   ],
   "experts": [
-    {"id": "expert-a", "role": "Expert A", "opinion": "Example opinion.", "mainProblem": "Example problem.", "recommendation": "Example recommendation."},
-    {"id": "expert-b", "role": "Expert B", "opinion": "Example opinion.", "mainProblem": "Example problem.", "recommendation": "Example recommendation."}
+    {
+      "id": "expert-a",
+      "role": "Expert A",
+      "opinion": "Example opinion.",
+      "mainProblem": "Example problem.",
+      "recommendation": "Example recommendation."
+    },
+    {
+      "id": "expert-b",
+      "role": "Expert B",
+      "opinion": "Example opinion.",
+      "mainProblem": "Example problem.",
+      "recommendation": "Example recommendation."
+    }
   ],
   "adversaries": [
-    {"id": "destroyer", "role": "Concept destroyer", "arguments": [
-      {"title": "Example argument", "text": "Example chain of reasoning."}
-    ]},
-    {"id": "contrarian", "role": "Consensus challenger", "arguments": [
-      {"title": "Example challenge", "text": "Example text."}
-    ]}
+    {
+      "id": "destroyer",
+      "role": "Concept destroyer",
+      "arguments": [
+        {
+          "title": "Example argument",
+          "text": "Example chain of reasoning."
+        }
+      ]
+    },
+    {
+      "id": "contrarian",
+      "role": "Consensus challenger",
+      "arguments": [
+        {
+          "title": "Example challenge",
+          "text": "Example text."
+        }
+      ]
+    }
   ],
   "scenarios": [
-    {"situation": "Example scenario.", "outcome": "Example outcome according to the written rules.", "classification": "hypothesis"}
+    {
+      "situation": "Example scenario.",
+      "outcome": "Example outcome according to the written rules.",
+      "classification": "hypothesis"
+    }
   ],
   "hypotheses": [
-    {"hypothesis": "Example hypothesis.", "test": "Example test.", "signal": "Example signal.", "priority": "high"}
+    {
+      "hypothesis": "Example hypothesis.",
+      "test": "Example test.",
+      "signal": "Example signal.",
+      "priority": "high"
+    }
   ],
   "launch": {
     "title": "Suggested channel for the first launch",
     "intro": "Example text: what the author already decided and what they asked the panel.",
     "recommendation": "Example recommendation.",
-    "reasons": ["Example reason."],
-    "preferences": [{"who": "user-a", "where": "example"}],
+    "reasons": [
+      "Example reason."
+    ],
+    "preferences": [
+      {
+        "who": "user-a",
+        "where": "example"
+      }
+    ],
     "caveats": "Example caveat."
   },
   "list": {
     "title": "Example list, in the panel's order",
     "order": [
-      {"name": "Item A", "comment": "Example comment.", "first": ["user-b"], "rejected": []},
-      {"name": "Item B", "comment": "Example comment.", "first": ["user-a"], "rejected": ["user-c"]}
+      {
+        "name": "Item A",
+        "comment": "Example comment.",
+        "first": [
+          "user-b"
+        ],
+        "rejected": []
+      },
+      {
+        "name": "Item B",
+        "comment": "Example comment.",
+        "first": [
+          "user-a"
+        ],
+        "rejected": [
+          "user-c"
+        ]
+      }
     ],
     "note": "Example text: conflicts found and what stayed [not verified]."
   },
-  "gaps": ["Example gap."],
-  "limits": ["Example limit of this run, taken from diversity.md."]
+  "gaps": [
+    "Example gap."
+  ],
+  "limits": [
+    "Example limit of this run, taken from diversity.md."
+  ],
+  "quickWins": [
+    {
+      "point": "Example point",
+      "change": "Example of the smallest change.",
+      "solves": "Example sentence.",
+      "loss": "Example sentence.",
+      "proposedBy": [
+        "expert-a"
+      ],
+      "support": [
+        "user-a"
+      ],
+      "against": [
+        "destroyer"
+      ]
+    }
+  ]
 }
 </script>
 
@@ -606,6 +827,29 @@ footer{margin-top:56px; padding:20px 0 48px; border-top:1px solid var(--rule); f
     });
     apply('all');
   } else empty(wt, L('noTensions'));
+
+  /* Quick wins */
+  var wsc = section('quick-wins', L('quickWinsTitle'), L('quickWinsNav'), L('quickWinsIntro'));
+  var sc = D.quickWins || [];
+  if(sc.length){
+    var order = [], byPoint = {};
+    sc.forEach(function(c){ var k = c.point || ''; if(!(k in byPoint)){ byPoint[k] = []; order.push(k); } byPoint[k].push(c); });
+    order.forEach(function(k){
+      var g = h('div', 'point'); if(k) add(g, h('h3', null, k));
+      byPoint[k].slice().sort(function(a,b){ return n(b.support) - n(a.support); }).forEach(function(c){
+        var row = h('article', 'change');
+        var t = h('div', 'tally');
+        add(t, h('span', 'yes', L('tallyFor', {count: n(c.support)})), h('span', 'no', L('tallyAgainst', {count: n(c.against)})));
+        var body = h('div'); add(body, h('h4', null, c.change));
+        var dl = h('dl'); pair(dl, L('quickWinSolves'), c.solves, true); pair(dl, L('quickWinLoss'), c.loss, true); add(body, dl);
+        if(n(c.proposedBy)) add(body, h('p', 'who', L('quickWinProposedBy', {who: who(c.proposedBy)})));
+        if(n(c.support)) add(body, h('p', 'who', L('quickWinSupport', {who: who(c.support)})));
+        if(n(c.against)) add(body, h('p', 'who', L('quickWinAgainst', {who: who(c.against)})));
+        add(row, t, body); add(g, row);
+      });
+      add(wsc, g);
+    });
+  } else empty(wsc, L('noQuickWins'));
 
   /* What to test first */
   var wh = section('test', L('testTitle'), L('testNav'), L('testIntro'));

@@ -6,10 +6,10 @@ How to choose the roles, write the personas and distribute the models. It applie
 
 | | Users | Experts | Adversaries | Moderator | Agent calls (estimate) |
 |---|---|---|---|---|---|
-| **Lean** (default) | 8 | 4 | 2 | 1 (the main session) | 45 to 65, up to 80 with a long debate |
-| **Full** | 11 | 5 | 2 | 1 | 60 to 85, up to 100 with a long debate |
+| **Lean** (default) | 8 | 4 | 2 | 1 (the main session) | 50 to 70, up to 80 with a long debate |
+| **Full** | 11 | 5 | 2 | 1 | 60 to 90, up to 100 with a long debate |
 
-The estimate adds up the isolation tests (2 to 3), round 1 (one per user), round 2 (users + experts + destroyer), round 3 (experts + 2 users), the contrarian (1) and the debate replies, which are the part that varies most: 3 to 5 points, with 3 to 5 participants each, in one or two turns (9 to 50 calls). When presenting the plan, do the math with the expected agenda. The lean pilot made about 50 to 55 calls and spanned more than one usage window of the plan; `progress.md` makes it possible to resume.
+The estimate adds up the isolation tests (2 to 3), round 1 (one per user), round 2 (users + experts + destroyer), round 3 (experts + 2 users), the contrarian (1) and the debate replies, which are the part that varies most: 3 to 5 points, with 3 to 5 participants each, in one or two turns (9 to 50 calls). Second turns are common, because a point with two or more different smallest changes always gets one. When presenting the plan, do the math with the expected agenda. The lean pilot made about 50 to 55 calls and spanned more than one usage window of the plan; `progress.md` makes it possible to resume.
 
 ## Users
 

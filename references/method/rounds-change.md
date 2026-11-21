@@ -1,6 +1,6 @@
 # Rounds — variant for changes
 
-Use this file when `config.md` says `Type: change`. It **replaces the questions** in `rounds.md`; everything else (isolation, prompt skeleton, language, draw, scenarios, contrarian, debate, consolidation) follows `rounds.md`.
+Use this file when `config.md` says `Type: change`. It **replaces the questions** in `rounds.md`; everything else (isolation, prompt skeleton, language, draw, scenarios, contrarian, debate, consolidation) follows `rounds.md`. In the debate, the "smallest change" is the smallest adjustment to the plan (or, when the problem is in the current system, the smallest change to it that the plan could include).
 
 The dimensions are `clarity`, `relevance`, `value`, `adaptation` and `would_accept` (see `config.md`).
 
@@ -40,7 +40,8 @@ Input: `02-full-description.md` and your own round 1 answer.
 7. What information is missing to evaluate it?
 8. What is the smallest test that could show whether the change solves what it intends, within the means the author has declared, before it affects all users?
 9. What would you cut from or postpone in the change?
-10. The expert's specific questions, in `config.md`.
+10. For the most serious problem you found, what is the **smallest adjustment to the plan** that would solve it, and what is lost with it?
+11. The expert's specific questions, in `config.md`.
 
 ## Round 2 — destroyer
 

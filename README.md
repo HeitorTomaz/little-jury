@@ -31,7 +31,7 @@ The skill talks to you and writes everything in the language you use with Claude
 - **Claude Code 2.1.271 or later**: the isolation relies on `blockReadsOutsideWorkingDirectories` (2.1.257) and on subagents with `omitClaudeMd` (2.1.271). Check with `claude --version`.
 - **Python 3.9 or later**, available as `python` or `python3`.
 - **The `claude` command on your `PATH`**: the skill starts the isolated session with `claude -p`.
-- **Usage budget:** a lean jury makes roughly **45 to 65 agent calls** and can take from tens of minutes to a few hours. It may cross more than one usage window of your plan; if it stops at a limit, `/mock-jury run` resumes from where it stopped.
+- **Usage budget:** a lean jury makes roughly **50 to 70 agent calls** and can take from tens of minutes to a few hours. It may cross more than one usage window of your plan; if it stops at a limit, `/mock-jury run` resumes from where it stopped.
 
 ## Installation
 

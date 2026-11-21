@@ -159,6 +159,16 @@ def validate(d: dict, example: dict, default_labels: dict):
         if h.get("priority") not in PRIORITIES:
             errors.append(f"hypotheses[{i}].priority is invalid: {h.get('priority')!r}")
 
+    for i, c in enumerate(d.get("quickWins", [])):
+        where = f"quickWins[{i}]"
+        for k in ["change", "loss"]:
+            if not c.get(k):
+                errors.append(f"{where}: missing '{k}' (every quick win says what the change is and what is lost)")
+        if not c.get("point"):
+            warnings.append(f"{where}: no 'point'; it will be shown without its debate point")
+        for k in ["proposedBy", "support", "against"]:
+            check_ids(c.get(k), f"{where}.{k}")
+
     launch = d.get("launch")
     if launch:
         for p in launch.get("preferences", []):
@@ -169,7 +179,7 @@ def validate(d: dict, example: dict, default_labels: dict):
             check_ids(x.get("first"), f"list.order[{i}].first")
             check_ids(x.get("rejected"), f"list.order[{i}].rejected")
 
-    for k in ["tensions", "risks", "strengths", "scenarios", "hypotheses", "gaps"]:
+    for k in ["tensions", "quickWins", "risks", "strengths", "scenarios", "hypotheses", "gaps"]:
         if not d.get(k):
             warnings.append(f"section '{k}' is empty")
 

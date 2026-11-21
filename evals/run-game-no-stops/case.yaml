@@ -9,4 +9,4 @@ expected_outcome: |
   real test of the web tool, coherence, inputs). It records the plan in progress.md and continues
   without stops through the five rounds, saving full prompts and unedited answers, without passing
   the author's concerns or the config to any agent, and ends with a validated report.html.
-  WARNING: this is a full run (about 45 to 65 agent calls).
+  WARNING: this is a full run (about 50 to 70 agent calls).

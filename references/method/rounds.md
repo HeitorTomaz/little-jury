@@ -110,11 +110,12 @@ Question 7 asks for the cause of the change because, in the pilot, all 8 users g
 2. Is there a strategy, shortcut or use that would always or almost always win? Describe it step by step.
 3. Which rule or part costs the most to build relative to what it adds?
 4. What would you cut from the first version?
-5. What information is missing to evaluate it?
-6. What is the smallest test that could show whether the core activity works, within the means the author has declared?
-7. *(if `config.md` asks for it)* Through which channel do you recommend the first launch, and why?
-8. The expert's specific questions, from `config.md`.
-9. *(only the expert who ranks the list)* Rank the list by your own criterion and, if you have web access, check for conflicts in the indicated sources, saying what you could not check.
+5. For the most serious problem you found, what is the **smallest change** to a rule or decision that would solve it, and what is lost with it?
+6. What information is missing to evaluate it?
+7. What is the smallest test that could show whether the core activity works, within the means the author has declared?
+8. *(if `config.md` asks for it)* Through which channel do you recommend the first launch, and why?
+9. The expert's specific questions, from `config.md`.
+10. *(only the expert who ranks the list)* Rank the list by your own criterion and, if you have web access, check for conflicts in the indicated sources, saying what you could not check.
 
 For the expert with web access, add to the format: "For each external fact, cite the source (address and date accessed). Mark **[not verified]** everything you could not access or confirm, and say why (interactive form, CAPTCHA, connection error). Do not use the web for anything beyond what these questions ask."
 
@@ -188,9 +189,11 @@ Choose the points with the author's goals for the evaluation in mind too (`confi
 For each point:
 
 1. Write a summary of the positions, saying who defended each one (by id) and with short verbatim excerpts when possible.
-2. Ask **each participant involved, in a separate agent**, for a short reply (up to 200 words): whether they keep, change or adjust their position, and why. They receive the summary of the point and the excerpt of their own previous answer, never other people's whole answers.
-3. Ask each reply to start with one of these words: **keeps**, **adjusts** (same position, with a caveat or new condition) or **changes** (different position). Run a second turn only if someone says **changes**, with a new summary. **Two turns at most.**
-4. Record each participant's final position and who disagreed. Agreement is not required.
+2. Ask **each participant involved, in a separate agent**, for a short reply (up to 250 words) with two parts. They receive the summary of the point and the excerpt of their own previous answer, never other people's whole answers.
+   - **Position:** start with one of these words: **keeps**, **adjusts** (same position, with a caveat or new condition) or **changes** (different position), and say why.
+   - **Smallest change:** the smallest change to a rule or decision that would solve the problem in this point, and what is lost with it; or "no change needed", and why. Big redesigns are not what is asked: the aim is the change that costs least for the effect it has.
+3. Collect the smallest changes of the point (the **quick wins** of the consolidation), merging the ones that say the same thing. Run a **second turn** if someone said **changes** or if the point has **two or more different proposals**: the new summary lists the proposals (without saying who made them), and each participant says, in one line each, whether they **support** or **oppose** each proposal, and why, besides keeping, adjusting or changing their position. **Two turns at most.**
+4. Record each participant's final position, who disagreed, and, for each quick win, who proposed it, who supported it and who opposed it. A proposal supported only by the one who made it still goes on record. Agreement is not required.
 
 Save the replies in `r4-<point>-<id>-v<turn>.md` and the synthesis in `r4-debate.md`.
 
