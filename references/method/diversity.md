@@ -4,7 +4,7 @@
 
 Write it in the language set in `config.md`, with numbers and verbatim examples. "The voices seemed distinct" does not work; "6 of 8 users used the phrase 'learning curve' in question 3 of round 2" does.
 
-> **Version 1.** Based on the lessons from rounds 1 to 3 of the pilot. The lessons from rounds 4 and 5 are still to be incorporated (see the last section).
+> **Version 2.** Based on the pilot and on a second real run, which brought the lessons about the debate, the summaries and the consolidation.
 
 ## 1. Models
 
@@ -14,17 +14,19 @@ A table of every agent, with the model used in each round and the agent type. Po
 - rounds with a single model (there should be none);
 - whether the split of models among users was balanced by complexity tolerance.
 
-## 2. Scores
+## 2. Stances
 
-- **Uniformity:** for each dimension, the distribution of scores. All users giving the same score on a dimension is a **signal to investigate**, not a result. Before blaming the personas, check whether the input explains it: with a short pitch, the uniformity can come from the text. That is why clarity is no longer a score: in two runs, all eight users gave the same clarity score, with different justifications.
-- **Changes between rounds:** who changed their round 1 score (curiosity, or relevance for a change) in round 2, in which direction, and whether they cited what in the description caused the change. A uniform change (everyone +1) with no cause cited suggests **anchoring**; with a cause cited, it may be real (the short pitch had gaps). In the pilot, all 8 users gave the same round 1 score and all moved it by one point.
-- **Comprehension check:** how many pitch problems the check found, and whether they explain uniform scores or repeated confusions. Keep them apart from the project's problems.
-- **Undefined audience:** if the audience is undefined, confirm that no synthesis averaged profiles that want opposite things.
-- **Model × score:** do scores differ systematically between model groups? If so, separate what is a difference of profile from what may be a difference of model.
+- **Uniformity:** for each dimension, how many said yes, only if and no. All users giving the same stance on a dimension is a **signal to investigate**, not a result. For "only if", compare the conditions: the same condition from everyone is uniformity; different conditions are not. Before blaming the personas, check whether the input explains it: with a short pitch, the uniformity can come from the text. That is why clarity is no longer asked: in two runs, all eight users gave the same clarity score, with different justifications. Stances replaced scores for the same reason: in a real run, every score fell between 2 and 4 and several users answered 3/3/3, even with written anchors.
+- **Changes between rounds:** who changed their round 1 stance (curiosity, or relevance for a change) in round 2, in which direction, and whether they quoted the passage of the description that caused the change. A uniform change with no passage quoted suggests **anchoring**; with a passage quoted, it may be real (the short pitch had gaps). In the pilot, all 8 users gave the same round 1 score and all moved it by one point.
+- **Comprehension check:** how many pitch problems the check found, and whether they explain uniform stances or repeated confusions. Keep them apart from the project's problems.
+- **Undefined audience:** if the audience is undefined, confirm that no synthesis tallied together profiles that want opposite things.
+- **Model × stance:** do stances differ systematically between model groups? If so, separate what is a difference of profile from what may be a difference of model.
+- **Spread of paths:** if the project has different roles, modes or paths, say how they were assigned among users in round 2 and whether any path went unimagined. In a real run, every user imagined the same role.
 
 ## 3. Arguments
 
 - **Repeated criticisms:** for each criticism mentioned by 3 or more participants, how many made it, who, and whether the contrarian considered it grounded. In the pilot, one criticism appeared in 7 of 8 users.
+- **Same-model duplicates:** findings delivered by two personas on the same model with the same strategy, the same calculation or nearly the same wording. List them; each counts as one piece of evidence. In a real run, two same-model experts produced the same finding with the same arithmetic.
 - **Unique arguments:** the arguments raised by a single persona that survived the debate. They are the best evidence that the variety paid off.
 - **The imagined-audience persona and the personas outside the audience:** did they say something no other persona said?
 
@@ -36,6 +38,8 @@ Separate two kinds of agreement:
 - on **recommendations** (cuts, platform, first test): this is where the risk lies. Count how many main recommendations coincided and between which models.
 
 In the pilot, the 4 experts on the same model reached the same recommendations.
+
+**Do not compare counts across models.** Counts of findings, of "proven problem" classifications or of calculations are not comparable between model groups: one model may show its arithmetic and the other not, or classify more readily. Record such a difference as a model effect, not as one group finding more. In a real run, one model made checkable calculations and the other did not, and the "proven" counts differed by model.
 
 ## 5. Shape of the answers
 
@@ -53,7 +57,10 @@ Who took part, on which models, the reason for choosing the two users (one per m
 
 - What the contrarian pointed out that the rest of the panel had not seen, and what the answers it requested in full revealed (including errors in the moderator's own summary).
 - How many replies were **keeps**, **adjusts** and **changes**, from whom, and in which direction: the majority's, the destroyer's or the contrarian's. Retreats that almost all go towards an adversary are conformity just as much as those that go towards the majority.
-- **Non-independent convergence:** every point where half or more of the participants changed position in the same direction after reading the same argument. Count it as one movement, not as several independent agreements.
+- **Non-independent convergence:** every point where half or more of the participants changed position in the same direction after reading the same argument. Count it as one movement, not as several independent agreements. Say whose argument it was: in a real run, four convergences all came from one participant's argument read in the same summary.
+- **Persuasion vs. confirmation:** every change of position with no quoted passage of the text behind it, recorded as persuasion. Count the anchored and the unanchored changes separately.
+- **Who is counted:** confirm that the destroyer and the contrarian were left out of every convergence, consensus or "N of M agree" count.
+- **Fresh agents:** confirm that every call was a new agent and that no earlier agent was resumed or continued.
 - Which items were settled before the debate and sent straight to consolidation, and why.
 - Limitation of the contrarian pack: what reached it as a summary rather than as verbatim text, and which answers it did not request.
 
@@ -61,14 +68,12 @@ Who took part, on which models, the reason for choosing the two users (one per m
 
 The moderator wrote the scenarios, the summaries, the agenda and the synthesis. Say where your choices may have influenced the result: scenarios that favored one reading, summaries that may have softened a position, points left off the agenda and why.
 
-Pay special attention to **agreement created by scenarios**: when a finding from a single persona becomes a round 3 scenario and other participants confirm it, count one origin and several confirmations, not several independent discoveries. Also record the limits noted in "Notes for the moderator" in `config.md` (self-evaluation, large scope, a system with no real users), any resumes, any checkpoint pauses and whether the author edited the agenda at checkpoint 2. In a re-evaluation, confirm that you read the earlier run only during consolidation.
+- **Summary attributions:** how many attribution errors the contrarian (or your own check against the sources) found in your summaries, and which were corrected. In a real run, the moderator's summary had five, and it was the strongest filter of the panel.
+- **Scenarios that held the answer:** which proposed scenarios described the action or the outcome and were rewritten before round 3, and whether any that reached the participants still suggested its answer (every participant reproducing the same line is the sign).
+- **Leading questions:** whether any question presupposed a problem instead of accepting "none".
+
+Pay special attention to **agreement created by scenarios**: when a finding from a single persona becomes a round 3 scenario and other participants confirm it, count one origin and several confirmations, not several independent discoveries. Also record the limits noted in "Notes for the moderator" in `config.md` (self-evaluation, large scope, a system with no real users), any resumes, any checkpoint pauses and whether the author edited the agenda at checkpoint 2. In a re-evaluation, confirm that you read the earlier run only during consolidation, and say whether the checks of the changed sections found new problems there.
 
 ## 10. Conclusion
 
 In 3 to 5 sentences: was the variety sufficient? What should change in the next run (personas, models, questions, size)?
-
----
-
-## Pending: lessons from rounds 4 and 5 of the pilot
-
-*Reserved. When the pilot's `diversity.md` arrives, the lessons about the debate and the consolidation go here and in sections 8 and 9, and may change round 4 in `rounds.md`.*

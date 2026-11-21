@@ -13,7 +13,7 @@
   3. The page builds itself from that block. The "launch" and "list" sections are optional.
   4. Every UI string comes from the <script id="default-labels"> block (English). When the report
      language is not English, the data carries a "labels" object with every key translated.
-  Scores go from 1 to 5 and always mean "higher is better for the project".
+  Each user answers each grid dimension with a stance: "yes", "only if" (with its condition) or "no".
   The "who" fields take the ids of users, experts and adversaries.
 -->
 <style>
@@ -32,8 +32,7 @@
   --felt:#2F4A3C; --felt-text:#E3EBE5;
   --against:#8C2F39; --for:#2F6B4E; --hyp:#2C5880;
   --soft-against:#F1E2E3; --soft-for:#E0ECE5; --soft-hyp:#E2E9F1;
-  --n1:#8C2F39; --n1t:#FFFFFF; --n2:#D9A7A9; --n2t:#1C2420; --n3:#D6DAD2; --n3t:#1C2420;
-  --n4:#9CC2AC; --n4t:#1C2420; --n5:#2F6B4E; --n5t:#FFFFFF;
+  --st-no:#8C2F39; --st-no-t:#FFFFFF; --st-if:#E6D7A6; --st-if-t:#1C2420; --st-yes:#2F6B4E; --st-yes-t:#FFFFFF;
   --serif:"Literata",Georgia,"Times New Roman",serif;
   --sans:"Schibsted Grotesk","Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;
 }
@@ -44,8 +43,7 @@
     --felt:#24382D; --felt-text:#CFDCD3;
     --against:#E3929A; --for:#7EC5A1; --hyp:#93B6DB;
     --soft-against:#3A2327; --soft-for:#1E3329; --soft-hyp:#1F2C3B;
-    --n1:#B4505B; --n1t:#FFFFFF; --n2:#6E3E45; --n2t:#F2E2E4; --n3:#38433D; --n3t:#E4E9E3;
-    --n4:#2F6650; --n4t:#E3F3EA; --n5:#5DB28A; --n5t:#0F1A14;
+    --st-no:#B4505B; --st-no-t:#FFFFFF; --st-if:#5E5230; --st-if-t:#F3EBCF; --st-yes:#5DB28A; --st-yes-t:#0F1A14;
   }
 }
 *{box-sizing:border-box}
@@ -90,15 +88,14 @@ h1{font-size:clamp(34px,6vw,54px); letter-spacing:-0.015em; max-width:16ch}
 .seat.adversary circle{fill:var(--paper); stroke:var(--against); stroke-width:2.5; stroke-dasharray:4 3}
 .seat.expert text,.seat.adversary text{fill:var(--ink)}
 .seat:hover circle,.seat:focus circle{stroke:var(--hyp); stroke-width:3.5}
-.s1{fill:var(--n1)} .s2{fill:var(--n2)} .s3{fill:var(--n3)} .s4{fill:var(--n4)} .s5{fill:var(--n5)} .s0{fill:var(--paper)}
-.t1{fill:var(--n1t)} .t2{fill:var(--n2t)} .t3{fill:var(--n3t)} .t4{fill:var(--n4t)} .t5{fill:var(--n5t)} .t0{fill:var(--ink)}
+.s-yes{fill:var(--st-yes)} .s-onlyif{fill:var(--st-if)} .s-no{fill:var(--st-no)} .s-none{fill:var(--paper)}
+.t-yes{fill:var(--st-yes-t)} .t-onlyif{fill:var(--st-if-t)} .t-no{fill:var(--st-no-t)} .t-none{fill:var(--ink)}
 .round-table figcaption{font-family:var(--sans); font-size:14px; color:var(--ink-2); display:flex; flex-wrap:wrap; gap:6px 16px; justify-content:center; margin-top:8px}
 .key{display:inline-flex; align-items:center; gap:6px}
 .dot{display:inline-block; width:14px; height:14px; border-radius:50%}
 .dot.exp{background:var(--paper); border:2px solid var(--ink)}
 .dot.adv{background:var(--paper); border:2px dashed var(--against)}
-.scale{display:inline-flex; gap:2px}
-.scale i{display:inline-block; width:14px; height:14px; border-radius:3px}
+.swatch{display:inline-block; width:14px; height:14px; border-radius:50%; flex:none}
 
 /* Evidence as shape */
 .ev{display:inline-flex; align-items:center; gap:7px; font-family:var(--sans); font-size:14.5px; white-space:nowrap}
@@ -194,7 +191,7 @@ ol.risks .mark{width:30px; height:30px}
 ol.risks h3{font-size:19px}
 .label{font-family:var(--sans); font-size:14.5px; color:var(--ink-2); margin:4px 0 6px}
 
-/* Scores per persona */
+/* Stances per persona */
 .grid{margin-top:22px; overflow-x:auto}
 .grid table{border-collapse:separate; border-spacing:3px; min-width:520px; width:100%; table-layout:fixed}
 .grid th{font-family:var(--sans); font-weight:600; font-size:14px; color:var(--ink-2); text-align:center; vertical-align:bottom; padding:0 2px 6px; line-height:1.25}
@@ -206,11 +203,17 @@ ol.risks h3{font-size:19px}
 .grid .name strong{display:block; font-size:16.5px}
 .grid .name small{display:block; font-family:var(--sans); font-size:13.5px; color:var(--ink-2); line-height:1.35}
 .grid .toggle{font-family:var(--sans); font-size:13px; color:var(--hyp)}
-.score{height:44px; min-width:44px; border-radius:5px; display:flex; align-items:center; justify-content:center; font-family:var(--sans); font-weight:600; font-size:16px}
-.score.c1{background:var(--n1); color:var(--n1t)} .score.c2{background:var(--n2); color:var(--n2t)} .score.c3{background:var(--n3); color:var(--n3t)}
-.score.c4{background:var(--n4); color:var(--n4t)} .score.c5{background:var(--n5); color:var(--n5t)} .score.c0{background:transparent; border:1px dashed var(--rule); color:var(--ink-2)}
-.grid tr.mean td{padding-top:8px}
-.grid tr.mean .score{font-size:15px}
+.stance{min-height:44px; border-radius:5px; display:flex; align-items:center; justify-content:center; text-align:center; padding:2px 4px; font-family:var(--sans); font-weight:600; font-size:14.5px; line-height:1.2}
+.stance.yes{background:var(--st-yes); color:var(--st-yes-t)} .stance.onlyif{background:var(--st-if); color:var(--st-if-t)}
+.stance.no{background:var(--st-no); color:var(--st-no-t)} .stance.none{background:transparent; border:1px dashed var(--rule); color:var(--ink-2); font-weight:400}
+.grid tr.panel-tally td{padding-top:8px; vertical-align:top}
+.tally-cell{font-family:var(--sans); font-size:13.5px; line-height:1.5}
+.tally-cell span{display:flex; align-items:center; justify-content:center; gap:6px}
+.conditions{margin-top:26px}
+.conditions h3{font-size:19px; margin-bottom:6px}
+.conditions h4{font-family:var(--sans); font-size:15px; font-weight:600; margin:14px 0 4px}
+.conditions ul{margin:0; padding-left:20px}
+.conditions li{margin:3px 0}
 .grid tr.card td{padding:2px 0 16px}
 .card dl{display:grid; gap:10px 28px; margin:0; padding:14px 16px; background:var(--paper); border-radius:6px}
 @media (min-width:760px){ .card dl{grid-template-columns:1fr 1fr} }
@@ -279,10 +282,10 @@ footer{margin-top:56px; padding:20px 0 48px; border-top:1px solid var(--rule); f
   "tableTitle": "The panel's table: {count} participants. Each seat leads to that persona's evaluation.",
   "centerExperts": "experts",
   "centerAdversaries": "adversaries",
-  "seatScore": "{name}: {dimension} {score}",
+  "seatStance": "{name}: {dimension}, {stance}",
   "seatExpert": "{name} (expert)",
   "seatAdversary": "{name} (adversary)",
-  "legendScale": "{dimension}, 1 to 5",
+  "legendStances": "{dimension}:",
   "legendExpert": "Expert",
   "legendAdversary": "Adversary",
   "evidence_observation": "observation",
@@ -306,11 +309,11 @@ footer{margin-top:56px; padding:20px 0 48px; border-top:1px solid var(--rule); f
   "status_new": "new",
   "audienceTitle": "Who it is for",
   "audienceNav": "Audience",
-  "audienceIntro": "The audience is not defined yet, so the panel does not average profiles that want opposite things. Each group, what it wants and what choosing it would cost.",
+  "audienceIntro": "The audience is not defined yet, so the panel does not add up profiles that want opposite things. Each group, what it wants and what choosing it would cost.",
   "audienceWants": "What they want",
   "audienceCost": "What choosing this group would cost",
   "audienceWho": "In the panel: {who}.",
-  "noMeanNote": "No panel average: the audience is not defined, and averaging profiles that want opposite things would hide the split.",
+  "noTallyNote": "No panel tally: the audience is not defined, and adding up profiles that want opposite things would hide the split.",
   "tensionsTitle": "Where the panel split",
   "tensionsNav": "Splits",
   "tensionsIntro": "Each split shows both sides, who held each one, the panel's proposal, what it costs and how to test it.",
@@ -359,20 +362,27 @@ footer{margin-top:56px; padding:20px 0 48px; border-top:1px solid var(--rule); f
   "category_scope": "scope",
   "category_market": "market",
   "pointedOutBy": "Pointed out by {who}.",
-  "scoresTitle": "Each persona, score by score",
-  "scoresNav": "Scores",
-  "scoresIntro": "One row per persona and one column per dimension, from 1 to 5. Open a row to read what the persona understood, what attracted them and what would make them give up.",
+  "stancesTitle": "Each persona, question by question",
+  "stancesNav": "Stances",
+  "stancesIntro": "One row per persona and one column per question, each answered yes, only if (with a condition) or no. Open a row to read the reasons and conditions, what the persona understood, what attracted them and what would make them give up.",
+  "stance_yes": "yes",
+  "stance_onlyif": "only if",
+  "stance_no": "no",
+  "noStance": "no answer",
+  "stanceAria": "{dimension}: {stance}",
+  "stanceDetail": "{stance}: {condition}",
+  "panelTally": "Panel",
+  "tallyLine": "{count} {stance}",
+  "conditionsTitle": "What the \"only if\" answers depend on",
+  "conditionBy": "{condition} ({who})",
   "profileModel": "{profile}. Model: {model}",
   "readEvaluation": "Read evaluation",
   "close": "Close",
-  "scoreAria": "{dimension}: {score} of 5",
-  "noScore": "no score",
   "understood": "What they understood",
   "attracted": "What attracted them",
   "putOff": "What put them off",
   "dropOut": "Likely reason to give up",
-  "panelMean": "Panel average",
-  "scoresNote": "Scores are for comparing versions of the project with each other. The average of a few simulated personas does not predict acceptance; rows that differ a lot point to a divided audience.",
+  "stancesNote": "Stances show what each profile's answer depends on; they are not votes. A tally of a few simulated personas does not predict acceptance: the conditions behind \"only if\" are the useful part, and rows that differ a lot point to a divided audience.",
   "expertsTitle": "What the experts said",
   "expertsNav": "Experts",
   "mainProblem": "Main problem",
@@ -382,7 +392,8 @@ footer{margin-top:56px; padding:20px 0 48px; border-top:1px solid var(--rule); f
   "adversariesIntro": "Roles created to argue against the project and against what the rest of the panel accepted too quickly.",
   "strengthsTitle": "What held up",
   "strengthsNav": "Strengths",
-  "strengthsIntro": "Strengths the panel recognized, with who cited them.",
+  "strengthsIntro": "Strengths the panel recognized, with who cited them and who opposed them.",
+  "strengthOpposedBy": "Opposed by {who}.",
   "citedBy": "Cited by {who}.",
   "scenariosTitle": "Extreme situations",
   "scenariosNav": "Scenarios",
@@ -438,22 +449,22 @@ footer{margin-top:56px; padding:20px 0 48px; border-top:1px solid var(--rule); f
     {
       "id": "curiosity",
       "name": "Curiosity",
-      "description": "The proposal made them want to know more"
+      "question": "Would you want to know more?"
     },
     {
       "id": "value",
       "name": "Expected value",
-      "description": "How they imagine using it would be"
+      "question": "Would it be worth it for you?"
     },
     {
       "id": "ease",
       "name": "Ease of entry",
-      "description": "How easy it looks to start using"
+      "question": "Could you start using it without help?"
     },
     {
       "id": "would_try",
       "name": "Would try",
-      "description": "Willingness to try it"
+      "question": "Would you try it?"
     }
   ],
   "users": [
@@ -462,11 +473,11 @@ footer{margin-top:56px; padding:20px 0 48px; border-top:1px solid var(--rule); f
       "name": "User A",
       "profile": "Example profile, low tolerance for complexity",
       "model": "model X",
-      "scores": {
-        "curiosity": 2,
-        "value": 2,
-        "ease": 2,
-        "would_try": 2
+      "stances": {
+        "curiosity": {"stance": "no", "reason": "Example reason."},
+        "value": {"stance": "no", "reason": "Example reason."},
+        "ease": {"stance": "only if", "condition": "Example condition.", "reason": "Example reason."},
+        "would_try": {"stance": "no", "reason": "Example reason."}
       },
       "understood": "Example sentence.",
       "attracted": "Example sentence.",
@@ -478,11 +489,11 @@ footer{margin-top:56px; padding:20px 0 48px; border-top:1px solid var(--rule); f
       "name": "User B",
       "profile": "Example profile, high tolerance for complexity",
       "model": "model Y",
-      "scores": {
-        "curiosity": 5,
-        "value": 4,
-        "ease": 3,
-        "would_try": 5
+      "stances": {
+        "curiosity": {"stance": "yes", "reason": "Example reason."},
+        "value": {"stance": "yes", "reason": "Example reason."},
+        "ease": {"stance": "only if", "condition": "Example condition.", "reason": "Example reason."},
+        "would_try": {"stance": "yes", "reason": "Example reason."}
       },
       "understood": "Example sentence.",
       "attracted": "Example sentence.",
@@ -494,11 +505,11 @@ footer{margin-top:56px; padding:20px 0 48px; border-top:1px solid var(--rule); f
       "name": "User C",
       "profile": "Example profile, from the audience the author imagines",
       "model": "model X",
-      "scores": {
-        "curiosity": 3,
-        "value": 3,
-        "ease": 4,
-        "would_try": 3
+      "stances": {
+        "curiosity": {"stance": "only if", "condition": "Example condition.", "reason": "Example reason."},
+        "value": {"stance": "only if", "condition": "Example condition.", "reason": "Example reason."},
+        "ease": {"stance": "yes", "reason": "Example reason."},
+        "would_try": {"stance": "only if", "condition": "Example condition.", "reason": "Example reason."}
       },
       "understood": "Example sentence.",
       "attracted": "Example sentence.",
@@ -633,7 +644,11 @@ footer{margin-top:56px; padding:20px 0 48px; border-top:1px solid var(--rule); f
       "who": [
         "user-b",
         "user-c"
-      ]
+      ],
+      "opposedBy": [
+        "user-a"
+      ],
+      "opposition": "Example sentence: why they opposed it."
     }
   ],
   "experts": [
@@ -757,6 +772,10 @@ footer{margin-top:56px; padding:20px 0 48px; border-top:1px solid var(--rule); f
   function evClass(v){ return EV[v] || 'observation'; }
   function ev(v){ return h('span', 'ev ' + evClass(v), L('evidence_' + evClass(v))); }
   function level(x){ return L('level_' + x); }
+  var STC = {'yes':'yes', 'only if':'onlyif', 'no':'no'};
+  function stanceOf(u, dimId){ var v = (u.stances||{})[dimId]; return (v && STC[v.stance]) ? v : null; }
+  function stClass(v){ return v ? STC[v.stance] : 'none'; }
+  function stWord(v){ return v ? L('stance_' + STC[v.stance]) : L('noStance'); }
 
   var langs = {'english':'en', 'brazilian portuguese':'pt-BR', 'portuguese':'pt', 'spanish':'es', 'french':'fr', 'german':'de', 'italian':'it'};
   document.documentElement.lang = langs[String(m.language || 'English').toLowerCase()] || 'en';
@@ -794,7 +813,7 @@ footer{margin-top:56px; padding:20px 0 48px; border-top:1px solid var(--rule); f
   var dims = D.dimensions || [], users = D.users || [];
   var lastDim = dims[dims.length - 1];
   var seats = [];
-  users.forEach(function(u){ seats.push({id:u.id, name:u.name, group:'user', score:lastDim ? (u.scores||{})[lastDim.id] : null}); });
+  users.forEach(function(u){ seats.push({id:u.id, name:u.name, group:'user', stance:lastDim ? stanceOf(u, lastDim.id) : null}); });
   (D.experts||[]).forEach(function(e){ seats.push({id:e.id, name:e.role, group:'expert'}); });
   (D.adversaries||[]).forEach(function(a){ seats.push({id:a.id, name:a.role, group:'adversary'}); });
   var fig = document.getElementById('round-table');
@@ -816,22 +835,23 @@ footer{margin-top:56px; padding:20px 0 48px; border-top:1px solid var(--rule); f
       var ang = -Math.PI/2 + (2*Math.PI*i)/N;
       var x = cx + (rx + 46) * Math.cos(ang), y = cy + (ry + 46) * Math.sin(ang);
       var a = s('a', {href:'#' + anchor[l.id], 'class':'seat ' + l.group});
-      var sc = (typeof l.score === 'number') ? l.score : 0;
-      var title = l.group === 'user' ? L('seatScore', {name:l.name, dimension: lastDim ? lastDim.name : '', score: sc || L('noScore')})
+      var sc = stClass(l.stance);
+      var title = l.group === 'user' ? L('seatStance', {name:l.name, dimension: lastDim ? lastDim.name : '', stance: stWord(l.stance)})
                 : L(l.group === 'expert' ? 'seatExpert' : 'seatAdversary', {name:l.name});
       add(a, s('title', {}, title));
-      add(a, s('circle', {cx:x, cy:y, r:22, 'class':l.group === 'user' ? 's' + sc : ''}));
+      add(a, s('circle', {cx:x, cy:y, r:22, 'class':l.group === 'user' ? 's-' + sc : ''}));
       var ini = l.name.split(/\s+/).filter(function(p){ return small.indexOf(p.toLowerCase()) < 0 && /^[A-Za-zÀ-ú]/.test(p); }).slice(0,2).map(function(p){ return p.charAt(0).toUpperCase(); }).join('') || l.name.slice(0,2);
-      add(a, s('text', {x:x, y:y + 4.5, 'text-anchor':'middle', 'class':l.group === 'user' ? 't' + sc : ''}, ini));
+      add(a, s('text', {x:x, y:y + 4.5, 'text-anchor':'middle', 'class':l.group === 'user' ? 't-' + sc : ''}, ini));
       add(svg, a);
     });
     add(fig, svg);
     var cap = h('figcaption');
-    var k1 = h('span', 'key'); var sca = h('span', 'scale'); [1,2,3,4,5].forEach(function(k){ var i = h('i'); i.style.background = 'var(--n' + k + ')'; add(sca, i); });
-    add(k1, sca); k1.appendChild(document.createTextNode(L('legendScale', {dimension: lastDim ? lastDim.name : ''})));
+    var k1 = h('span', 'key', L('legendStances', {dimension: lastDim ? lastDim.name : ''}));
+    var kst = [k1];
+    [['yes','--st-yes'], ['onlyif','--st-if'], ['no','--st-no']].forEach(function(p){ var k = h('span', 'key'); var sw = h('span', 'swatch'); sw.style.background = 'var(' + p[1] + ')'; add(k, sw); k.appendChild(document.createTextNode(L('stance_' + p[0]))); kst.push(k); });
     var k2 = h('span', 'key'); add(k2, h('span', 'dot exp')); k2.appendChild(document.createTextNode(L('legendExpert')));
     var k3 = h('span', 'key'); add(k3, h('span', 'dot adv')); k3.appendChild(document.createTextNode(L('legendAdversary')));
-    add(cap, k1, k2, k3); add(fig, cap);
+    kst.forEach(function(k){ add(cap, k); }); add(cap, k2, k3); add(fig, cap);
   } else fig.remove();
 
   /* Sections */
@@ -997,12 +1017,12 @@ footer{margin-top:56px; padding:20px 0 48px; border-top:1px solid var(--rule); f
     add(gr, leftCol, lr); add(wr, gr);
   } else empty(wr);
 
-  /* Scores per persona */
-  var wm = section('scores', L('scoresTitle'), L('scoresNav'), L('scoresIntro'));
+  /* Stances per persona */
+  var wm = section('scores', L('stancesTitle'), L('stancesNav'), L('stancesIntro'));
   if(dims.length && users.length){
     var box = h('div', 'grid'), tb = h('table'), thead = h('thead'), trh = h('tr');
     var th0 = h('th', 'who-col', usersLabel); th0.scope = 'col'; add(trh, th0);
-    dims.forEach(function(d){ var th = h('th', null, d.name); th.scope = 'col'; th.title = d.description || ''; add(trh, th); });
+    dims.forEach(function(d){ var th = h('th', null, d.name); th.scope = 'col'; th.title = d.question || d.description || ''; add(trh, th); });
     add(thead, trh); add(tb, thead);
     var tbody = h('tbody');
     users.forEach(function(u){
@@ -1014,30 +1034,52 @@ footer{margin-top:56px; padding:20px 0 48px; border-top:1px solid var(--rule); f
       var tog = h('span', 'toggle', L('readEvaluation')); add(bt, tog);
       add(tdn, bt); add(tr, tdn);
       dims.forEach(function(d){
-        var v = (u.scores||{})[d.id], td = h('td'), c = h('div', 'score c' + (v || 0), v ? String(v) : '–');
-        c.setAttribute('aria-label', L('scoreAria', {dimension: d.name, score: v ? String(v) : L('noScore')})); add(td, c); add(tr, td);
+        var v = stanceOf(u, d.id), td = h('td'), c = h('div', 'stance ' + stClass(v), v ? stWord(v) : '–');
+        c.setAttribute('aria-label', L('stanceAria', {dimension: d.name, stance: stWord(v)})); add(td, c); add(tr, td);
       });
       var trc = h('tr', 'card'); trc.hidden = true;
       var tdc = h('td'); tdc.colSpan = dims.length + 1;
-      var cdl = h('dl'); pair(cdl, L('understood'), u.understood, true); pair(cdl, L('attracted'), u.attracted, true); pair(cdl, L('putOff'), u.putOff, true); pair(cdl, L('dropOut'), u.dropOut, true);
+      var cdl = h('dl');
+      dims.forEach(function(d){
+        var v = stanceOf(u, d.id); if(!v) return;
+        var txt = v.stance === 'only if' ? L('stanceDetail', {stance: stWord(v), condition: v.condition || ''}) : stWord(v);
+        txt = txt.charAt(0).toUpperCase() + txt.slice(1);
+        if(v.reason) txt += (/[.!?…:]$/.test(txt) ? ' ' : '. ') + v.reason;
+        pair(cdl, d.question || d.name, txt, true);
+      });
+      pair(cdl, L('understood'), u.understood, true); pair(cdl, L('attracted'), u.attracted, true); pair(cdl, L('putOff'), u.putOff, true); pair(cdl, L('dropOut'), u.dropOut, true);
       add(tdc, cdl); add(trc, tdc);
       bt.addEventListener('click', function(){ var open = trc.hidden; trc.hidden = !open; bt.setAttribute('aria-expanded', open ? 'true' : 'false'); tog.textContent = open ? L('close') : L('readEvaluation'); });
       add(tbody, tr, trc);
     });
-    var showMean = m.audienceDefined !== false;
-    if(showMean){
-      var trm = h('tr', 'mean'); add(trm, h('td', 'name muted sans', L('panelMean')));
+    var showTally = m.audienceDefined !== false;
+    if(showTally){
+      var trm = h('tr', 'panel-tally'); add(trm, h('td', 'name muted sans', L('panelTally')));
       dims.forEach(function(d){
-        var vals = users.map(function(u){ return (u.scores||{})[d.id]; }).filter(function(v){ return typeof v === 'number'; });
-        var avg = vals.length ? vals.reduce(function(a,b){ return a+b; }, 0)/vals.length : 0;
-        var sep = document.documentElement.lang === 'en' ? '.' : ',';
-        var td = h('td'); add(td, h('div', 'score c' + (avg ? Math.max(1, Math.min(5, Math.round(avg))) : 0), avg ? avg.toFixed(1).replace('.', sep) : '–')); add(trm, td);
+        var td = h('td'), cell = h('div', 'tally-cell');
+        [['yes','--st-yes'], ['only if','--st-if'], ['no','--st-no']].forEach(function(p){
+          var cnt = users.filter(function(u){ var v = stanceOf(u, d.id); return v && v.stance === p[0]; }).length;
+          if(!cnt) return;
+          var line = h('span'); var sw = h('i', 'swatch'); sw.style.background = 'var(' + p[1] + ')'; add(line, sw);
+          line.appendChild(document.createTextNode(L('tallyLine', {count: cnt, stance: L('stance_' + STC[p[0]])}))); add(cell, line);
+        });
+        if(!cell.childNodes.length) cell.textContent = '–';
+        add(td, cell); add(trm, td);
       });
       add(tbody, trm);
     }
     add(tb, tbody); add(box, tb); add(wm, box);
-    if(!showMean) add(wm, h('p', 'footnote', L('noMeanNote')));
-    add(wm, h('p', 'footnote', L('scoresNote')));
+    if(!showTally) add(wm, h('p', 'footnote', L('noTallyNote')));
+    var cond = h('div', 'conditions'), anyCond = false;
+    add(cond, h('h3', null, L('conditionsTitle')));
+    dims.forEach(function(d){
+      var items = users.map(function(u){ var v = stanceOf(u, d.id); return (v && v.stance === 'only if') ? {u:u, v:v} : null; }).filter(Boolean);
+      if(!items.length) return;
+      anyCond = true; add(cond, h('h4', null, d.question || d.name));
+      var ulc = h('ul'); items.forEach(function(x){ add(ulc, h('li', null, L('conditionBy', {condition: x.v.condition || '', who: x.u.name}))); }); add(cond, ulc);
+    });
+    if(anyCond) add(wm, cond);
+    add(wm, h('p', 'footnote', L('stancesNote')));
   } else empty(wm);
 
   /* Experts and adversaries */
@@ -1066,7 +1108,7 @@ footer{margin-top:56px; padding:20px 0 48px; border-top:1px solid var(--rule); f
   var wf = section('strengths', L('strengthsTitle'), L('strengthsNav'), L('strengthsIntro'));
   if(n(D.strengths)){
     var uf = h('ul', 'plain');
-    D.strengths.forEach(function(f){ var li = h('li'); add(li, h('h3', null, f.title), h('p', null, f.description)); if(n(f.who)) add(li, h('p', 'who', L('citedBy', {who: who(f.who)}))); add(uf, li); });
+    D.strengths.forEach(function(f){ var li = h('li'); add(li, h('h3', null, f.title), h('p', null, f.description)); if(n(f.who)) add(li, h('p', 'who', L('citedBy', {who: who(f.who)}))); if(n(f.opposedBy) || f.opposition) add(li, h('p', 'who', (n(f.opposedBy) ? L('strengthOpposedBy', {who: who(f.opposedBy)}) + ' ' : '') + (f.opposition || ''))); add(uf, li); });
     add(wf, uf);
   } else empty(wf);
 

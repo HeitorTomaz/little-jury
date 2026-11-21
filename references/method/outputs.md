@@ -26,8 +26,8 @@ One file per round, with one section per persona (a `## <id>` heading, then `- M
 
 | File | Content |
 |---|---|
-| `concept-review.md` | The panel's synthesis: what the proposal is according to the panel, whom it seems to serve and whom it does not, the 3 to 5 main findings, what remains open. A separate section lists the **pitch problems** from the comprehension check: problems of the text, not of the project. When the audience is undefined, it says what each group wants and what choosing each would cost, without averaging them |
-| `strengths-and-risks.md` | Strengths and criticisms, each with evidence (file and persona), classification (observation, hypothesis, proven problem) and uncertainties |
+| `concept-review.md` | The panel's synthesis: what the proposal is according to the panel, whom it seems to serve and whom it does not, the 3 to 5 main findings, what remains open. A separate section lists the **pitch problems** from the comprehension check: problems of the text, not of the project. When the audience is undefined, it says what each group wants and what choosing each would cost, without tallying them together |
+| `strengths-and-risks.md` | Strengths and criticisms, each with evidence (file and persona, with the source as `(r2.md § <id>)`), classification (observation, hypothesis, proven problem) and uncertainties. Each strength also says **who opposed it, and why** (or that nobody did). Same-model duplicates count as one piece of evidence, and the destroyer and the contrarian are not counted as agreeing voices |
 | `design-alternatives.md` | Starts with the **quick wins, grouped by debate point** (the smallest change to a rule or decision that would solve each point): for each, the change, what it solves, what is lost, who proposed it, who supported it and who opposed it (from the debate replies, plus the experts' round 2 answers). Then the larger suggested changes; each one says **what problem it solves, what benefit it expects and what is lost**, who defended it and who disagreed. Check all of them against the author's decisions that limit the recommendations (`config.md`) |
 | `mvp-hypotheses.md` | Hypotheses only real people can answer, with a minimal test within the author's means, a confirmation signal and a priority |
 | `comparison.md` | Re-evaluation only: each earlier problem (P1, P2… from `moderator/previous-problems.md`) as resolved, partly resolved or unresolved, with the evidence from this run; then the new problems the changes created |
@@ -72,17 +72,17 @@ The template's example data is fictitious and neutral ("User A", "Item A"). Do n
 | `meta.type` | `"concept"`, `"system"` or `"change"`, from `config.md`; changes the sentence at the top of the report |
 | `meta.usersLabel` | what the domain calls its users ("Users", "Players", "Customers"), in the report language |
 | `meta.language` | the language from `config.md` (e.g. `English`, `Brazilian Portuguese`) |
-| `meta.audienceDefined` | optional, default `true`; `false` when `config.md` says `- Defined: no` under `## Audience`. It hides the "Panel average" row of the scores grid, because averaging profiles that want opposite things says nothing |
+| `meta.audienceDefined` | optional, default `true`; `false` when `config.md` says `- Defined: no` under `## Audience`. It hides the panel tally row of the stances grid, because tallying together profiles that want opposite things says nothing |
 | `summary` | 3 to 5 conclusions from the moderator, one sentence each |
-| `dimensions` | those in `config.md`, with the same `id`, in round order. The **last** one colors the seats of the table at the top of the report (willingness to try or to accept) |
-| `users[]` | `id`, `name`, `profile` (one line), `model`, final `scores`: round 2 scores for that round's dimensions; for the round 1 dimension (curiosity, or relevance for a change), the score revised in round 2 when the persona revised it, otherwise the round 1 score; `understood`, `attracted`, `putOff`, `dropOut` (one sentence each, from rounds 1 and 2). There is no clarity score: comprehension goes to `pitchIssues` |
+| `dimensions` | those in `config.md`, with the same `id`, in round order. Each has `id`, `name` and `question` (the question from `config.md`). The **last** one colors the seats of the table at the top of the report by stance (willingness to try or to accept) |
+| `users[]` | `id`, `name`, `profile` (one line), `model`, final `stances`: `{"<dimension id>": {"stance": "yes" | "only if" | "no", "condition": "...", "reason": "..."}}`, with round 2 stances for that round's dimensions and, for the round 1 dimension (curiosity, or relevance for a change), the stance revised in round 2 when the persona revised it, otherwise the round 1 stance; `condition` is required for `only if`, `reason` is optional (one sentence); `understood`, `attracted`, `putOff`, `dropOut` (one sentence each, from rounds 1 and 2). There is no clarity stance: comprehension goes to `pitchIssues` |
 | `pitchIssues[]` | optional; the pitch problems from the comprehension check: `sentence` (the sentence or idea of the pitch), `intended` (what it meant to say), `understoodAs` (how it was understood), `who` (ids). Only sentences that half of the users or more understood differently. The section is hidden when the list is empty or absent |
 | `comparison[]` | optional, re-evaluation only: `problem`, `status` (`resolved`, `partly`, `unresolved` or `new`), `note` (the evidence from this run). Hidden when absent |
 | `tensions[]` | disagreements from the debate and from round 2: `title`, `evidence`, `severity` (1 to 3), `for` and `against` with `who` (ids) and `text`, `proposal`, `loss`, `experiment`. Reactions to a revenue model go here |
 | `quickWins[]` | the quick wins from the debate (the smallest changes proposed), one entry per proposal: `point` (the debate point, as a short title), `change`, `solves`, `loss`, `proposedBy`, `support` and `against` (ids). Merged proposals list every proposer. Ordered by point; inside a point, the report sorts by support |
 | `audienceSplit[]` | optional, when the audience is undefined: `group`, `wants`, `who` (ids), `cost` (what choosing this group as the audience would cost). Hidden when absent |
 | `risks[]` | `title`, `category` (`design`, `audience`, `production`, `scope` or `market`), `severity` and `likelihood` (1 to 3), `description`, `who` |
-| `strengths[]` | `title`, `description`, `who` |
+| `strengths[]` | `title`, `description`, `who`; optional `opposedBy` (ids) and `opposition` (one sentence: why they opposed it) |
 | `experts[]` | `id`, `role`, `opinion`, `mainProblem`, `recommendation` |
 | `adversaries[]` | `id`, `role`, `arguments[]` with `title` and `text` |
 | `scenarios[]` | round 3: `situation`, `outcome`, `classification` (`"hypothesis"` or `"proven problem"`) |
@@ -95,9 +95,9 @@ The template's example data is fictitious and neutral ("User A", "Item A"). Do n
 
 Conventions:
 
-- Scores from 1 to 5, integers, "the higher, the better for the project".
-- **Enum values stay in English** whatever the report language: `evidence` only accepts `"observation"`, `"hypothesis"` or `"proven problem"`; `classification` only `"hypothesis"` or `"proven problem"`; `priority` only `high`, `medium` or `low`; `category` one of the five above; `meta.type` one of the three above; `comparison[].status` only `resolved`, `partly`, `unresolved` or `new`. The page shows them through the labels.
-- Every `who` (including those of `pitchIssues` and `audienceSplit`), `first`, `rejected`, `proposedBy`, `support`, `against` and `preferences[].who` uses ids that exist in `users`, `experts` or `adversaries`.
+- Stances: `"yes"`, `"only if"` (always with its `condition`) or `"no"`. They replace the 1-to-5 scores of earlier versions: in a real run, every score fell between 2 and 4 and several users answered 3/3/3, which said nothing a condition would not say better.
+- **Enum values stay in English** whatever the report language: `evidence` only accepts `"observation"`, `"hypothesis"` or `"proven problem"`; `classification` only `"hypothesis"` or `"proven problem"`; `priority` only `high`, `medium` or `low`; `category` one of the five above; `meta.type` one of the three above; `comparison[].status` only `resolved`, `partly`, `unresolved` or `new`; `stance` only `yes`, `only if` or `no`. The page shows them through the labels.
+- Every `who` (including those of `pitchIssues` and `audienceSplit`), `opposedBy`, `first`, `rejected`, `proposedBy`, `support`, `against` and `preferences[].who` uses ids that exist in `users`, `experts` or `adversaries`.
 - All free text (summary, titles, descriptions, names, comments) is written in the report language.
 
 ### Report labels

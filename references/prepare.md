@@ -40,13 +40,14 @@ Ask **a single block of questions**, in the author's language, only about what t
 | **What the author wants to decide with this evaluation** (go or no-go, what to cut, what to test first, whether a change is worth the risk…) | goes into `config.md` as the objective; the moderator uses it to choose scenarios, the debate agenda and the emphasis of the consolidation. It **never** goes to the personas |
 | **What the author wants to test or fears** (concerns) | becomes `moderator/author-concerns.md` |
 
-If the author has not settled who the project is for, say so in the question block and record `- Defined: no` under `## Audience` in `config.md`: the panel will then record what each group wants instead of averaging profiles that want opposite things (section 4).
+If the author has not settled who the project is for, say so in the question block and record `- Defined: no` under `## Audience` in `config.md`: the panel will then record what each group wants instead of tallying together profiles that want opposite things (section 4).
 
 The other items, when the material does not answer them:
 
 | Item | Why it matters |
 |---|---|
 | Project type (game, app, physical product, service, business, other) | picks the domain profile and the vocabulary |
+| **Expected length of a session** (of use, a match, a task), when the material does not say | goes into the full description as a fact with its marker ([decided] or [undefined]) and into `config.md`; in a real run, several users made their answers conditional on it |
 | For system and change: scope; if the description is likely to exceed 5,000 words, the split into areas (see `extract-system.md`) | overly long descriptions dilute the personas' attention |
 | For system and change: will `panel/` and `prep/` be versioned in git or ignored? | if ignored, add them to `.gitignore`, with the permission given here |
 | Version of the concept or system | names the output folder (`rounds/v<version>/`) |
@@ -108,6 +109,7 @@ Write this block in the author's language, but keep the markers themselves in En
 - **Each item with exactly one marker.** Use variants when they are true: "[decided for the first version]", "[decided, subject to review]", "[proposed, accepted without testing]".
 - Include a section for what does not exist yet, and end by saying what has been built or tested so far (e.g. "Nothing has been built or tested yet. Everything above is design.").
 - The author's imagined audience: in the description, **[decided]** if they declared it as a decision and **[undefined]** if they only imagine it. In both cases, the "imagined audience" persona is written from what they imagine.
+- The expected length of a session (of use, a match, a task): **[decided]** if the author settled it, **[undefined]** if they did not; never leave it out, because users condition their answers on it.
 
 ### `input/03-list.md` (optional)
 
@@ -151,21 +153,23 @@ Same format as the domain profile: the general rules for all personas, then each
 ## Audience
 - Defined: yes | no
 - <if yes: who the project is for, as the author declared it>
-<!-- If no: the moderator does not average profiles that want opposite things; it records what each group wants and what each audience choice would cost (report section "Who it is for"). -->
+- Session length: <expected length of a session, match or task | undefined>
+<!-- If no: the moderator does not tally together profiles that want opposite things; it records what each group wants and what each audience choice would cost (report section "Who it is for"). -->
 
 ## Author's objectives with this evaluation
 - <what they want to decide; guides scenarios, agenda and consolidation; never goes to the personas>
 
-## Grid dimensions (scores from 1 to 5, higher is better for the project)
+## Grid dimensions (stances: yes / only if / no)
+<!-- Each dimension is a question answered with a stance: yes, only if <condition>, or no, with the reason first. -->
 <!-- Change type: use the dimensions in change.md (relevance, value, adaptation, would_accept). -->
 <!-- System type: the same as below; "Would try" means "would keep using or start using". -->
-<!-- Clarity is not a score: the moderator checks comprehension of the short pitch in round 1 and reports pitch problems separately. -->
-| id | name | description | round |
+<!-- Clarity is not a stance: the moderator checks comprehension of the short pitch in round 1 and reports pitch problems separately. -->
+| id | Name | Question | Round |
 |---|---|---|---|
-| curiosity | Curiosity | The proposal made them want to know more | 1 |
-| value | <Expected value / Expected fun / ...> | <...> | 2 |
-| ease | Ease of entry | How easy the proposal seems to start using | 2 |
-| would_try | Would try | Willingness to try it | 2 |
+| curiosity | Curiosity | Would you want to know more? | 1 |
+| value | <Expected value / Expected fun / ...> | Would it be worth it for you? | 2 |
+| ease | Ease of entry | Could you start using it without help? | 2 |
+| would_try | Would try | Would you try it? | 2 |
 
 ## List to rank
 - Active: yes | no
@@ -200,7 +204,7 @@ Same format as the domain profile: the general rules for all personas, then each
   system without real users etc.; they go in as limits in diversity.md>
 ```
 
-When the audience is undefined (`- Defined: no`), still build the user personas to cover the candidate audiences; the moderator then reports what each group wants and what choosing it would cost, instead of a panel average.
+When the audience is undefined (`- Defined: no`), still build the user personas to cover the candidate audiences; the moderator then reports what each group wants and what choosing it would cost, instead of a panel tally.
 
 In a system that has no users yet besides the author, the user personas are in practice potential users: in "Usually uses" write what each one uses today instead of this system, and record this under "Notes for the moderator".
 
@@ -215,6 +219,7 @@ There is no author review before the run. Instead, check it yourself and fix wha
 - [ ] The personas meet the requirements of `composition.md` (someone outside the audience, someone from the imagined audience, spread tolerances, opposite motivations) and pass the opposite-pair test.
 - [ ] Every question that requires external checking goes to the expert with web access, and no question to a tool-less persona depends on a tool.
 - [ ] No persona text promises a tool: the web expert is written as "when this persona has web access in a round, it checks…" (see `composition.md`).
+- [ ] The full description states the expected session length, with its marker.
 - [ ] `config.md` records the language, and everything you wrote is in it.
 - [ ] `prep/decisions.md` lists what you decided on the author's behalf.
 
@@ -288,7 +293,7 @@ Use this when `panel/rounds/` already has a completed run of an earlier version 
 - **Two moderator-only files**, never passed to any persona:
   - `moderator/changes.md`: a table of what changed between the versions (item, before, after, marker), so the moderator knows where to look;
   - `moderator/previous-problems.md`: the earlier run's problems, numbered P1, P2…, each with its source file and classification (observation, hypothesis, proven problem).
-- **Rounds 1 and 2 stay fully independent.** The earlier problems enter only in round 3, as checks against the current text written neutrally ("Check against the current description whether …"), never saying they were problems before; giving them earlier would anchor the personas on the old problems instead of the new text.
+- **Rounds 1 and 2 stay fully independent.** The earlier problems enter only in round 3, as checks against the current text written neutrally ("Check against the current description whether …"), never saying they were problems before; giving them earlier would anchor the personas on the old problems instead of the new text. Round 3 also checks each changed section for problems of its own, so write `changes.md` with the section of the description each change touches.
 - The moderator reads the earlier run only during consolidation, and writes `comparison.md` (each earlier problem as resolved, partly resolved or unresolved, plus the new problems the changes created); the report shows it as "Since the previous version".
 - In `config.md`: `- Re-evaluation of: v<earlier version>`.
 - Run `assemble_panel.py` again to update `method/` and `template/` if the skill changed; the script warns if the method version changed, and the author must be told, because it affects the comparison.

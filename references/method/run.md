@@ -91,7 +91,9 @@ Then continue straight on. The only reasons to stop are an isolation test that f
 ## Plan
 
 ## Moderator notes
-<!-- after round 1: uniform scores? repeated objections? distinct voices? the comprehension check -->
+<!-- after round 1: uniform stances (and conditions)? repeated objections? distinct voices? the comprehension check -->
+<!-- round 2: the roles, modes or paths assigned to each user in the "first 15 minutes" question, if the project has them -->
+<!-- round 3: scenarios rewritten because they described the action or the outcome -->
 <!-- before the debate: the chosen agenda, the settled items sent straight to consolidation, and why -->
 <!-- at each checkpoint: when the run paused and resumed, and whether the author edited the agenda -->
 
@@ -110,6 +112,7 @@ Then continue straight on. The only reasons to stop are an isolation test that f
 - Use the `persona-isolated` agent type and pass the persona's **model** in the call's `model` parameter, as set in `config.md`.
 - The expert with web access uses `persona-web` **only in round 2**, which is where the external-verification questions are. In round 3 and in the debate it runs as `persona-isolated`, with the same model: there the questions are about what is written. Record the agent type of every call.
 - **Persona text vs tools.** Whenever a persona runs without a tool that its text mentions (the web expert in rounds 3 and 4, or any persona whose text you flagged in test 6), say so explicitly in the prompt, right after the persona block: "In this round you have no web access. Do not claim to have checked anything; mark **[not verified]** every external fact you rely on." In a real run, the publishing expert ran without web while its text said it checked the official documentation; the prompt note covered the gap.
+- **Always a new agent.** Never resume or continue an agent from an earlier round or turn (do not send it a message): create a new one and put in the prompt the verbatim excerpt of that persona's own earlier answer when the round needs it. This includes the debate's second turn and the contrarian's second call. In a real run, some personas continued their own agent and others got a new one, so they read the same reply with different context.
 - Launch all independent calls of a round **in the same message**, so they run in parallel. They are isolated from each other, so order does not matter.
 - The prompt follows the skeleton in `rounds.md`: general persona rules, the persona, the round material, the questions and the answer format.
 - Append the answer **unedited** to the round file, in its own section (section 5, item 5). If the answer is cut off or out of format, record it and repeat the call once with the same prompt; do not fix the text: replace the section with the new answer and note the repetition in the log.
@@ -149,8 +152,8 @@ If `rounds/v<version>/progress.md` already exists without round 5 completed:
 2. Avoid polite positive answers and artificial agreement, including in your own syntheses.
 3. Distinguish observation, hypothesis and proven problem.
 4. Do not treat synthetic answers as research. Do not compute approval percentages or predict commercial success. Counts (how many of 8 mentioned something) are allowed as a description of the panel, never as an estimate of an audience.
-5. Preserve minority positions: record who disagreed.
+5. Preserve minority positions: record who disagreed. The destroyer and the contrarian attack by role, so they never count in a convergence, consensus or "N of M agree"; same-model duplicates count as one piece of evidence; a change of position with no quoted passage of the text behind it is persuasion, not confirmation.
 6. Keep every round file, for comparison with future versions of the concept.
 7. Evaluations in `input/external/` (other than `README.md`) enter from the debate onwards, identified as external.
-8. **Undefined audience.** When `config.md` says `- Defined: no` under `## Audience`, do not average profiles that want opposite things, in the syntheses or in the scores. Record what each group wants and what choosing each audience would cost (the `audienceSplit` section of the report).
+8. **Undefined audience.** When `config.md` says `- Defined: no` under `## Audience`, do not tally or summarize together profiles that want opposite things, in the syntheses or in the stances. Record what each group wants and what choosing each audience would cost (the `audienceSplit` section of the report).
 9. **Never recommend running the panel again.** Whether to run another panel is the author's decision, not a recommendation of this one.

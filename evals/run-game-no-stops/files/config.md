@@ -15,15 +15,16 @@
 - Decide whether the no-talking signal mechanic is worth building first, and what to cut from the first version.
 
 ## Audience
-- Defined: no (the description marks the target audience as [undefined]; do not average profiles that want opposite things)
+- Defined: no (the description marks the target audience as [undefined]; do not average or tally profiles that want opposite things)
+- Session length: about forty minutes per match
 
-## Grid dimensions (scores from 1 to 5, higher is better for the project)
-| id | name | description | round |
+## Grid dimensions (stances: yes / only if / no)
+| id | Name | Question | Round |
 |---|---|---|---|
-| curiosity | Curiosity | The proposal made them want to know more | 1 |
-| value | Expected fun | How they imagine playing it would be | 2 |
-| ease | Ease of entry | How manageable the amount of rules seems | 2 |
-| would_try | Would try | Willingness to play a first match | 2 |
+| curiosity | Curiosity | Would you want to know more? | 1 |
+| value | Expected fun | Would it be worth it for you? | 2 |
+| ease | Ease of entry | Could you start playing without help? | 2 |
+| would_try | Would try | Would you try it? | 2 |
 
 ## List to rank
 - Active: yes

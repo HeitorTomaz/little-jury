@@ -5,7 +5,8 @@ context:
 expected_outcome: |
   The skill enters Prepare with the concept of an app (not a game). The author already gave, in the
   request, the answers to the question block (audience, evaluation goal, fear), so there is nothing
-  to ask. It writes the inputs in prep/: a neutral short pitch of 250 to 300 words, a full
+  to ask (the material gives no expected session length and the author said "you decide the rest",
+  so it is recorded as undefined). It writes the inputs in prep/: a neutral short pitch of 250 to 300 words, a full
   description with every item marked, the author's concerns, personas and a config with the
   author's goal for the moderator only, and Language: English. It removes the defensive arguments
   and the "Duolingo meets Trello" comparison, recording them in prep/removed.md, records its

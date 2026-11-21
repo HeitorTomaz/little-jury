@@ -9,7 +9,7 @@ How to choose the roles, write the personas and distribute the models. It applie
 | **Lean** (default) | 8 | 4 | 2 | 1 (the main session) | 50 to 70, up to 80 with a long debate |
 | **Full** | 11 | 5 | 2 | 1 | 60 to 90, up to 100 with a long debate |
 
-The estimate adds up the isolation tests (2 to 3), round 1 (one per user), round 2 (users + experts + destroyer), round 3 (experts + 2 users), the contrarian (1) and the debate replies, which are the part that varies most: 3 to 5 points, with 3 to 5 participants each, in one or two turns (9 to 50 calls). Second turns are common, because a point with two or more different smallest changes always gets one. When presenting the plan, do the math with the expected agenda. The lean pilot made about 50 to 55 calls and spanned more than one usage window of the plan; `progress.md` makes it possible to resume.
+The estimate adds up the isolation tests (2 to 3), round 1 (one per user), round 2 (users + experts + destroyer), round 3 (experts + 2 users), the contrarian (2) and the debate replies, which are the part that varies most: 3 to 5 points, with 3 to 5 participants each, in one or two turns (9 to 50 calls). Second turns are common, because a point with two or more different smallest changes always gets one. When presenting the plan, do the math with the expected agenda. The lean pilot made about 50 to 55 calls and spanned more than one usage window of the plan; `progress.md` makes it possible to resume.
 
 ## Users
 
@@ -61,8 +61,8 @@ Write each expert with what they evaluate and three or four typical questions. T
 
 ## Adversaries
 
-- **Concept destroyer (`destroyer`):** works from the full description, in round 2. Delivers the three strongest arguments for the project to fail, each with its chain of reasoning and with "what would knock this argument down". A claim without an argument does not count.
-- **Consensus challenger (`contrarian`):** only created after round 3. Looks in the panel itself for repeated criticism with no basis, premises nobody checked and ignored strengths. The goal is to find the panel's mistakes, not to be negative on principle.
+- **Concept destroyer (`destroyer`):** works from the full description, in round 2. Delivers the three strongest arguments for the project to fail, each with its chain of reasoning and with "what would knock this argument down". A claim without an argument does not count. Its role is to attack, so it is not an independent voice: it never counts in a convergence, consensus or "N of M agree".
+- **Consensus challenger (`contrarian`):** only created after round 3. Looks in the panel itself for repeated criticism with no basis, premises nobody checked and ignored strengths. The goal is to find the panel's mistakes, not to be negative on principle. Like the destroyer, it never counts as an agreeing voice.
 
 ## Moderator
 
@@ -78,7 +78,7 @@ Copy them to the top of `personas.md`, adapting the word "project" to the domain
 - Judge what is written. If information is missing, say what is missing instead of imagining how it works.
 - Do not propose solutions before describing the problem.
 - You are a simulation. Do not claim what "users" think in general; say what someone with your profile would probably think.
-- When you give a score, write the justification first and only then the number.
+- When you give a stance, write the reason first, then yes, only if <condition> or no. "Only if" always names the condition.
 - Do not invent criticism to look rigorous. If something works for your profile, say so and say why; a strength is as useful as a problem.
 
 ## Model distribution
@@ -96,6 +96,7 @@ Model diversity reduces artificial convergence: in the pilot, the four experts o
 Rules:
 
 - **The same model per persona in every round.** Switching midway confuses a change of opinion with a change of model.
+- **Same model, same finding, one piece of evidence.** Two personas on the same model tend to reach the same finding by the same route; when they do (same strategy, same calculation, nearly the same wording), it counts once.
 - **Every round with more than one participant has at least two models.** In round 3, the two users are one from each model, chosen so that each central rule discussed has at least one defender and one critic among the participants.
 - If a model is not available on the account, use another, record the switch and note it in `diversity.md`.
 - Record the model of each call in `progress.md`.

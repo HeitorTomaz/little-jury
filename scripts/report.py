@@ -28,6 +28,7 @@ PRIORITIES = {"high", "medium", "low"}
 CATEGORIES = {"design", "audience", "production", "scope", "market"}
 TYPES = {"concept", "system", "change"}
 STATUSES = {"resolved", "partly", "unresolved", "new"}
+STANCES = {"yes", "only if", "no"}
 
 
 def split(html: str):
@@ -116,21 +117,33 @@ def validate(d: dict, example: dict, default_labels: dict):
                 errors.append(f"{where}: unknown id '{q}'")
 
     for u in d.get("users", []):
-        scores = u.get("scores", {})
-        for k, v in scores.items():
+        if "scores" in u:
+            errors.append(f"users/{u.get('id')}: 'scores' no longer exists; use 'stances' (yes, only if, no)")
+        stances = u.get("stances", {})
+        for k, v in stances.items():
+            where = f"users/{u.get('id')}.stances.{k}"
             if k not in dim_ids:
-                errors.append(f"users/{u.get('id')}: score for a dimension that does not exist '{k}'")
-            level(v, f"users/{u.get('id')}.scores.{k}", (1, 5))
-        missing = [k for k in dim_ids if k not in scores]
+                errors.append(f"users/{u.get('id')}: stance for a dimension that does not exist '{k}'")
+            if not isinstance(v, dict) or v.get("stance") not in STANCES:
+                errors.append(f"{where}: stance must be yes, only if or no (got {v!r})")
+                continue
+            if v["stance"] == "only if" and not str(v.get("condition") or "").strip():
+                errors.append(f"{where}: 'only if' without a condition (the condition is the useful part)")
+        missing = [k for k in dim_ids if k not in stances]
         if missing:
-            warnings.append(f"users/{u.get('id')}: no score for {', '.join(missing)}")
+            warnings.append(f"users/{u.get('id')}: no stance for {', '.join(missing)}")
         for k in ["understood", "attracted", "putOff", "dropOut"]:
             if not u.get(k):
                 warnings.append(f"users/{u.get('id')}: '{k}' is empty")
     for dim in dim_ids:
-        vals = [u.get("scores", {}).get(dim) for u in d.get("users", []) if dim in u.get("scores", {})]
-        if len(vals) >= 3 and len(set(vals)) == 1:
-            warnings.append(f"every '{dim}' score is {vals[0]}: a signal to look into in diversity.md")
+        vals = [u["stances"][dim] for u in d.get("users", [])
+                if isinstance(u.get("stances", {}).get(dim), dict) and u["stances"][dim].get("stance") in STANCES]
+        if len(vals) >= 3 and len({v["stance"] for v in vals}) == 1:
+            stance = vals[0]["stance"]
+            conditions = {str(v.get("condition") or "").strip().lower() for v in vals}
+            if stance != "only if" or len(conditions) == 1:
+                same = f"'{stance}'" + (" with the same condition" if stance == "only if" else "")
+                warnings.append(f"every '{dim}' stance is {same}: a signal to look into in diversity.md")
 
     for i, t in enumerate(d.get("tensions", [])):
         where = f"tensions[{i}]"
@@ -153,6 +166,9 @@ def validate(d: dict, example: dict, default_labels: dict):
 
     for i, f in enumerate(d.get("strengths", [])):
         check_ids(f.get("who"), f"strengths[{i}].who")
+        check_ids(f.get("opposedBy"), f"strengths[{i}].opposedBy")
+        if f.get("opposedBy") and not f.get("opposition"):
+            warnings.append(f"strengths[{i}]: 'opposedBy' without 'opposition'; say why they opposed it")
     for i, c in enumerate(d.get("scenarios", [])):
         if c.get("classification") not in CLASSIFICATIONS:
             errors.append(f"scenarios[{i}].classification is invalid: {c.get('classification')!r}")
@@ -189,7 +205,7 @@ def validate(d: dict, example: dict, default_labels: dict):
             warnings.append(f"{where}: no 'cost'; say what choosing this group would cost")
         check_ids(x.get("who"), f"{where}.who")
     if d.get("audienceSplit") and meta.get("audienceDefined", True) is not False:
-        warnings.append("audienceSplit is filled but meta.audienceDefined is not false: the panel average stays visible")
+        warnings.append("audienceSplit is filled but meta.audienceDefined is not false: the panel tally stays visible")
     for i, x in enumerate(d.get("comparison", [])):
         where = f"comparison[{i}]"
         if not x.get("problem"):

@@ -1,4 +1,13 @@
-mock-jury, method 0.5.0 (2026-11-21)
+mock-jury, method 0.6.0 (2026-11-21)
+0.6.0: stances replace the 1-to-5 scores: each grid dimension is a question answered with yes, only if
+<condition> or no, reason first; the report shows a tally and the conditions instead of an average.
+Rating anchors were tried in a real run and had no effect, so they were not adopted. A change of position
+quotes the passage that supports it, or it is recorded as persuasion. Moderator summaries cite their source
+for every attribution. Same-model duplicate findings count once; the destroyer and the contrarian never count
+in convergence or consensus. Scenarios describe the situation, never the action or the outcome.
+Problem-seeking questions accept "none". Roles, modes or paths are spread across users. Agents are never
+resumed: every call is a new agent. Counts are not compared across models. Re-evaluation checks the changed
+sections for new problems. Strengths record who opposed them. Prepare asks for the expected session length.
 0.5.0: clarity is no longer a score; the moderator runs a comprehension check on round 1 and reports pitch
 problems apart from project problems. Strength questions in every round and a rule against criticism by
 obligation. Round 3 with one user per model and a defender and a critic for each central rule. Contrarian

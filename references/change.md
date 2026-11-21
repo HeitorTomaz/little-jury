@@ -60,15 +60,15 @@ As in `prepare.md`. Include the alternatives the author considered: they become 
 
 - **Users:** the current ones, derived from the system (`extract-system.md`, section 5), plus **one or two who do not use it**: someone who might start using it because of the change, or might give up because of it. 8 in total in the lean panel, as with the other types.
 - **Experts:** the four in `composition.md`, with the "build" function focused on **migration, compatibility and operations** and the "systems and loopholes" function focused on **the new loopholes and edge cases the change creates**.
-- **Dimensions** (in `config.md`, with these `id`s):
+- **Dimensions** (in `config.md`, with these `id`s; each is a question answered with a stance: yes, only if <condition>, or no):
 
-| id | name | description | round |
+| id | Name | Question | Round |
 |---|---|---|---|
-| relevance | Relevance | The change matters for how they use it | 1 |
-| value | Expected value | How much the change improves their use | 2 |
-| adaptation | Ease of adaptation | How costly it is to get used to the change (5 = almost nothing) | 2 |
-| would_accept | Would accept | Willingness to accept the change without leaving the system | 2 |
+| relevance | Relevance | Does this change matter for how you use the system? | 1 |
+| value | Expected value | Would it be worth it for you? | 2 |
+| adaptation | Ease of adaptation | Could you adapt to it without much cost? | 2 |
+| would_accept | Would accept | Would you accept it without leaving the system? | 2 |
 
-Clarity is not a score: in round 1 the moderator checks whether the users understood what changes and reports the pitch problems (sentences half of them or more understood differently from what was meant) separately from the problems of the change.
+Clarity is not a stance: in round 1 the moderator checks whether the users understood what changes and reports the pitch problems (sentences half of them or more understood differently from what was meant) separately from the problems of the change.
 
 - In `config.md`, fill in `Type: change`, the plan file, the source commit and the extracted areas.

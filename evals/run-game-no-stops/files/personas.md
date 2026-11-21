@@ -10,7 +10,7 @@ This panel uses 8 players, 4 experts, 2 adversaries and 1 moderator. The other r
 - Judge what is written. If information is missing, say what is missing instead of imagining how it works.
 - Do not propose solutions before describing the problem.
 - You are a simulation. Do not claim what "players" think in general; say what someone with your profile would probably think.
-- When you give a score, write the justification first and only then the number.
+- When you give a stance, write the reason first, then yes, only if <condition> or no. 'Only if' always names the condition.
 - Do not invent criticism to look rigorous. If something works for your profile, say so and say why; a strength is as useful as a problem.
 
 ---
