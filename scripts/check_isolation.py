@@ -8,7 +8,10 @@ directory, and puts the git state (branch, recent commits) in the context. For a
 repository, that would bring the project's instructions and decision history into the run session.
 The panel's .claude/settings.json prevents it with:
   - "claudeMdExcludes": one pattern per possible instruction file in each folder above;
-  - "includeGitInstructions": false.
+  - "includeGitInstructions": false;
+  - "permissions.deny" on edits to method/ and .claude/, so the run session cannot rewrite the
+    method, its scripts or these settings. Allowed script commands only make sense if the scripts
+    themselves cannot be replaced (otherwise "run method/scripts/x.py" becomes "run anything").
 
 This script only does arithmetic on the folder path: it does not read or list anything outside it.
 It checks that settings.json has the patterns that match the panel's CURRENT location (if the folder
@@ -22,6 +25,10 @@ import sys
 from pathlib import Path
 
 FILES = ["CLAUDE.md", "CLAUDE.local.md", ".claude/CLAUDE.md", ".claude/rules/**"]
+
+
+# Paths the run session must never write. Edit(...) rules also cover Write.
+DENY = ("Edit(/method/**)", "Edit(/.claude/**)")
 
 
 def exclusion_patterns(panel: Path) -> list[str]:
@@ -43,7 +50,7 @@ def exclusion_patterns(panel: Path) -> list[str]:
 
 def expected_settings(panel: Path) -> dict:
     return {
-        "permissions": {"blockReadsOutsideWorkingDirectories": True},
+        "permissions": {"blockReadsOutsideWorkingDirectories": True, "deny": list(DENY)},
         "includeGitInstructions": False,
         "claudeMdExcludes": exclusion_patterns(panel),
     }
@@ -62,6 +69,9 @@ def main() -> int:
     errors = []
     if current.get("permissions", {}).get("blockReadsOutsideWorkingDirectories") is not True:
         errors.append("permissions.blockReadsOutsideWorkingDirectories is not true")
+    missing_deny = [r for r in DENY if r not in current.get("permissions", {}).get("deny", [])]
+    if missing_deny:
+        errors.append(f"permissions.deny is missing {missing_deny}: the run could rewrite the method or the settings")
     if current.get("includeGitInstructions") is not False:
         errors.append("includeGitInstructions is not false (the git state would enter the context)")
     missing = [p for p in expected["claudeMdExcludes"] if p not in current.get("claudeMdExcludes", [])]

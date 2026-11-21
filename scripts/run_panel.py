@@ -26,10 +26,16 @@ import webbrowser
 from datetime import datetime
 from pathlib import Path
 
+RUN_SCRIPTS = ("draw_list.py", "analyze_list.py", "report.py", "check_isolation.py", "stats.py")
+
 TOOLS = ",".join([
     "Read", "Write", "Edit", "Glob", "Grep", "Agent", "WebSearch", "WebFetch",
-    "Bash(python method/scripts/*)", "Bash(python3 method/scripts/*)",
-    "Bash(python -I method/scripts/*)", "Bash(python3 -I method/scripts/*)",
+    # Each run script by exact name, never a wildcard over the folder: together with the deny
+    # rules on method/ in settings.json, the session cannot drop a new script there and run it.
+    *[f"Bash({py} method/scripts/{name}{args})"
+      for py in ("python", "python3", "python -I", "python3 -I")
+      for name in RUN_SCRIPTS
+      for args in ("", " *")],
     "Bash(claude --version)",
 ])
 

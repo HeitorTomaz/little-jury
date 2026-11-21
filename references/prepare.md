@@ -214,7 +214,7 @@ python <skill-folder>/scripts/assemble_panel.py <project-root>/panel
 
 It creates the structure and:
 
-- **generates `.claude/settings.json` for the folder's location**: read block outside it, `claudeMdExcludes` with every `CLAUDE.md`, `CLAUDE.local.md` and `.claude/rules/` in the folders above (a repository's `CLAUDE.md`, for example) and `includeGitInstructions: false`, which takes the git status and recent commits out of the run's context. In a test with version 2.1.329, without that last option the last commit message reached the context. If the folder is moved, run the script again: the patterns are computed from the path;
+- **generates `.claude/settings.json` for the folder's location**: read block outside it, `claudeMdExcludes` with every `CLAUDE.md`, `CLAUDE.local.md` and `.claude/rules/` in the folders above (a repository's `CLAUDE.md`, for example) and `includeGitInstructions: false`, which takes the git status and recent commits out of the run's context. In a test with version 2.1.329, without that last option the last commit message reached the context. If the folder is moved, run the script again: the patterns are computed from the path; It also denies edits to `method/` and `.claude/`, so the isolated run cannot replace the scripts it is allowed to execute, nor its own settings.
 - copies the two agent definitions, `method/` (the run method and scripts) and `template/` (the report template and its fonts);
 - never overwrites `input/`, `moderator/`, `personas.md`, `config.md` or `rounds/`.
 

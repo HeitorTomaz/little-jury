@@ -1,0 +1,7 @@
+# Keep LF line endings in the repository and in every checkout, so the shell scripts used by
+# the test cases also run under bash on Windows.
+* text=auto eol=lf
+
+*.woff2 binary
+*.png binary
+*.jpg binary

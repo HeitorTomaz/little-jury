@@ -31,7 +31,7 @@ The folder above this one holds the concept document or the system's code, the c
 ## 2. The four isolation layers
 
 1. **Folder.** The session was opened in `panel/`; by default Claude Code accesses the directory it was started in.
-2. **Settings.** `.claude/settings.json` contains `"blockReadsOutsideWorkingDirectories": true` (requires Claude Code 2.1.257 or later), `claudeMdExcludes` with the instruction files of the folders above, and `"includeGitInstructions": false`, which keeps the git status and recent commits out of the context.
+2. **Settings.** `.claude/settings.json` contains `"blockReadsOutsideWorkingDirectories": true` (requires Claude Code 2.1.257 or later), `claudeMdExcludes` with the instruction files of the folders above, `"includeGitInstructions": false`, which keeps the git status and recent commits out of the context, and `permissions.deny` on edits to `method/` and `.claude/`. You can write anywhere else in the panel (`rounds/`, for example), but never the method, its scripts or the settings: the run is allowed to execute the scripts in `method/scripts/` by name, and that is only safe if nobody can replace them.
 3. **Instruction.** Section 1 above.
 4. **Agents without tools.** Personas run in the `persona-isolated` agent, defined with `tools: []` (no tools) and `omitClaudeMd: true` (it does not receive the author's `CLAUDE.md` files). You read the files and put **inside the prompt** only the text that persona should receive. The answer comes back to you, and you save the file. The only exception is the expert with web access, who runs in `persona-web` (only `WebSearch` and `WebFetch`).
 
