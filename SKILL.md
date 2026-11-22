@@ -39,7 +39,7 @@ There are two ways to put something in front of the jury, and preparation picks 
 - **audience:** the personas react to the work as its public would: players, users, customers, readers, students facing an exam. The grid questions are "Would you try it?", "Would it be worth it for you?" and so on.
 - **criteria:** a **bench of jurors** judges the work against explicit criteria, given by the author (rubric, answer key, journal guidelines, program regulation) or proposed by preparation and confirmed: peer review of a paper, a thesis committee, an editorial assessment, grading an exam answer. The grid questions are the criteria ("Does the work meet …?"), and the run follows `method/rounds-criteria.md`.
 
-Field profiles in `references/domains/` give a ready starting point for games, software, papers, books, theses and exams; any other field is built from `references/composition.md`.
+Field profiles in `references/domains/` give a ready starting point for games, software, open-source projects, developer documentation, technical design documents, hardware, business plans, grant proposals, scientific papers, books, theses, exams, courses, talks, screenplays, résumés and policies or legal texts; any other field is built from `references/composition.md`.
 
 ## How to know what to do
 
@@ -100,7 +100,7 @@ The run continues until the report. It stops only if an isolation test fails or 
 | `references/change.md` | prepare for the change type |
 | `references/work.md` | prepare for the work type (a paper, a manuscript, a thesis, an exam): the work goes in verbatim (`input/02-work.md`); scope and `input/04-summary-of-the-rest.md` for long works |
 | `references/composition.md` | when proposing personas and models |
-| `references/domains/*.md` | field profiles: `game.md`, `software.md`, `paper.md`, `book.md`, `thesis.md`, `exam.md`; read the one that fits |
+| `references/domains/*.md` | field profiles, one file per field (`game`, `software`, `open-source`, `developer-docs`, `design-doc`, `hardware`, `business-plan`, `grant-proposal`, `paper`, `book`, `thesis`, `exam`, `course`, `talk`, `screenplay`, `resume`, `policy-and-legal`); read the one that fits |
 | `references/method/*` | do not read directly; it is copied to `panel/method/` and read there (including `rounds-criteria.md`, the round questions for the criteria family) |
 | `assets/panel-template/` | copied to `panel/` by the setup script |
 | `scripts/assemble_panel.py` | sets up or updates the `panel/` folder |

@@ -1,6 +1,6 @@
 # Panel composition
 
-How to choose the roles, write the personas and distribute the models. It applies to any field; ready field profiles are in `domains/` (games, software, scientific papers, books, theses, exams), and for any other field you build one from these rules with the same header (families, what round 3 tests, users label). Write the personas in the language recorded in `config.md`.
+How to choose the roles, write the personas and distribute the models. It applies to any field; ready field profiles are in `domains/` (one file per field; see the list in `SKILL.md`), and for any other field you build one from these rules with the same header (families, what round 3 tests, users label). Write the personas in the language recorded in `config.md`.
 
 ## Sizes
 

@@ -32,7 +32,7 @@ This session is open at the project root and can read the concept document, the 
 - Decide the **family** (see `SKILL.md`, "Families") from the request and the material, and confirm it in the question block:
   - **audience:** the personas react to the work as its public would (players, users, customers, readers, students facing an exam). The default for concept, system and change.
   - **criteria:** a bench of jurors judges the work against explicit criteria (peer review, thesis committee, editorial assessment, grading an answer against its key). The run follows `method/rounds-criteria.md` instead of the round questions of `rounds.md`.
-- Pick the **field profile**: start from the one in `references/domains/` that fits (`game.md`, `software.md`, `paper.md`, `book.md`, `thesis.md`, `exam.md`). Its header says which families it supports, what round 3 tests in that field and the label for the users. When none fits (hardware, a service, an event…), build one from `references/composition.md` with the same header and record it in `prep/decisions.md`.
+- Pick the **field profile**: start from the one in `references/domains/` that fits (the file name is the field: `game`, `software`, `open-source`, `developer-docs`, `design-doc`, `hardware`, `business-plan`, `grant-proposal`, `paper`, `book`, `thesis`, `exam`, `course`, `talk`, `screenplay`, `resume`, `policy-and-legal`). Its header says which families it supports, what round 3 tests in that field and the label for the users. When none fits (hardware, a service, an event…), build one from `references/composition.md` with the same header and record it in `prep/decisions.md`.
 - **Read all the material before asking** (for a long work, enough to know its parts and their size), but for system and change only the **light survey** of `extract-system.md` (section 2) at this stage: the folder tree, the README and the index of the documentation, the size of each area and the entry points. That is enough for the system's size and areas to go into the questions. The full extraction comes after the answers, limited to the scope the author chose: sweeping a large repository whole before knowing the scope costs a lot and is mostly thrown away.
 - For system and change, the panel lives **inside the repository**, in `panel/` at the root. Setup generates the configuration that keeps the run from seeing the repository's `CLAUDE.md`, the project rules and the git history (section 6).
 
@@ -52,7 +52,7 @@ The other items, when the material does not answer them:
 
 | Item | Why it matters |
 |---|---|
-| Field (game, app, physical product, service, business, scientific paper, book, thesis, exam, other) | picks the field profile and the vocabulary |
+| Field (game, app, open-source project, developer docs, design document, physical product, service, business plan, grant proposal, scientific paper, book, thesis, exam, course, talk, screenplay, résumé, policy or legal text, other) | picks the field profile and the vocabulary |
 | **Family**: "Should the jury react as the work's public (audience) or judge it against criteria (criteria)?", with your recommendation from the request | picks the round questions (`rounds.md` or `rounds-criteria.md`) and the bench |
 | **Criteria** (criteria family): the author's rubric, answer key, journal guidelines or program regulation, if they have one; if not, the 3 to 7 criteria you propose from the field profile, for the author to confirm or change | they become the grid dimensions; criteria the author gave go verbatim into `input/03-criteria.md`. If a list to rank is active in the criteria family, its draw happens before round 1 |
 | **Scope** (type work longer than about 5,000 words): which chapters, sections or questions the panel judges | goes into `config.md` as `- Scope:`; users and jurors receive only the scoped excerpt, and experts also get `input/04-summary-of-the-rest.md`; see `references/work.md` |
@@ -155,7 +155,7 @@ Keep the headings and the field names (`- Language:`, `- Defined:`, `- Checkpoin
 - Type: concept | system | change | work
 - Family: audience | criteria
 - Language: <language of the conversation with the author; default English>
-- Domain: <field profile used: game | software | paper | book | thesis | exam | built for this panel: ...>
+- Domain: <field profile used (the file name in references/domains/, without .md) | built for this panel: ...>
 - Version: <version of the concept or system>   → outputs in rounds/v<version>/
 - Source: <concept document | commit and branch | plan file + commit | the work's file(s) and version>
 - Extracted scope: <whole system | areas>   (system and change types)
