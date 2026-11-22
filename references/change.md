@@ -58,7 +58,7 @@ As in `prepare.md`. Include the alternatives the author considered: they become 
 
 ## 4. Personas and configuration
 
-- **Users:** the current ones, derived from the system (`extract-system.md`, section 5), plus **one or two who do not use it**: someone who might start using it because of the change, or might give up because of it. 8 in total in the lean panel, as with the other types.
+- **Users:** the current ones, derived from the system (`extract-system.md`, section 5), plus **one or two who do not use it**: someone who might start using it because of the change, or might give up because of it. 8 in total at the standard effort level (4 at quick, 11 at deep), as with the other types.
 - **Experts:** the four in `composition.md`, with the "build" function focused on **migration, compatibility and operations** and the "systems and loopholes" function focused on **the new loopholes and edge cases the change creates**.
 - **Dimensions** (in `config.md`, with these `id`s; each is a question answered with a stance: yes, only if <condition>, or no):
 
