@@ -1,6 +1,6 @@
 # Outputs
 
-Everything goes in `rounds/v<version>/`, written in the language set in `config.md` (`- Language:`).
+Everything goes in `rounds/v<version>/`, written in the language set in `config.md` (`- Language:`). For the criteria family, `method/rounds-criteria.md` ("Round 5") says how each file below reads for a work judged against criteria: no overall verdict by majority, the tally and the divergences per criterion.
 
 **Two readers, two formats:**
 
@@ -69,23 +69,24 @@ The template's example data is fictitious and neutral ("User A", "Item A"). Do n
 | `meta.panelSize` | "lean panel" or "full panel", in the report language |
 | `meta.composition` | the actual panel, for example "8 users, 4 experts and 2 adversaries" |
 | `meta.domain` | domain from `config.md` |
-| `meta.type` | `"concept"`, `"system"` or `"change"`, from `config.md`; changes the sentence at the top of the report |
-| `meta.usersLabel` | what the domain calls its users ("Users", "Players", "Customers"), in the report language |
+| `meta.type` | `"concept"`, `"system"`, `"change"` or `"work"`, from `config.md`; changes the sentence at the top of the report |
+| `meta.family` | optional, default `"audience"`; `"criteria"` when `config.md` says `- Family: criteria`. It switches the stances grid, its legend, the conditions list and the quick wins intro to the criteria wording (the `*Criteria` labels: "Each juror, criterion by criterion", "meets", "only if revised", "does not meet", "Bench") without changing any enum value |
+| `meta.usersLabel` | what the domain calls its users ("Users", "Players", "Readers", "Students"; in the criteria family "Jurors", "Reviewers" or "Committee"), in the report language |
 | `meta.language` | the language from `config.md` (e.g. `English`, `Brazilian Portuguese`) |
 | `meta.audienceDefined` | optional, default `true`; `false` when `config.md` says `- Defined: no` under `## Audience`. It hides the panel tally row of the stances grid, because tallying together profiles that want opposite things says nothing |
 | `summary` | 3 to 5 conclusions from the moderator, one sentence each |
-| `dimensions` | those in `config.md`, with the same `id`, in round order. Each has `id`, `name` and `question` (the question from `config.md`). The **last** one colors the seats of the table at the top of the report by stance (willingness to try or to accept) |
-| `users[]` | `id`, `name`, `profile` (one line), `model`, final `stances`: `{"<dimension id>": {"stance": "yes" | "only if" | "no" | "does not apply", "condition": "...", "reason": "..."}}`, with round 2 stances for that round's dimensions and, for the round 1 dimension (curiosity, or relevance for a change), the stance revised in round 2 when the persona revised it, otherwise the round 1 stance; `condition` is required for `only if`, `reason` is optional (one sentence); `understood`, `attracted`, `putOff`, `dropOut` (one sentence each, from rounds 1 and 2). There is no clarity stance: comprehension goes to `pitchIssues` |
+| `dimensions` | those in `config.md`, with the same `id`, in round order. Each has `id`, `name` and `question` (the question from `config.md`). In the criteria family they are the **criteria** ("Does the work meet <criterion>?"). The **last** one colors the seats of the table at the top of the report by stance (willingness to try or to accept; in the criteria family, the last criterion) |
+| `users[]` | `id`, `name`, `profile` (one line), `model`, final `stances`: `{"<dimension id>": {"stance": "yes" | "only if" | "no" | "does not apply", "condition": "...", "reason": "..."}}`, with round 2 stances for that round's dimensions and, for the round 1 dimension (curiosity, or relevance for a change), the stance revised in round 2 when the persona revised it, otherwise the round 1 stance; `condition` is required for `only if`, `reason` is optional (one sentence); `understood`, `attracted`, `putOff`, `dropOut` (one sentence each, from rounds 1 and 2). There is no clarity stance: comprehension goes to `pitchIssues`. In the criteria family the same four fields hold the juror's reading of the work, its strongest part, its main weakness and the revision that would change their verdict most (`rounds-criteria.md`, round 5) |
 | `pitchIssues[]` | optional; the pitch problems from the comprehension check: `sentence` (the sentence or idea of the pitch), `intended` (what it meant to say), `understoodAs` (how it was understood), `who` (ids). Only sentences that half of the users or more understood differently. The section is hidden when the list is empty or absent |
 | `comparison[]` | optional, re-evaluation only: `problem`, `status` (`resolved`, `partly`, `unresolved` or `new`), `note` (the evidence from this run). Hidden when absent |
 | `tensions[]` | disagreements from the debate and from round 2: `title`, `evidence`, `severity` (1 to 3), `for` and `against` with `who` (ids) and `text`, `proposal`, `loss`, `experiment`. Reactions to a revenue model go here |
-| `quickWins[]` | the quick wins from the debate (the smallest changes proposed), one entry per proposal: `point` (the debate point, as a short title), `change`, `solves`, `loss`, `proposedBy`, `support` and `against` (ids). Merged proposals list every proposer. Ordered by point; inside a point, the report sorts by support |
+| `quickWins[]` | the quick wins from the debate (the smallest changes proposed; in the criteria family, the smallest revisions to the work that change a verdict), one entry per proposal: `point` (the debate point, as a short title), `change`, `solves`, `loss`, `proposedBy`, `support` and `against` (ids). Merged proposals list every proposer. Ordered by point; inside a point, the report sorts by support |
 | `audienceSplit[]` | optional, when the audience is undefined: `group`, `wants`, `who` (ids), `cost` (what choosing this group as the audience would cost). Hidden when absent |
 | `risks[]` | `title`, `category` (`design`, `audience`, `production`, `scope` or `market`), `severity` and `likelihood` (1 to 3), `description`, `who` |
 | `strengths[]` | `title`, `description`, `who`; optional `opposedBy` (ids) and `opposition` (one sentence: why they opposed it) |
 | `experts[]` | `id`, `role`, `opinion`, `mainProblem`, `recommendation` |
 | `adversaries[]` | `id`, `role`, `arguments[]` with `title` and `text` |
-| `scenarios[]` | round 3: `situation`, `outcome`, `classification` (`"hypothesis"` or `"proven problem"`) |
+| `scenarios[]` | round 3: `situation`, `outcome`, `classification` (`"hypothesis"` or `"proven problem"`). In the criteria family, `situation` is the claim and the objection, `outcome` whether the work answers it |
 | `hypotheses[]` | `hypothesis`, `test`, `signal`, `priority` (`high`, `medium` or `low`) |
 | `launch` | optional; omit it if it was not asked. `title`, `intro`, `recommendation`, `reasons[]`, `preferences[]` (`who`, `where`), `caveats` |
 | `list` | optional; omit it if inactive. `title`, `order[]` with `name`, `comment`, `first` (ids), `rejected` (ids); `note` with the conflicts found and what stayed **[not verified]** |
@@ -95,8 +96,8 @@ The template's example data is fictitious and neutral ("User A", "Item A"). Do n
 
 Conventions:
 
-- Stances: `"yes"`, `"only if"` (always with its `condition`) or `"no"`. They replace the 1-to-5 scores of earlier versions: in a real run, every score fell between 2 and 4 and several users answered 3/3/3, which said nothing a condition would not say better. `"does not apply"` (always with its `reason`) is for a question that does not fit the persona's relation to the project; it stays out of the tally.
-- **Enum values stay in English** whatever the report language: `evidence` only accepts `"observation"`, `"hypothesis"` or `"proven problem"`; `classification` only `"hypothesis"` or `"proven problem"`; `priority` only `high`, `medium` or `low`; `category` one of the five above; `meta.type` one of the three above; `comparison[].status` only `resolved`, `partly`, `unresolved` or `new`; `stance` only `yes`, `only if` or `no`. The page shows them through the labels.
+- Stances: `"yes"`, `"only if"` (always with its `condition`) or `"no"`. In the criteria family the values are the same and mean meets, meets only with the revision in `condition`, and does not meet; `reason` carries the reason and the passage of the work quoted. They replace the 1-to-5 scores of earlier versions: in a real run, every score fell between 2 and 4 and several users answered 3/3/3, which said nothing a condition would not say better. `"does not apply"` (always with its `reason`) is for a question that does not fit the persona's relation to the project; it stays out of the tally.
+- **Enum values stay in English** whatever the report language: `evidence` only accepts `"observation"`, `"hypothesis"` or `"proven problem"`; `classification` only `"hypothesis"` or `"proven problem"`; `priority` only `high`, `medium` or `low`; `category` one of the five above; `meta.type` one of the four above; `meta.family` only `audience` or `criteria`; `comparison[].status` only `resolved`, `partly`, `unresolved` or `new`; `stance` only `yes`, `only if`, `no` or `does not apply`. The page shows them through the labels.
 - Every `who` (including those of `pitchIssues` and `audienceSplit`), `opposedBy`, `first`, `rejected`, `proposedBy`, `support`, `against` and `preferences[].who` uses ids that exist in `users`, `experts` or `adversaries`.
 - All free text (summary, titles, descriptions, names, comments) is written in the report language.
 

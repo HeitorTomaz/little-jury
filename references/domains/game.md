@@ -1,5 +1,9 @@
 # Domain profile: games
 
+- **Families:** audience (the usual one: players react to the game). Criteria only when the author wants the game judged against explicit criteria, such as a game jam's rules or a publisher's submission requirements; then the criteria come from that document.
+- **Round 3 tests:** the game's rules in extreme scenarios (dominant strategies, loopholes, rules that contradict each other).
+- **Users label:** Players
+
 A starting point for evaluating a game. It comes from a pilot that evaluated a game. The personas below are generic for games; **adapt them to the game being evaluated**, especially the imagined-audience one, and replace "usually plays" examples that make no sense for the genre. Write them in the language recorded in `config.md`.
 
 ## Vocabulary

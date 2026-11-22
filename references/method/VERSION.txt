@@ -1,4 +1,13 @@
-mock-jury, method 0.8.0 (2026-11-22)
+mock-jury, method 0.9.0 (2026-11-22)
+0.9.0: any field. New type `work` (a paper, manuscript, thesis, exam or answer read as it is: the work goes in
+verbatim after a short header; its own opening is the pitch; long works are scoped, and experts also get a
+structured summary of the rest, so the 5,000-word limit is per call). New `- Family:` in config.md: audience
+(personas react as the public, as before) or criteria (a bench of jurors judges the work against 3 to 7
+explicit criteria, every stance quoting its passage; experts on method, evidence, consistency and sources;
+the destroyer as the harshest reviewer; round 3 puts central claims against objections; the debate takes
+the criteria where the bench split; quick wins are the smallest revisions that change a verdict; no overall
+verdict by majority). Exam answers: one anonymized answer per panel, up to five. Round 3 may test rules,
+claims or questions, as config.md says. Field profiles for software, papers, books, theses and exams.
 0.8.0: one invocation. /mock-jury, with optional free text (what the author wants to find out, a change plan
 file, a scope), replaces the prepare and run subcommands; the skill decides by the state of the folder
 whether to prepare, run, resume or offer a re-evaluation. Without stated objectives, the question block

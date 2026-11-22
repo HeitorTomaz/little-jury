@@ -16,6 +16,9 @@
   Each user answers each grid dimension with a stance: "yes", "only if" (with its condition) or "no";
   "does not apply" (with its reason) when the question does not fit the persona's relation to the project,
   and then it stays out of the tally.
+  meta.family is "audience" (default) or "criteria". With "criteria", the users are a bench of jurors, the
+  dimensions are criteria, and the labels with a "Criteria" (or "_criteria") variant use that variant.
+  meta.type is concept, system, change or work.
   The "who" fields take the ids of users, experts and adversaries.
 -->
 <style>
@@ -276,6 +279,7 @@ footer{margin-top:56px; padding:20px 0 48px; border-top:1px solid var(--rule); f
   "type_concept": "Concept evaluation, version {version}",
   "type_system": "System evaluation, version {version}",
   "type_change": "Evaluation of a change to the system, version {version}",
+  "type_work": "Evaluation of a work, version {version}",
   "metaLine": "Evaluated on {date} by a {panelSize} of {composition}.",
   "exampleNotice": "Example data, written to show the format. No panel has run yet.",
   "conclusionsTitle": "What the panel concluded",
@@ -332,6 +336,7 @@ footer{margin-top:56px; padding:20px 0 48px; border-top:1px solid var(--rule); f
   "quickWinsTitle": "Quick wins",
   "quickWinsNav": "Quick wins",
   "quickWinsIntro": "For each point of the debate, the smallest change to a rule or decision that would solve the problem, the cheapest fix for its effect: what it solves, what is lost, and who supported or opposed it.",
+  "quickWinsIntroCriteria": "For each point of the debate, the smallest revision that changes a verdict: what it fixes, what it costs, and who on the bench supported or opposed it.",
   "quickWinSolves": "What it solves",
   "quickWinLoss": "What is lost",
   "quickWinProposedBy": "Proposed by {who}.",
@@ -365,18 +370,26 @@ footer{margin-top:56px; padding:20px 0 48px; border-top:1px solid var(--rule); f
   "category_market": "market",
   "pointedOutBy": "Pointed out by {who}.",
   "stancesTitle": "Each persona, question by question",
+  "stancesTitleCriteria": "Each juror, criterion by criterion",
   "stancesNav": "Stances",
+  "stancesNavCriteria": "Criteria",
   "stancesIntro": "One row per persona and one column per question, each answered yes, only if (with a condition) or no. Open a row to read the reasons and conditions, what the persona understood, what attracted them and what would make them give up.",
+  "stancesIntroCriteria": "One row per juror and one column per criterion, each judged meets, only if revised (with the revision it asks for) or does not meet. Open a row to read the reasons and the passages of the work each juror relied on.",
   "stance_yes": "yes",
   "stance_onlyif": "only if",
   "stance_no": "no",
+  "stance_yes_criteria": "meets",
+  "stance_onlyif_criteria": "only if revised",
+  "stance_no_criteria": "does not meet",
   "stance_na": "does not apply",
   "noStance": "no answer",
   "stanceAria": "{dimension}: {stance}",
   "stanceDetail": "{stance}: {condition}",
   "panelTally": "Panel",
+  "panelTallyCriteria": "Bench",
   "tallyLine": "{count} {stance}",
   "conditionsTitle": "What the \"only if\" answers depend on",
+  "conditionsTitleCriteria": "What each \"only if revised\" asks to revise",
   "conditionBy": "{condition} ({who})",
   "profileModel": "{profile}. Model: {model}",
   "readEvaluation": "Read evaluation",
@@ -385,7 +398,12 @@ footer{margin-top:56px; padding:20px 0 48px; border-top:1px solid var(--rule); f
   "attracted": "What attracted them",
   "putOff": "What put them off",
   "dropOut": "Likely reason to give up",
+  "understoodCriteria": "How they read the work",
+  "attractedCriteria": "Strongest part of the work",
+  "putOffCriteria": "Main weakness",
+  "dropOutCriteria": "The revision that would change their verdict most",
   "stancesNote": "Stances show what each profile's answer depends on; they are not votes. A tally of a few simulated personas does not predict acceptance: the conditions behind \"only if\" are the useful part, and rows that differ a lot point to a divided audience.",
+  "stancesNoteCriteria": "Verdicts are per juror and per criterion; they are not votes, and the bench's tally does not decide an overall result. The revisions behind \"only if revised\" are the useful part, and the criteria where the bench split are the ones to look at.",
   "expertsTitle": "What the experts said",
   "expertsNav": "Experts",
   "mainProblem": "Main problem",
@@ -420,6 +438,9 @@ footer{margin-top:56px; padding:20px 0 48px; border-top:1px solid var(--rule); f
   "method_1": "First impression: each persona in the {usersLabel} group reads a short pitch alone.",
   "method_2": "Detailed analysis: everyone receives the full description, apart from each other; the experts look for contradictions and loopholes.",
   "method_3": "Extreme situations: the moderator tests the rules with hypothetical scenarios.",
+  "method_1Criteria": "First reading: each juror in the {usersLabel} group judges the work alone, criterion by criterion, quoting the passages each verdict rests on.",
+  "method_2Criteria": "Detailed analysis: the experts examine method, evidence and sources, and the harshest reviewer gives the strongest reasons to reject the work.",
+  "method_3Criteria": "Claims under challenge: the moderator puts the work's central claims against the strongest objections raised.",
   "method_4": "Debate: the participants learn each other's positions and the adversaries challenge the consensus.",
   "method_5": "Consolidation: the moderator separates what is proven from what is a hypothesis, without forcing agreement.",
   "limitsTitle": "Limits of this run",
@@ -439,6 +460,7 @@ footer{margin-top:56px; padding:20px 0 48px; border-top:1px solid var(--rule); f
     "composition": "3 users, 2 experts and 2 adversaries (example)",
     "domain": "example",
     "type": "concept",
+    "family": "audience",
     "usersLabel": "Users",
     "language": "English",
     "audienceDefined": true
@@ -778,7 +800,14 @@ footer{margin-top:56px; padding:20px 0 48px; border-top:1px solid var(--rule); f
   var STC = {'yes':'yes', 'only if':'onlyif', 'no':'no', 'does not apply':'na'};
   function stanceOf(u, dimId){ var v = (u.stances||{})[dimId]; return (v && STC[v.stance]) ? v : null; }
   function stClass(v){ return v ? STC[v.stance] : 'none'; }
-  function stWord(v){ return v ? L('stance_' + STC[v.stance]) : L('noStance'); }
+  var CRIT = m.family === 'criteria';
+  // Criteria family: use the label's criteria variant when it exists ("stance_yes" -> "stance_yes_criteria",
+  // "stancesTitle" -> "stancesTitleCriteria"), otherwise the usual label.
+  function LC(key, vars){
+    if(CRIT){ var alt = /^stance_/.test(key) ? key + '_criteria' : key + 'Criteria'; if(LBL[alt] !== undefined || DEF[alt] !== undefined) return L(alt, vars); }
+    return L(key, vars);
+  }
+  function stWord(v){ return v ? LC('stance_' + STC[v.stance]) : L('noStance'); }
 
   var langs = {'english':'en', 'brazilian portuguese':'pt-BR', 'portuguese':'pt', 'spanish':'es', 'french':'fr', 'german':'de', 'italian':'it'};
   document.documentElement.lang = langs[String(m.language || 'English').toLowerCase()] || 'en';
@@ -800,7 +829,7 @@ footer{margin-top:56px; padding:20px 0 48px; border-top:1px solid var(--rule); f
 
   /* Opening */
   var ot = document.getElementById('opening-text');
-  var typeKey = {'system':'type_system', 'change':'type_change'}[m.type] || 'type_concept';
+  var typeKey = {'system':'type_system', 'change':'type_change', 'work':'type_work'}[m.type] || 'type_concept';
   add(ot, h('p', 'kind', L(typeKey, {version: m.version || '?'})));
   add(ot, h('h1', null, m.concept || '?'));
   add(ot, h('p', 'when', L('metaLine', {date: m.date || '?', panelSize: m.panelSize || '?', composition: m.composition || '?'})));
@@ -853,7 +882,7 @@ footer{margin-top:56px; padding:20px 0 48px; border-top:1px solid var(--rule); f
     var kst = [k1];
     var keys = [['yes','--st-yes'], ['onlyif','--st-if'], ['no','--st-no']];
     if(seats.some(function(l){ return l.stance && l.stance.stance === 'does not apply'; })) keys.push(['na','--rule']);
-    keys.forEach(function(p){ var k = h('span', 'key'); var sw = h('span', 'swatch'); sw.style.background = 'var(' + p[1] + ')'; add(k, sw); k.appendChild(document.createTextNode(L('stance_' + p[0]))); kst.push(k); });
+    keys.forEach(function(p){ var k = h('span', 'key'); var sw = h('span', 'swatch'); sw.style.background = 'var(' + p[1] + ')'; add(k, sw); k.appendChild(document.createTextNode(LC('stance_' + p[0]))); kst.push(k); });
     var k2 = h('span', 'key'); add(k2, h('span', 'dot exp')); k2.appendChild(document.createTextNode(L('legendExpert')));
     var k3 = h('span', 'key'); add(k3, h('span', 'dot adv')); k3.appendChild(document.createTextNode(L('legendAdversary')));
     kst.forEach(function(k){ add(cap, k); }); add(cap, k2, k3); add(fig, cap);
@@ -938,7 +967,7 @@ footer{margin-top:56px; padding:20px 0 48px; border-top:1px solid var(--rule); f
   } else empty(wt, L('noTensions'));
 
   /* Quick wins */
-  var wsc = section('quick-wins', L('quickWinsTitle'), L('quickWinsNav'), L('quickWinsIntro'));
+  var wsc = section('quick-wins', L('quickWinsTitle'), L('quickWinsNav'), LC('quickWinsIntro'));
   var sc = D.quickWins || [];
   if(sc.length){
     var order = [], byPoint = {};
@@ -1023,7 +1052,7 @@ footer{margin-top:56px; padding:20px 0 48px; border-top:1px solid var(--rule); f
   } else empty(wr);
 
   /* Stances per persona */
-  var wm = section('scores', L('stancesTitle'), L('stancesNav'), L('stancesIntro'));
+  var wm = section('scores', LC('stancesTitle'), LC('stancesNav'), LC('stancesIntro'));
   if(dims.length && users.length){
     var box = h('div', 'grid'), tb = h('table'), thead = h('thead'), trh = h('tr');
     var th0 = h('th', 'who-col', usersLabel); th0.scope = 'col'; add(trh, th0);
@@ -1052,21 +1081,21 @@ footer{margin-top:56px; padding:20px 0 48px; border-top:1px solid var(--rule); f
         if(v.reason) txt += (/[.!?…:]$/.test(txt) ? ' ' : '. ') + v.reason;
         pair(cdl, d.question || d.name, txt, true);
       });
-      pair(cdl, L('understood'), u.understood, true); pair(cdl, L('attracted'), u.attracted, true); pair(cdl, L('putOff'), u.putOff, true); pair(cdl, L('dropOut'), u.dropOut, true);
+      pair(cdl, LC('understood'), u.understood, true); pair(cdl, LC('attracted'), u.attracted, true); pair(cdl, LC('putOff'), u.putOff, true); pair(cdl, LC('dropOut'), u.dropOut, true);
       add(tdc, cdl); add(trc, tdc);
       bt.addEventListener('click', function(){ var open = trc.hidden; trc.hidden = !open; bt.setAttribute('aria-expanded', open ? 'true' : 'false'); tog.textContent = open ? L('close') : L('readEvaluation'); });
       add(tbody, tr, trc);
     });
     var showTally = m.audienceDefined !== false;
     if(showTally){
-      var trm = h('tr', 'panel-tally'); add(trm, h('td', 'name muted sans', L('panelTally')));
+      var trm = h('tr', 'panel-tally'); add(trm, h('td', 'name muted sans', LC('panelTally')));
       dims.forEach(function(d){
         var td = h('td'), cell = h('div', 'tally-cell');
         [['yes','--st-yes'], ['only if','--st-if'], ['no','--st-no']].forEach(function(p){
           var cnt = users.filter(function(u){ var v = stanceOf(u, d.id); return v && v.stance === p[0]; }).length;
           if(!cnt) return;
           var line = h('span'); var sw = h('i', 'swatch'); sw.style.background = 'var(' + p[1] + ')'; add(line, sw);
-          line.appendChild(document.createTextNode(L('tallyLine', {count: cnt, stance: L('stance_' + STC[p[0]])}))); add(cell, line);
+          line.appendChild(document.createTextNode(L('tallyLine', {count: cnt, stance: LC('stance_' + STC[p[0]])}))); add(cell, line);
         });
         if(!cell.childNodes.length) cell.textContent = '–';
         add(td, cell); add(trm, td);
@@ -1076,7 +1105,7 @@ footer{margin-top:56px; padding:20px 0 48px; border-top:1px solid var(--rule); f
     add(tb, tbody); add(box, tb); add(wm, box);
     if(!showTally) add(wm, h('p', 'footnote', L('noTallyNote')));
     var cond = h('div', 'conditions'), anyCond = false;
-    add(cond, h('h3', null, L('conditionsTitle')));
+    add(cond, h('h3', null, LC('conditionsTitle')));
     dims.forEach(function(d){
       var items = users.map(function(u){ var v = stanceOf(u, d.id); return (v && v.stance === 'only if') ? {u:u, v:v} : null; }).filter(Boolean);
       if(!items.length) return;
@@ -1084,7 +1113,7 @@ footer{margin-top:56px; padding:20px 0 48px; border-top:1px solid var(--rule); f
       var ulc = h('ul'); items.forEach(function(x){ add(ulc, h('li', null, L('conditionBy', {condition: x.v.condition || '', who: x.u.name}))); }); add(cond, ulc);
     });
     if(anyCond) add(wm, cond);
-    add(wm, h('p', 'footnote', L('stancesNote')));
+    add(wm, h('p', 'footnote', LC('stancesNote')));
   } else empty(wm);
 
   /* Experts and adversaries */
@@ -1158,7 +1187,7 @@ footer{margin-top:56px; padding:20px 0 48px; border-top:1px solid var(--rule); f
   /* Method */
   var wmt = section('method', L('methodTitle'), L('methodNav'));
   var olr = h('ol', 'order');
-  [1,2,3,4,5].forEach(function(i){ add(olr, h('li', null, L('method_' + i, {usersLabel: usersLabel.toLowerCase()}))); });
+  [1,2,3,4,5].forEach(function(i){ add(olr, h('li', null, LC('method_' + i, {usersLabel: usersLabel.toLowerCase()}))); });
   add(wmt, olr);
   if(n(D.limits)){
     var bl = h('div', 'block'); add(bl, h('h3', null, L('limitsTitle')));

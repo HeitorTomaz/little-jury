@@ -26,7 +26,8 @@ EVIDENCE = {"observation", "hypothesis", "proven problem"}
 CLASSIFICATIONS = {"hypothesis", "proven problem"}
 PRIORITIES = {"high", "medium", "low"}
 CATEGORIES = {"design", "audience", "production", "scope", "market"}
-TYPES = {"concept", "system", "change"}
+TYPES = {"concept", "system", "change", "work"}
+FAMILIES = {"audience", "criteria"}
 STATUSES = {"resolved", "partly", "unresolved", "new"}
 STANCES = {"yes", "only if", "no", "does not apply"}
 COUNTED = {"yes", "only if", "no"}
@@ -69,14 +70,21 @@ def validate(d: dict, example: dict, default_labels: dict):
         if not meta.get(k):
             errors.append(f"meta.{k} is empty")
     if meta.get("type") not in TYPES:
-        errors.append(f"meta.type must be concept, system or change (got {meta.get('type')!r})")
+        errors.append(f"meta.type must be concept, system, change or work (got {meta.get('type')!r})")
+    if meta.get("family", "audience") not in FAMILIES:
+        errors.append(f"meta.family must be audience or criteria (got {meta.get('family')!r})")
+    criteria = meta.get("family") == "criteria"
+    if criteria and not meta.get("usersLabel"):
+        warnings.append("meta.family is criteria but meta.usersLabel is empty: the bench will be labelled 'Users'")
 
     labels = d.get("labels") or {}
     unknown = sorted(k for k in labels if k not in default_labels)
     for k in unknown:
         errors.append(f"labels: unknown key '{k}'")
     if not is_english(meta.get("language")):
-        missing = sorted(k for k in default_labels if not labels.get(k))
+        # Criteria variants ("...Criteria", "stance_..._criteria") are only needed in a criteria report.
+        needed = [k for k in default_labels if criteria or not (k.endswith("Criteria") or k.endswith("_criteria"))]
+        missing = sorted(k for k in needed if not labels.get(k))
         if missing:
             errors.append(f"meta.language is {meta.get('language')!r}: labels must translate every key; "
                           f"{len(missing)} missing, e.g. {', '.join(missing[:5])}")

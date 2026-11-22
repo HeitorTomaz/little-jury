@@ -1,12 +1,15 @@
 # mock-jury
 
-A [Claude Code](https://code.claude.com) skill that puts your project in front of a **mock jury**: a panel of synthetic personas (users, experts and two adversaries) that review it in isolated rounds and hand you an HTML report with the tensions, risks, gaps and what to test first.
+A [Claude Code](https://code.claude.com) skill that puts your project or your work in front of a **mock jury**: a panel of synthetic personas (users or jurors, experts and two adversaries) that review it in isolated rounds and hand you an HTML report with the tensions, risks, gaps and what to test or revise first.
 
-It works on three kinds of project:
+It is not only for software. It works on:
 
-- **a concept** that is still on paper (a game, an app, a service, a business);
+- **a concept** that is still on paper (a game, an app, a product, a service, a business);
 - **an existing system**, described from its code, docs and comments;
-- **a planned change** to an existing system, described in a plan file.
+- **a planned change** to an existing system, described in a plan file;
+- **a piece of work** judged as written: a scientific paper, a book or chapter, a thesis, an exam and its answer key, an exam answer.
+
+The jury works in one of two ways. In the **audience** family, the personas react as your public would (players, users, readers, students facing an exam). In the **criteria** family, a bench of jurors judges the work against explicit criteria, like a peer review, a thesis committee or a grader with an answer key.
 
 The jury deliberates; **you decide**. The report never gives a verdict.
 

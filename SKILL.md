@@ -1,6 +1,6 @@
 ---
 name: mock-jury
-description: Critically evaluates a project still on paper, a system that already exists, or a planned change to an existing system (game, app, product, service, business) with a mock jury, a panel of synthetic personas (users, experts and adversarial agents) that work in isolated rounds and end in a report with tensions, risks, gaps and hypotheses to test. Use it whenever someone wants to put a concept document, a change plan, an idea not yet built or their own system through a critical review, simulate how different audiences would react, "test it with personas", find contradictions and loopholes in their own rules, decide what to test first, or rank names and other candidates with simulated opinion, even if they never say "panel" or "mock jury". Also use it to resume or continue a panel already set up (a panel/ folder with method/ or progress.md). Requires isolated Claude Code subagents.
+description: Critically evaluates a project, a piece of work or a planned change in any field (game, app, product, service, hardware, scientific paper, book, thesis, exam) with a mock jury, a panel of synthetic personas (users or a bench of jurors, experts and adversarial agents) working in isolated rounds, ending in a report with tensions, risks, gaps and what to test or revise first. Use it whenever someone wants a concept, an existing system, a change plan, a manuscript or an exam put through critical review, to simulate how different audiences would react ("test it with personas"), to "review my paper like a peer reviewer", to run a mock thesis committee, to grade an exam answer against its key, to check whether an exam is fair and clear, to find contradictions and loopholes in their own rules, or to rank names with simulated opinion, even if they never say "panel" or "mock jury". Also resumes a panel already set up (a panel/ folder). Requires isolated Claude Code subagents.
 argument-hint: "[what you want to find out] [change-plan-file]"
 ---
 
@@ -10,7 +10,7 @@ A mock jury: a panel of agents that examines a project the way an independent gr
 
 **Language.** Talk to the user and write every output in the language the user is using in this conversation; default to English. Preparation records it in `config.md` as `- Language: <language>`, because the isolated run session cannot see this conversation. The method files stay in English; everything the panel produces (questions to the author, inputs, personas, persona prompts and answers, round files, `.md` outputs, report data and report labels) is in that language. The skill's machine-readable vocabulary stays in English in every language: markers such as `[decided]` or `[implemented]`, ids, dimension ids, file and folder names, JSON keys and enum values. The "How to read" block of the full description explains the markers in the author's language.
 
-**What the panel does well:** contradictions between the project's own rules; dominant strategies, shortcuts and loopholes; specification gaps; audience splits (what attracts one profile and pushes another away); minimal tests for the main hypothesis; checking external facts against a source. For an existing system, also divergences between documentation and code, and the impact of a change on what already exists.
+**What the panel does well:** contradictions between the project's own rules; dominant strategies, shortcuts and loopholes; specification gaps; audience splits (what attracts one profile and pushes another away); minimal tests for the main hypothesis; checking external facts against a source. For an existing system, also divergences between documentation and code, and the impact of a change on what already exists. For a piece of work judged against criteria (a paper, a thesis, an exam answer), also claims the work's own evidence does not support, passages that contradict each other, criteria on which reviewers would split, and the smallest revision that would change a verdict.
 
 **What it does not do, and you must tell the author if they expect it:** whether the proposal works or is enjoyed in practice; forecasts of market interest or commercial success; approval percentages. Simulated opinions are not research.
 
@@ -32,6 +32,15 @@ The words "prepare" and "run", if the author types them, are just part of that t
 
 Isolation is what gives the panel its value: if a persona sees the author's decision history, the arguments the author used to defend the idea, the code with its comments, or another persona's answer, it stops being an independent opinion. That is why the run never happens in the session that prepared it: the script `scripts/run_panel.py` opens a new Claude Code session (`claude -p`) with its working directory inside `panel/`, where the read block and the context exclusions apply.
 
+## Families
+
+There are two ways to put something in front of the jury, and preparation picks one (`- Family:` in `config.md`), confirming it with the author:
+
+- **audience:** the personas react to the work as its public would: players, users, customers, readers, students facing an exam. The grid questions are "Would you try it?", "Would it be worth it for you?" and so on.
+- **criteria:** a **bench of jurors** judges the work against explicit criteria, given by the author (rubric, answer key, journal guidelines, program regulation) or proposed by preparation and confirmed: peer review of a paper, a thesis committee, an editorial assessment, grading an exam answer. The grid questions are the criteria ("Does the work meet …?"), and the run follows `method/rounds-criteria.md`.
+
+Field profiles in `references/domains/` give a ready starting point for games, software, papers, books, theses and exams; any other field is built from `references/composition.md`.
+
 ## How to know what to do
 
 Look at where the session is and at the state of `panel/`, in this order:
@@ -48,6 +57,7 @@ Look at where the session is and at the state of `panel/`, in this order:
 | There is no project code; there is a concept document | **concept** | the concept document |
 | There is code (and maybe documentation) and no file was given | **system** | what the system does today, extracted from code, documentation and comments |
 | There is code and a file with the plan or description of a change was given | **change** | the plan + the part of the system it affects |
+| The object is a finished or draft piece of writing judged as written: a paper, a manuscript or chapter, a thesis, an exam and its answer key, an exam answer | **work** | the work itself, verbatim (`references/work.md`) |
 
 If the file given does not look like a change plan (for example, it is the concept of a new product in an empty repository), ask before deciding.
 
@@ -66,12 +76,12 @@ They apply to every type. Explain them to the author when asked for something th
 
 ## Prepare
 
-Read `references/prepare.md` and follow it. Depending on the type, it also points you to `references/extract-system.md` (system and change types) and `references/change.md` (change type). In short:
+Read `references/prepare.md` and follow it. Depending on the type, it also points you to `references/extract-system.md` (system and change types), `references/change.md` (change type) and `references/work.md` (work type). In short:
 
-1. Decide the type and read the material (for system and change, only a light survey of the repository at this stage).
+1. Decide the type, the family and the field profile, and read the material (for system and change, only a light survey of the repository at this stage).
 2. **A single block of questions to the author**, in their language: who the project is for, what they want to find out (confirming the objectives given with the invocation, or offering a general evaluation), what they fear, and whatever else the material does not answer.
 3. Write the neutral inputs in `prep/`, outside `panel/`, recording in `prep/removed.md` what was removed and in `prep/decisions.md` what you decided on the author's behalf.
-4. Propose personas and grid dimensions (`references/composition.md`; for games, `references/domains/game.md`) and run the self-check.
+4. Propose personas (or the bench of jurors) and grid dimensions (or criteria) from the field profile in `references/domains/` and `references/composition.md`, and run the self-check.
 5. Set up `panel/` with `scripts/assemble_panel.py` (which generates the context exclusions for the folder's location) and copy the inputs in.
 6. Start the isolated run with `scripts/run_panel.py`, wait, and deliver the report.
 
@@ -88,9 +98,10 @@ The run continues until the report. It stops only if an isolation test fails or 
 | `references/prepare.md` | prepare, start to finish |
 | `references/extract-system.md` | prepare for the system and change types |
 | `references/change.md` | prepare for the change type |
+| `references/work.md` | prepare for the work type (a paper, a manuscript, a thesis, an exam): the work goes in verbatim (`input/02-work.md`); scope and `input/04-summary-of-the-rest.md` for long works |
 | `references/composition.md` | when proposing personas and models |
-| `references/domains/game.md` | when the project is a game |
-| `references/method/*` | do not read directly; it is copied to `panel/method/` and read there |
+| `references/domains/*.md` | field profiles: `game.md`, `software.md`, `paper.md`, `book.md`, `thesis.md`, `exam.md`; read the one that fits |
+| `references/method/*` | do not read directly; it is copied to `panel/method/` and read there (including `rounds-criteria.md`, the round questions for the criteria family) |
 | `assets/panel-template/` | copied to `panel/` by the setup script |
 | `scripts/assemble_panel.py` | sets up or updates the `panel/` folder |
 | `scripts/run_panel.py` | runs or resumes the panel in an isolated session and opens the report |

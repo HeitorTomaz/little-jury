@@ -1,6 +1,6 @@
 # Panel composition
 
-How to choose the roles, write the personas and distribute the models. It applies to any domain; for games there is a ready profile in `domains/game.md`. Write the personas in the language recorded in `config.md`.
+How to choose the roles, write the personas and distribute the models. It applies to any field; ready field profiles are in `domains/` (games, software, scientific papers, books, theses, exams), and for any other field you build one from these rules with the same header (families, what round 3 tests, users label). Write the personas in the language recorded in `config.md`.
 
 ## Sizes
 
@@ -8,8 +8,9 @@ How to choose the roles, write the personas and distribute the models. It applie
 |---|---|---|---|---|---|
 | **Lean** (default) | 8 | 4 | 2 | 1 (the main session) | 50 to 70, up to 80 with a long debate |
 | **Full** | 11 | 5 | 2 | 1 | 60 to 90, up to 100 with a long debate |
+| **Lean, criteria family** | 6 jurors | 3 or 4 | 2 | 1 | 35 to 55 |
 
-The estimate adds up the isolation tests (2 to 3), round 1 (one per user), round 2 (users + experts + destroyer), round 3 (experts + 2 users), the contrarian (2) and the debate replies, which are the part that varies most: 3 to 5 points, with 3 to 5 participants each, in one or two turns (9 to 50 calls). Second turns are common, because a point with two or more different smallest changes always gets one. When presenting the plan, do the math with the expected agenda. The lean pilot made about 50 to 55 calls and spanned more than one usage window of the plan; `progress.md` makes it possible to resume.
+The estimate adds up the isolation tests (2 to 3), round 1 (one per user), round 2 (users + experts + destroyer), round 3 (experts + 2 users), the contrarian (2) and the debate replies, which are the part that varies most: 3 to 5 points, with 3 to 5 participants each, in one or two turns (9 to 50 calls). Second turns are common, because a point with two or more different smallest changes always gets one. When presenting the plan, do the math with the expected agenda. The criteria family is cheaper: six jurors answer in round 1 only (round 2 is experts and destroyer), and its debate points are the criteria where the bench split. The lean pilot made about 50 to 55 calls and spanned more than one usage window of the plan; `progress.md` makes it possible to resume.
 
 ## Users
 
@@ -47,6 +48,17 @@ Avoid personas that differ only in name. A quick test: for each pair of personas
 
 Start from the tensions the concept already suggests (simple × deep, solo × group, quick × long, free × paid, control × automation) and spread the personas across both sides of each. Use the domain's vocabulary ("customer", "patient", "student") in the roles, but the files and the report call the group "users".
 
+## Bench of jurors (criteria family)
+
+In the criteria family, the users' seats hold a **bench of jurors** who judge the work against the criteria in `config.md`. The report still calls the group `users` in the data, and `meta.usersLabel` names it for the reader ("Jurors", "Reviewers", "Committee", "Graders").
+
+- **Lean: 6 jurors, 3 per model.** Full: 8, 4 per model.
+- **Distinct profiles**, not copies: for example the strict one, the lenient one, the methodologist, the specialist of the topic, a reader from outside the field, a practitioner who would use the result. The field profile in `domains/` lists typical benches (peer reviewers, a thesis committee, graders).
+- **Spread strictness across both models.** A strict profile on one model only mixes up strictness and model: put a strict and a lenient juror on each model.
+- Each juror is written with the same structure as a user, adapted: **Perspective**, **Background** (instead of "Usually uses": what they have read, taught or reviewed), **Strictness** (instead of tolerance for complexity: lenient, moderate, strict, with one sentence on what they never let pass), **Looks for**, **Rejects when**.
+- Jurors judge **criterion by criterion** with the stances (yes = meets, only if = meets only with a revision, no = does not meet, does not apply), the reason first and a quoted passage of the work for each stance. "Does not apply" still applies: a criterion that does not fit the work (ethics approval for a text with no human subjects) is answered "does not apply", with the reason.
+- The roles that must exist for users (someone outside the audience, the imagined audience, opposite motivations) become: **someone from outside the field**, **someone from the venue the author named** (the journal, the committee, the exam board), and **opposite strictness**.
+
 ## Experts
 
 Four roles in the lean panel. Adapt the name to the domain, but keep the function:
@@ -57,6 +69,7 @@ Four roles in the lean panel. Adapt the name to the domain, but keep the functio
 | **Build** | technical producer | product engineer | operations specialist | which part is most expensive; what must exist to test the main hypothesis |
 | **Systems and loopholes** | systems specialist | security, abuse and edge-case specialist | finance or risk specialist | which combination of rules produces what nobody foresaw; which shortcut always works |
 | **Market (with web)** | publishing specialist | launch and app-store specialist | market and regulation specialist | who would look for this and where; when it has web access in a round, checks external facts in official documentation |
+| *Criteria family* | | | | *method or evidence (methodologist, statistician), the specialist of the topic, and a sources expert with web who checks citations and facts; a fourth only when the field needs it (ethics, norms of the program)* |
 
 In the full panel, add a fifth tied to the domain (game: narrative designer; app: user research or accessibility; business: legal).
 
@@ -64,7 +77,7 @@ Write each expert with what they evaluate and three or four typical questions. T
 
 ## Adversaries
 
-- **Concept destroyer (`destroyer`):** works from the full description, in round 2. Delivers the three strongest arguments for the project to fail, each with its chain of reasoning and with "what would knock this argument down". A claim without an argument does not count. Its role is to attack, so it is not an independent voice: it never counts in a convergence, consensus or "N of M agree".
+- **Concept destroyer (`destroyer`):** works from the full description, in round 2. Delivers the three strongest arguments for the project to fail, each with its chain of reasoning and with "what would knock this argument down". A claim without an argument does not count. In the criteria family it is the **harshest reviewer**: the three strongest reasons to reject or fail the work, each with its chain of reasoning and "what would answer this objection". Its role is to attack, so it is not an independent voice: it never counts in a convergence, consensus or "N of M agree".
 - **Consensus challenger (`contrarian`):** only created after round 3. Looks in the panel itself for repeated criticism with no basis, premises nobody checked and ignored strengths. The goal is to find the panel's mistakes, not to be negative on principle. Like the destroyer, it never counts as an agreeing voice.
 
 ## Moderator
@@ -91,6 +104,7 @@ Model diversity reduces artificial convergence: in the pilot, the four experts o
 | Role | Model (Agent alias) |
 |---|---|
 | Users | half `opus`, half `sonnet`; in each half, low **and** high tolerance profiles, so a model difference is not mistaken for a profile difference |
+| Jurors (criteria family) | 3 `opus`, 3 `sonnet`; a strict and a lenient juror on each model |
 | Experts | 2 `opus` and 2 `sonnet` (in the full panel, the fifth on `fable`); the one with web access goes on the model the author trusts most for checking |
 | Destroyer | `sonnet` |
 | Contrarian | `fable` |

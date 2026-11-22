@@ -1,0 +1,11 @@
+schema_version: "1.1"
+name: prepare-exam-audience
+context:
+  scaffold_script: place-files.sh
+expected_outcome: |
+  A teacher asks whether a short fictional quiz is fair and clear. The skill prepares a panel of type
+  work and family audience, starting from the exam field profile: the users are students with distinct
+  profiles (preparation, test-taking style, time pressure), the quiz goes into the panel verbatim, and
+  round 3 is framed as questions against possible answers (a correct answer the key would penalize, an
+  ambiguous reading). The students receive the quiz only; the answer key goes only to the experts, and
+  the skill records that decision. It assembles panel/ and stops without launching the run.

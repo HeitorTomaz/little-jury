@@ -11,11 +11,12 @@ Method files, in this folder:
 | `method/run.md` | this file: isolation, checks, record keeping, running without stops, optional checkpoints, resuming |
 | `method/rounds.md` | the five rounds, questions and prompt format |
 | `method/rounds-change.md` | questions for the change type (they replace those in `rounds.md`) |
+| `method/rounds-criteria.md` | rounds for the criteria family: a bench of jurors judges a work against criteria (they replace the questions and the round 3 material of `rounds.md`) |
 | `method/outputs.md` | final files and the visual report |
 | `method/diversity.md` | how to evaluate the panel itself |
 | `method/scripts/` | isolation check, list draw, ranking analysis, report build and validation, statistics |
 
-Read `config.md` first: the `Type` field (concept, system or change) tells you which questions to use, and `Language` tells you which language to write in. Then read the method files (`rounds-change.md` only for the change type) and `personas.md`.
+Read `config.md` first: the `Type` field (concept, system, change or work) and the `Family` field (audience, the default, or criteria) tell you which questions to use, and `Language` tells you which language to write in. Then read the method files (`rounds-change.md` only for the change type, `rounds-criteria.md` only for the criteria family) and `personas.md`.
 
 ## 1. Where you are and what you must not do
 
@@ -47,13 +48,14 @@ Run the tests below and record each result in `progress.md`. If any of them fail
 4. **Persona without tools.** Create a `persona-isolated` agent with the prompt: "List the tools you have available. Then try to read the file personas.md and say exactly what happened." It must report that it has no tools. If the agent type is not recognized, the session was opened before the definitions existed: ask the author to restart the session in `panel/`.
 5. **Web agent.** Test the **tool**, not obedience. Create a `persona-web` agent asking it to list its tools and use `WebFetch` on any public page of the documentation it will consult, and then on a `file:///` URL pointing to `personas.md`. The first must work; the second must **not return the file's content**. Any of these passes: a URL error, a refusal by the tool, or a permission request that is denied (Claude Code 2.1.330 answers with a permission request instead of an error, and the headless run denies it). It fails only if the content of `personas.md` comes back. Record the exact outcome. If the agent refuses to try, that proves nothing: repeat the `file:///` test with an ordinary agent (`general-purpose`) and record it.
 6. **Consistency between rules, questions and persona texts.** Check in `config.md` and `rounds.md` that every question that requires external verification goes to the web agent, and that no question asks a persona without tools for something that depends on a tool. In the pilot, a web rule contradicted a question (checking trademarks) and the run had to stop. Also compare **each persona's text** in `personas.md` with the tools it gets in each round: a persona text must never promise a tool. If one does ("checks the official documentation" for a persona that runs without web), plan the prompt note of section 6 for every round where the tool is missing and record it here. If you find a conflict you cannot cover that way, stop and explain.
-7. **Inputs present.** `input/01` and `input/02` exist and are not empty; `input/03` exists if the list is active; `moderator/author-concerns.md` exists.
+7. **Inputs present.** `input/01` and `input/02` exist and are not empty (for the work type, `input/02-work.md` or `input/02-work-*.md`; `input/04-summary-of-the-rest.md` if `config.md` gives a partial scope); `input/03-list.md` exists if the list is active; for the criteria family, the criteria table is in `config.md` and `input/03-criteria.md` exists when the criteria were given by the author; `moderator/author-concerns.md` exists.
 
 ## 4. Plan (no stop)
 
 The run is autonomous: the author answered the questions during preparation and is not available now. Do not ask anyone for approval. Record the plan in `progress.md`, in the "Plan" section:
 
 - the result of the check;
+- the type and the family (`- Type:` and `- Family:` in `config.md`), and which rounds file you follow;
 - the roles with each one's model (from `config.md`; the same in every round);
 - the author's goals for the evaluation (from `config.md`), which guide the choice of scenarios, the debate agenda and the emphasis of the consolidation;
 - the estimated number of agent calls, with the expected agenda;

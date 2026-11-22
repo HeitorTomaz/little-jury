@@ -106,12 +106,15 @@ def main() -> int:
             "moderator/author-concerns.md",
         ]
         if not (target / rel).exists()
+        # type work puts the work itself in input/02-work.md (or 02-work-*.md) instead of a description
+        and not (rel == "input/02-full-description.md" and any((target / "input").glob("02-work*.md")))
     ]
     if missing:
         print("\nStill missing (write them now):")
         for rel in missing:
             print(f"  {rel}")
         print("  input/03-list.md  (only if there is a list to rank)")
+        print("  input/03-criteria.md  (criteria family, only if the author gave the criteria)")
     print(f"\nPanel assembled at {target}")
     return 0
 

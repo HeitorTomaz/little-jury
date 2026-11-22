@@ -8,7 +8,7 @@ This session is open at the project root and can read the concept document, the 
 
 ## Contents
 
-1. Evaluation type and reading the material
+1. Evaluation type, family and reading the material
 2. Questions to the author (the only interaction)
 3. Writing the inputs
 4. Personas, dimensions and configuration
@@ -19,7 +19,7 @@ This session is open at the project root and can read the concept document, the 
 
 ---
 
-## 1. Evaluation type and reading the material
+## 1. Evaluation type, family and reading the material
 
 - If the current directory is `panel/` or inside it, stop: preparation must run at the root.
 - If `panel/` already holds a run that is **in progress or unfinished**, do not prepare over it: preparing rewrites `input/`, `personas.md` and `config.md`, which that run reads. Signs: `panel/runs/.lock.json` exists (a run is going on now, or one was killed before its cleanup), or a `panel/rounds/<version>/progress.md` has no finished round 5 (it may have a `- Paused:` line). A lock means stop (see `SKILL.md`, "How to know what to do"): wait for the run to end or, if it was killed, `python <skill>/scripts/run_panel.py panel --unlock` cleans up after it. An unfinished or paused run is normally **resumed** (section 7) instead of prepared again. You only get here when the invocation brought new objectives or a new file: ask the author, before anything else, whether to resume the unfinished run or abandon it. Only if the author chooses to **abandon** the unfinished run and prepare again, move its folder to `panel/rounds/_abandoned-<version>-<date>/` (never delete it) and go on; record it under "Notes for the moderator" in `config.md`.
@@ -28,7 +28,12 @@ This session is open at the project root and can read the concept document, the 
   - **concept:** look for the concept document at the root (and only there; do not sweep the disk). Follow this file.
   - **system:** follow this file and `references/extract-system.md`, which says how to extract what the system does from code, documentation and comments.
   - **change:** the file given with the command is the plan. Follow this file, `references/extract-system.md` and `references/change.md`.
-- **Read all the material before asking**, but for system and change only the **light survey** of `extract-system.md` (section 2) at this stage: the folder tree, the README and the index of the documentation, the size of each area and the entry points. That is enough for the system's size and areas to go into the questions. The full extraction comes after the answers, limited to the scope the author chose: sweeping a large repository whole before knowing the scope costs a lot and is mostly thrown away.
+  - **work:** the object is a finished or draft piece of writing judged as written: a paper, a manuscript or chapter, a thesis, an exam with its answer key, an exam answer, a design document. Follow this file and `references/work.md`: the work goes into the panel **verbatim**, never rewritten.
+- Decide the **family** (see `SKILL.md`, "Families") from the request and the material, and confirm it in the question block:
+  - **audience:** the personas react to the work as its public would (players, users, customers, readers, students facing an exam). The default for concept, system and change.
+  - **criteria:** a bench of jurors judges the work against explicit criteria (peer review, thesis committee, editorial assessment, grading an answer against its key). The run follows `method/rounds-criteria.md` instead of the round questions of `rounds.md`.
+- Pick the **field profile**: start from the one in `references/domains/` that fits (`game.md`, `software.md`, `paper.md`, `book.md`, `thesis.md`, `exam.md`). Its header says which families it supports, what round 3 tests in that field and the label for the users. When none fits (hardware, a service, an event…), build one from `references/composition.md` with the same header and record it in `prep/decisions.md`.
+- **Read all the material before asking** (for a long work, enough to know its parts and their size), but for system and change only the **light survey** of `extract-system.md` (section 2) at this stage: the folder tree, the README and the index of the documentation, the size of each area and the entry points. That is enough for the system's size and areas to go into the questions. The full extraction comes after the answers, limited to the scope the author chose: sweeping a large repository whole before knowing the scope costs a lot and is mostly thrown away.
 - For system and change, the panel lives **inside the repository**, in `panel/` at the root. Setup generates the configuration that keeps the run from seeing the repository's `CLAUDE.md`, the project rules and the git history (section 6).
 
 ## 2. Questions to the author (the only interaction)
@@ -37,7 +42,7 @@ Ask **a single block of questions**, in the author's language, only about what t
 
 | Item | Why it matters |
 |---|---|
-| **Who the project is for**, in the author's view | defines the "imagined audience" persona and the user profiles |
+| **Who the project is for**, in the author's view (criteria family: **who will judge it, or where it will be submitted**: a journal, a committee, an exam board) | defines the "imagined audience" persona and the user profiles, or the bench of jurors |
 | **What the author wants to find out with this evaluation** (go or no-go, what to cut, what to test first, whether a change is worth the risk…). If the invocation already said it (the text after `/mock-jury`), only confirm it, in your own words. If it did not, offer **"General evaluation of the project"** as the first option, then two or three objectives that fit the material | goes into `config.md` as the objective; the moderator uses it to choose scenarios, the debate agenda and the emphasis of the consolidation. It **never** goes to the personas |
 | **What the author wants to test or fears** (concerns) | becomes `moderator/author-concerns.md` |
 
@@ -47,8 +52,12 @@ The other items, when the material does not answer them:
 
 | Item | Why it matters |
 |---|---|
-| Project type (game, app, physical product, service, business, other) | picks the domain profile and the vocabulary |
-| **Expected length of a session** (of use, a match, a task), when the material does not say | goes into the full description as a fact with its marker ([decided] or [undefined]) and into `config.md`; in a real run, several users made their answers conditional on it |
+| Field (game, app, physical product, service, business, scientific paper, book, thesis, exam, other) | picks the field profile and the vocabulary |
+| **Family**: "Should the jury react as the work's public (audience) or judge it against criteria (criteria)?", with your recommendation from the request | picks the round questions (`rounds.md` or `rounds-criteria.md`) and the bench |
+| **Criteria** (criteria family): the author's rubric, answer key, journal guidelines or program regulation, if they have one; if not, the 3 to 7 criteria you propose from the field profile, for the author to confirm or change | they become the grid dimensions; criteria the author gave go verbatim into `input/03-criteria.md`. If a list to rank is active in the criteria family, its draw happens before round 1 |
+| **Scope** (type work longer than about 5,000 words): which chapters, sections or questions the panel judges | goes into `config.md` as `- Scope:`; users and jurors receive only the scoped excerpt, and experts also get `input/04-summary-of-the-rest.md`; see `references/work.md` |
+| **Exam answers**: how many answers (one panel per answer, up to five; a whole class is out of scope for now) and confirmation that students' names are removed | each answer gets its own run in `rounds/v<version>-<answer-id>/` |
+| **Expected length of a session** (of use, a match, a task; for a work, the time a reader or examinee has), when the material does not say and it matters for the field | goes into the full description as a fact with its marker ([decided] or [undefined]) and into `config.md`; in a real run, several users made their answers conditional on it |
 | For system and change: scope; if the description is likely to exceed 5,000 words, the split into areas (see `extract-system.md`) | overly long descriptions dilute the personas' attention |
 | For system and change: will `panel/` and `prep/` be versioned in git or ignored? | if ignored, add them to `.gitignore`, with the permission given here |
 | Version of the concept or system | names the output folder (`rounds/v<version>/`) |
@@ -60,7 +69,7 @@ The other items, when the material does not answer them:
 | **Checkpoints** (optional, off by default): "Do you want to check the run after round 1 (are the voices distinct?) and before the debate (adjust the agenda)?" | at each checkpoint the run saves everything and stops; the author looks, may edit the agenda, and continues with `/mock-jury` |
 | For a re-evaluation: confirm that it is a revised version of the project evaluated in `rounds/v<earlier>/`, and ask what changed if the material does not say | see section 8 |
 
-In the same block, say what happens next: the run takes from tens of minutes to a few hours, makes about 50 to 70 agent calls (it may span more than one usage window of the plan) and ends with the report open in the browser (or pauses at the checkpoints, if the author wants them). External evaluations made in another AI tool can be placed in `panel/input/external/` before the author answers; after that there is no way to include them in this run.
+In the same block, say what happens next: the run takes from tens of minutes to a few hours, makes about 50 to 70 agent calls (35 to 55 for a lean criteria panel) (it may span more than one usage window of the plan) and ends with the report open in the browser (or pauses at the checkpoints, if the author wants them). External evaluations made in another AI tool can be placed in `panel/input/external/` before the author answers; after that there is no way to include them in this run.
 
 Do not ask the author which list item they prefer; the panel must not know.
 
@@ -75,9 +84,10 @@ Do not ask the author which list item they prefer; the panel must not know.
 - **Do not fill gaps.** If the concept does not say it, the input does not either; in the full description it becomes **[undefined]**.
 - **State the decisions that limit the recommendations**, so the suggestions fit the author's real means.
 - For system and change, the same rules apply to **code comments, documentation, `CLAUDE.md`, decision records and the change plan**: facts and rules go in, justifications do not.
+- For work, these rules apply to what **surrounds** the work, never to the work itself: its own arguments are what the panel judges.
 - The author's objectives with the evaluation do not go into the inputs: only into `config.md`.
 
-**By type:** the sections below describe the **concept** type. For **system**, the short pitch describes what the system is and does today, at the same length, and the full description uses the markers and references from `extract-system.md` (section 4). For **change**, the inputs follow `change.md` (section 3).
+**By type:** the sections below describe the **concept** type. For **system**, the short pitch describes what the system is and does today, at the same length, and the full description uses the markers and references from `extract-system.md` (section 4). For **change**, the inputs follow `change.md` (section 3). For **work**, the inputs follow `work.md`: the short pitch is the work's own opening (abstract, back cover, first page, the exam's instructions) verbatim when it has one; `input/02-work.md` (or `input/02-work-1.md`, `-2.md`… for several files) is the work itself, verbatim, under one header line that `work.md` defines ("About this text (written by the panel's preparation; not part of the work):"); a long work also gets `input/04-summary-of-the-rest.md` for the experts, with each claim marked [claim], [data], [citation] or [not verified]; and only what surrounds the work (cover letter, the author's notes and arguments, replies to earlier reviewers) is neutralized into `removed.md`. Never edit the work's text.
 
 **Where to write:** write the inputs in `prep/`, **at the root, outside `panel/`**, with the same names they will have in the panel (`prep/input/01-short-pitch.md`, `prep/moderator/author-concerns.md`, `prep/personas.md`, `prep/config.md` etc.). Setup copies them into `panel/`.
 
@@ -126,7 +136,7 @@ Write this block in the author's language, but keep the markers themselves in En
 
 ## 4. Personas, dimensions and configuration
 
-Read `references/composition.md`. For games, start from `references/domains/game.md`; for other domains, generate the personas following the composition rules.
+Read `references/composition.md`. Start from the field profile in `references/domains/` when one fits; otherwise build one from `composition.md` with the same header (families, what round 3 tests, users label). For the criteria family, the users are the **bench of jurors** (`composition.md`) and the grid dimensions are the **criteria**.
 
 Produce two files:
 
@@ -142,12 +152,16 @@ Keep the headings and the field names (`- Language:`, `- Defined:`, `- Checkpoin
 # Panel configuration
 
 - Project: <name or short description>
-- Type: concept | system | change
+- Type: concept | system | change | work
+- Family: audience | criteria
 - Language: <language of the conversation with the author; default English>
-- Domain: <game | app | ...>
+- Domain: <field profile used: game | software | paper | book | thesis | exam | built for this panel: ...>
 - Version: <version of the concept or system>   → outputs in rounds/v<version>/
-- Source: <concept document | commit and branch | plan file + commit>
+- Source: <concept document | commit and branch | plan file + commit | the work's file(s) and version>
 - Extracted scope: <whole system | areas>   (system and change types)
+- Work files: <input/02-work.md, or input/02-work-1.md, -2.md…>   (type work)
+- Scope: <chapters, sections or questions in scope | whole>   (type work)
+- Round 3 tests: <copied from the field profile header: rules in scenarios | claims against objections | questions against possible answers>
 - Size: lean | full
 - Preparation date: <date>
 - Checkpoints: none | after round 1, before the debate
@@ -168,6 +182,7 @@ Keep the headings and the field names (`- Language:`, `- Defined:`, `- Checkpoin
 <!-- Change type: use the dimensions in change.md (relevance, value, adaptation, would_accept). -->
 <!-- System type: the same as below; "Would try" means "would keep using or start using". -->
 <!-- Clarity is not a stance: the moderator checks comprehension of the short pitch in round 1 and reports pitch problems separately. -->
+<!-- Criteria family: this table holds the CRITERIA instead (3 to 7, same columns, all in round 1), each question "Does the work meet <criterion>?"; criteria the author gave are also saved verbatim in input/03-criteria.md. Example row: | method | Method fits the question | Does the work's method fit its research question? | 1 | -->
 | id | Name | Question | Round |
 |---|---|---|---|
 | curiosity | Curiosity | Would you want to know more? | 1 |
@@ -216,14 +231,16 @@ In a system that has no users yet besides the author, the user personas are in p
 
 There is no author review before the run. Instead, check it yourself and fix what fails:
 
-- [ ] The short pitch has 250 to 300 words in the body (350 to 450 for the change type), no sales adjectives, no author comparisons, no `[ref: …]` references.
-- [ ] Every item in the full description has exactly one marker; for system and change, every [implemented], [documented] or [divergent] item has a reference.
+- [ ] The short pitch has 250 to 300 words in the body (350 to 450 for the change type), no sales adjectives, no author comparisons, no `[ref: …]` references. For type work: it is the work's own opening, verbatim, or a neutral summary of up to 300 words recorded in `decisions.md`.
+- [ ] Type work: below its header line, `input/02-work.md` (or each `02-work-<n>.md`) matches the work's text in scope character for character (compare a few passages); only the surroundings went to `removed.md`; a long work has its scoped excerpt and `input/04-summary-of-the-rest.md` (`work.md`); `config.md` lists the work files, the scope and what round 3 tests.
+- [ ] Criteria family: 3 to 7 criteria in `config.md`, each a question; criteria the author gave saved verbatim in `input/03-criteria.md`; a bench of jurors as in `composition.md`.
+- [ ] Every item in the full description has exactly one marker (not for type work: markers do not apply inside the work); for system and change, every [implemented], [documented] or [divergent] item has a reference.
 - [ ] Re-read three [implemented] rules at random against the code (system and change types).
 - [ ] No passage from `removed.md`, no author objective and no author concern appears in the inputs.
 - [ ] The personas meet the requirements of `composition.md` (someone outside the audience, someone from the imagined audience, spread tolerances, opposite motivations) and pass the opposite-pair test.
 - [ ] Every question that requires external checking goes to the expert with web access, and no question to a tool-less persona depends on a tool.
 - [ ] No persona text promises a tool: the web expert is written as "when this persona has web access in a round, it checks…" (see `composition.md`).
-- [ ] The full description states the expected session length, with its marker.
+- [ ] The full description states the expected session length, with its marker (when it matters for the field).
 - [ ] `config.md` records the language, and everything you wrote is in it.
 - [ ] `prep/decisions.md` lists what you decided on the author's behalf.
 
@@ -254,8 +271,10 @@ panel/
 ├─ config.md
 ├─ personas.md
 ├─ input/01-short-pitch.md
-├─ input/02-full-description.md
+├─ input/02-full-description.md     or input/02-work.md (02-work-1.md, -2.md…) for type work, verbatim
 ├─ input/03-list.md                 if any
+├─ input/03-criteria.md             criteria family, the criteria verbatim when the author gave them
+├─ input/04-summary-of-the-rest.md  type work, long works only (for the experts)
 ├─ input/external/README.md
 ├─ moderator/author-concerns.md
 ├─ moderator/changes.md             re-evaluation only

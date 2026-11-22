@@ -11,12 +11,20 @@
 - Round 5 — Consolidation
 - Re-evaluation
 
-In the questions below, "the project" and "use" must be replaced with the domain's vocabulary (for games: "the game", "play"). Dimension names come from `config.md`. Write the questions, like everything sent to personas, in the language set in `config.md` (`- Language:`).
+In the questions below, "the project" and "use" must be replaced with the domain's vocabulary (for games: "the game", "play"; for a work: "the work", "read"). Dimension names come from `config.md`. Write the questions, like everything sent to personas, in the language set in `config.md` (`- Language:`).
 
 **Evaluation type** (in `config.md`):
 
 - **concept** and **system**: use the questions in this file. For the system type, "would try" means "would keep using or would start using", and experts treat **[divergent]** items as written rules in conflict. A **[divergent]** item is already a proven problem in itself (documentation and code disagree). When another rule contradicts **one side** of it, classify by that side: contradicting the code side (what the system really does) is a **proven problem**; contradicting only the documentation side is a **hypothesis**, because the author has not said which side holds. It is the same criterion the change type uses for **[implemented]** against **[documented]**.
 - **change**: use the questions in `method/rounds-change.md`, which replace those in this file; everything else still applies.
+- **work**: the object is a piece read as it is (a paper, a manuscript, a thesis, an exam, an answer). Wherever this file says `02-full-description.md`, use the work: `input/02-work.md` (or `input/02-work-*.md`, in order), verbatim after a short header written by preparation; experts and the destroyer also receive `input/04-summary-of-the-rest.md` when the work was scoped. Round 1 still receives the opening (`01-short-pitch.md`, usually the work's own abstract or first page). "The description" in the questions becomes "the work"; a quoted passage is a passage of the work, with its section or page. In the audience family, "rules" in the expert questions means what the work sets for itself: its claims and conventions, a story's internal logic, an exam's instructions and scoring.
+
+**Family** (`- Family:` in `config.md`, default `audience`):
+
+- **audience**: the personas react to the work as its public would; use this file (or `rounds-change.md`).
+- **criteria**: a bench of jurors judges the work against explicit criteria; use `method/rounds-criteria.md`, which replaces the questions and the round 3 material of this file; everything else here still applies.
+
+**Round 3 tests.** If `config.md` has a `- Round 3 tests:` line (from the field profile), round 3 puts that under challenge: rules in scenarios (the default, below), claims against objections (as in `rounds-criteria.md`), or questions against possible answers (an exam seen by its students: a correct answer the key would penalize, a reading of the question the author did not intend). The rules for writing round 3 items stay the same: neutral, the situation or the claim and never the outcome, one origin per persona's proposal.
 
 ## What each agent receives
 
@@ -40,7 +48,9 @@ Write the prompt in the language set in `config.md`. The skeleton below is in En
 
 ```markdown
 You are a persona on a panel evaluating <a project still being conceived | a system that already exists |
-a planned change to a system that already exists>, according to the type in config.md. You have no tools and
+a planned change to a system that already exists | a work (paper, manuscript, thesis, exam, answer) as it
+is written>, according to the type in config.md. <criteria family: "You are a juror on a bench judging it
+against the criteria below."> You have no tools and
 must not ask for files: answer only from the text below. Your answer will be saved exactly as you write it.
 
 ## Rules for all personas
