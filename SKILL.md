@@ -79,7 +79,7 @@ They apply to every type. Explain them to the author when asked for something th
 Read `references/prepare.md` and follow it. Depending on the type, it also points you to `references/extract-system.md` (system and change types), `references/change.md` (change type) and `references/work.md` (work type). In short:
 
 1. Decide the type, the family and the field profile, and read the material (for system and change, only a light survey of the repository at this stage).
-2. **A single block of questions to the author**, in their language: who the project is for, what they want to find out (confirming the objectives given with the invocation, or offering a general evaluation), what they fear, and whatever else the material does not answer.
+2. **A single block of questions to the author**, in their language, before writing any file: who the project is for, what they want to find out (confirming the objectives given with the invocation, or offering a general evaluation), what they fear, and whatever else the material does not answer.
 3. Write the neutral inputs in `prep/`, outside `panel/`, recording in `prep/removed.md` what was removed and in `prep/decisions.md` what you decided on the author's behalf.
 4. Propose personas (or the bench of jurors) and grid dimensions (or criteria) from the field profile in `references/domains/` and `references/composition.md`, and run the self-check.
 5. Set up `panel/` with `scripts/assemble_panel.py` (which generates the context exclusions for the folder's location) and copy the inputs in.

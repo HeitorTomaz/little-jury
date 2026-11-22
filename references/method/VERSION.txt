@@ -1,4 +1,5 @@
-little-jury, method 0.10.1 (2026-11-22)
+little-jury, method 0.10.2 (2026-11-22)
+0.10.2: prepare writes nothing before the author answers the question block, and ends its turn there.
 0.10.1: the skill is renamed little-jury (it was mock-jury); the command is /little-jury.
 0.10.0: eleven new field profiles: design-doc, open-source, developer-docs, business-plan, grant-proposal,
 resume, talk, course, screenplay, policy-and-legal and hardware, each with its families, round 3 framing,

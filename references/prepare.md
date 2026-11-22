@@ -38,6 +38,8 @@ This session is open at the project root and can read the concept document, the 
 
 ## 2. Questions to the author (the only interaction)
 
+**Write nothing before the answers:** no `prep/`, no `panel/`, no draft on disk. The answers change the inputs (audience, objectives, scope, family), so drafts written earlier would be wrong or would have to be rewritten; keep what you worked out while reading in mind, show the plan in the block if it helps, and end your turn with the block. Only when the author's request already answers everything (as in a test that gives the answers up front) do you go straight on.
+
 Ask **a single block of questions**, in the author's language, only about what the material does not answer, offering options with a recommendation where it fits. If there is doubt about the type or which document to use, it goes in this block. Three questions matter most, because no document usually answers them and because they guide the moderator:
 
 | Item | Why it matters |
