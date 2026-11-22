@@ -4,7 +4,8 @@ context:
   scaffold_script: place-files.sh
 expected_outcome: |
   The session is at the project root, which contains the concept document, and panel/ is already
-  assembled. The author asks to run the panel from here. The skill does not run the rounds in this
+  assembled and has never run. The author invokes /mock-jury with no text; the skill decides by the
+  state of the folder that the assembled panel should run now (it does not prepare again). It does not run the rounds in this
   session, which can see the concept: it launches scripts/run_panel.py, which opens an isolated
   session inside panel/, waits and delivers the report (or explains how to resume if the run is
   interrupted).

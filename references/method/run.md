@@ -131,7 +131,7 @@ They are off by default. When `config.md` says `- Checkpoints: after round 1, be
 1. **After round 1**, once `r1.md`, the moderator notes and the comprehension check are written: is it worth going on with these voices?
 2. **Before the debate**, once `r4-agenda.md` is written: the author may adjust the agenda.
 
-To pause: make sure every file of the step is written and `progress.md` is up to date, add the line `- Paused: checkpoint <1|2> (<after round 1 | before the debate>)` under "Status", and end with a short message, in the language of `config.md`: what to look at (`rounds/v<version>/r1.md` at checkpoint 1; `rounds/v<version>/r4-agenda.md` at checkpoint 2, which the author may edit) and how to continue (`/mock-jury run` at the project root). Do not ask questions and do not wait: the session ends there, and `run_panel.py` reports the pause.
+To pause: make sure every file of the step is written and `progress.md` is up to date, add the line `- Paused: checkpoint <1|2> (<after round 1 | before the debate>)` under "Status", and end with a short message, in the language of `config.md`: what to look at (`rounds/v<version>/r1.md` at checkpoint 1; `rounds/v<version>/r4-agenda.md` at checkpoint 2, which the author may edit) and how to continue (`/mock-jury` at the project root). Do not ask questions and do not wait: the session ends there, and `run_panel.py` reports the pause.
 
 On resume (section 9), remove the `- Paused:` line, record in "Moderator notes" when the run resumed and, at checkpoint 2, whether the author edited `r4-agenda.md`. If they did, use the edited agenda as it is, and note in `diversity.md` that the agenda was adjusted by the author.
 

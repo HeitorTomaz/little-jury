@@ -1,4 +1,8 @@
-mock-jury, method 0.7.0 (2026-11-22)
+mock-jury, method 0.8.0 (2026-11-22)
+0.8.0: one invocation. /mock-jury, with optional free text (what the author wants to find out, a change plan
+file, a scope), replaces the prepare and run subcommands; the skill decides by the state of the folder
+whether to prepare, run, resume or offer a re-evaluation. Without stated objectives, the question block
+offers "General evaluation of the project" first.
 0.7.0: method fixes from a real run. Prompts save shared text once (prompts/shared/, `include:` lines,
 expanded exactly), so nothing is shortened to save room and all calls of a round go out together; the
 contrarian's pack is never shortened. Final debate positions are independent, verified (changed with a

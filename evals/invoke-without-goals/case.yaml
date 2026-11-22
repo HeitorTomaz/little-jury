@@ -1,0 +1,11 @@
+schema_version: "1.1"
+name: invoke-without-goals
+context:
+  scaffold_script: place-files.sh
+expected_outcome: |
+  The author invokes the skill with no text after it, in a folder with an app concept and no panel/.
+  The skill decides by the state of the folder that this is a new panel (concept type), reads the
+  material and asks its single question block. Since the invocation did not say what the author
+  wants to find out, the question about the objectives offers "General evaluation of the project"
+  as the first option, followed by a few objectives that fit the concept. It does not write the
+  panel inputs before the author answers, and it does not mention "prepare" or "run" subcommands.

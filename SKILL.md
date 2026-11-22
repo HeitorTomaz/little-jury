@@ -1,7 +1,7 @@
 ---
 name: mock-jury
-description: Critically evaluates a project still on paper, a system that already exists, or a planned change to an existing system (game, app, product, service, business) with a mock jury, a panel of synthetic personas (users, experts and adversarial agents) that work in isolated rounds and end in a report with tensions, risks, gaps and hypotheses to test. Use it whenever someone wants to put a concept document, a change plan, an idea not yet built or their own system through a critical review, simulate how different audiences would react, "test it with personas", find contradictions and loopholes in their own rules, decide what to test first, or rank names and other candidates with simulated opinion, even if they never say "panel" or "mock jury". Also use it to prepare, run, resume or continue a panel already set up (a panel/ folder with method/ or progress.md). Requires isolated Claude Code subagents.
-argument-hint: "prepare [change-plan-file] | run"
+description: Critically evaluates a project still on paper, a system that already exists, or a planned change to an existing system (game, app, product, service, business) with a mock jury, a panel of synthetic personas (users, experts and adversarial agents) that work in isolated rounds and end in a report with tensions, risks, gaps and hypotheses to test. Use it whenever someone wants to put a concept document, a change plan, an idea not yet built or their own system through a critical review, simulate how different audiences would react, "test it with personas", find contradictions and loopholes in their own rules, decide what to test first, or rank names and other candidates with simulated opinion, even if they never say "panel" or "mock jury". Also use it to resume or continue a panel already set up (a panel/ folder with method/ or progress.md). Requires isolated Claude Code subagents.
+argument-hint: "[what you want to find out] [change-plan-file]"
 ---
 
 # Mock jury
@@ -16,28 +16,32 @@ A mock jury: a panel of agents that examines a project the way an independent gr
 
 Arguments for this invocation: `$ARGUMENTS`
 
-## Commands
+## One invocation
 
-| Command | Where the session is open | What it does |
-|---|---|---|
-| `/mock-jury prepare` | at the project root | evaluates a **concept** (no code) or the **existing system** (with code), from start to report |
-| `/mock-jury prepare <file>` | at the repository root | evaluates a **planned change**, described in the file, to the existing system, from start to report |
-| `/mock-jury run` | at the root, with `panel/` already set up | runs or resumes the run in an isolated session inside `panel/` and delivers the report |
+`/mock-jury`, with or without text after it, does everything: it prepares the panel, runs it in an isolated session and delivers the report. There are no subcommands. The text after it is free and may carry:
 
-Natural-language requests ("prepare a panel for this concept", "run the panel") count the same as the commands.
+- **what the author wants to find out** (the objectives of the evaluation), for example `/mock-jury I want to know if first-time players understand the co-op mode`. When it is there, the question block only confirms it; when it is not, the question block offers **"General evaluation of the project"** as the first option;
+- **a file with the plan of a change** to an existing system (`/mock-jury docs/fines-plan.md`, or a sentence that names it), which makes it a **change** evaluation;
+- the scope, for an existing system ("only the billing module").
 
-**The author is asked only once**, in the question block at the start of preparation: the project, who it is for, and what they want to decide with the evaluation. After that, everything continues without intervention until the report opens in the browser, unless the author asked for the optional **checkpoints** (after round 1 and before the debate): the run then saves everything, stops, and `/mock-jury run` continues it.
+The words "prepare" and "run", if the author types them, are just part of that text: decide by the state of the folder (below), not by the word. Natural-language requests ("put this concept through a mock jury", "continue the panel") count the same.
 
-**Re-evaluation.** When `panel/rounds/` already has a completed run of an earlier version of the same project, `prepare` treats the revised version as a re-evaluation: same persona profiles and models, fresh instances, the earlier problems checked in round 3 and a comparison (resolved, partly, unresolved, new) in the report. See section 8 of `references/prepare.md`.
+**The author is asked only once**, in the question block at the start of preparation: the project, who it is for, and what they want to decide with the evaluation. After that, everything continues without intervention until the report opens in the browser, unless the author asked for the optional **checkpoints** (after round 1 and before the debate): the run then saves everything, stops, and `/mock-jury` continues it.
+
+**Re-evaluation.** When `panel/rounds/` already has a completed run of an earlier version of the same project, a new invocation offers a re-evaluation of the revised version: same persona profiles and models, fresh instances, the earlier problems checked in round 3 and a comparison (resolved, partly, unresolved, new) in the report. See section 8 of `references/prepare.md`.
 
 Isolation is what gives the panel its value: if a persona sees the author's decision history, the arguments the author used to defend the idea, the code with its comments, or another persona's answer, it stops being an independent opinion. That is why the run never happens in the session that prepared it: the script `scripts/run_panel.py` opens a new Claude Code session (`claude -p`) with its working directory inside `panel/`, where the read block and the context exclusions apply.
 
 ## How to know what to do
 
-1. The working directory contains `method/run.md` and `.claude/settings.json` → this already is the isolated session: follow **Run** below (if an incomplete `rounds/<version>/progress.md` exists, it is a resume). If the author asked to "prepare" here, explain that preparation runs at the project root.
+Look at where the session is and at the state of `panel/`, in this order:
+
+1. The working directory contains `method/run.md` and `.claude/settings.json` → this already is the isolated session: follow **Run** below (if an incomplete `rounds/<version>/progress.md` exists, it is a resume).
 2. The directory ends in `panel` but has no `method/` → stop and say so: the folder was put together by hand or preparation did not finish.
-3. The author asks to **run** and the session is at the root, with `panel/method/` below → **do not run in this session**, which can see the concept and the code. Start the isolated session as section 7 of `references/prepare.md` says, and deliver the report.
-4. Any other case → **Prepare**, with the type decided as follows (ask in the question block when it is not obvious):
+3. At the root, `panel/runs/.lock.json` exists → a run is going on, or one was killed before its cleanup. Say so and stop: wait for it to end, or, if it was killed, `python <skill>/scripts/run_panel.py panel --unlock` cleans up.
+4. At the root, `panel/method/` exists and there is no finished run: either the panel is assembled and never ran (no `progress.md` under `panel/rounds/`), or a `progress.md` has no finished round 5 (it may be paused at a checkpoint) → **run or resume it**: start the isolated session as section 7 of `references/prepare.md` says and deliver the report. Do not run it in this session, which can see the concept and the code. If the invocation brought new objectives or a new file, ask first whether to run the panel as it is or prepare a new one (section 1 of `references/prepare.md`).
+5. At the root, `panel/` has a completed run → the question block asks whether this is a **re-evaluation** of a revised version (section 8 of `references/prepare.md`) or a new panel; then **Prepare**.
+6. Otherwise → **Prepare**, with the type decided as follows (ask in the question block when it is not obvious):
 
 | Situation | Type | Main input |
 |---|---|---|
@@ -64,8 +68,8 @@ They apply to every type. Explain them to the author when asked for something th
 
 Read `references/prepare.md` and follow it. Depending on the type, it also points you to `references/extract-system.md` (system and change types) and `references/change.md` (change type). In short:
 
-1. Decide the type and read all the material (for system and change, already sweeping the repository).
-2. **A single block of questions to the author**, in their language: who the project is for, what they want to decide with the evaluation, what they fear, and whatever else the material does not answer.
+1. Decide the type and read the material (for system and change, only a light survey of the repository at this stage).
+2. **A single block of questions to the author**, in their language: who the project is for, what they want to find out (confirming the objectives given with the invocation, or offering a general evaluation), what they fear, and whatever else the material does not answer.
 3. Write the neutral inputs in `prep/`, outside `panel/`, recording in `prep/removed.md` what was removed and in `prep/decisions.md` what you decided on the author's behalf.
 4. Propose personas and grid dimensions (`references/composition.md`; for games, `references/domains/game.md`) and run the self-check.
 5. Set up `panel/` with `scripts/assemble_panel.py` (which generates the context exclusions for the folder's location) and copy the inputs in.
@@ -75,7 +79,7 @@ Read `references/prepare.md` and follow it. Depending on the type, it also point
 
 In this session the method is **copied inside `panel/method/`**. Read `method/run.md` and follow it; it points to the other files in `method/`. Do not read the reference files in this skill's folder: with the read block active they may be out of reach, and the local copy is the version of the method this panel was set up with, which keeps runs from the same folder comparable.
 
-The run continues until the report. It stops only if an isolation test fails or at the optional checkpoints recorded in `config.md` (`- Checkpoints:`), where it saves everything and ends; `/mock-jury run` resumes it.
+The run continues until the report. It stops only if an isolation test fails or at the optional checkpoints recorded in `config.md` (`- Checkpoints:`), where it saves everything and ends; `/mock-jury` resumes it.
 
 ## Files in this skill
 

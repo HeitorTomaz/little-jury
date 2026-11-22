@@ -351,7 +351,7 @@ def main() -> int:
         target, note = ("r4-agenda.md", " (you may edit the agenda before continuing)") if before_debate else ("r1.md", " (are the voices distinct?)")
         print(f"Paused after {minutes} min at {checkpoint}.")
         print(f"1. Look at {folder / target}{note}.")
-        print("2. To continue: run this script again (or /mock-jury run at the project root).")
+        print("2. To continue: run this script again (or /mock-jury at the project root).")
         print("\n--- moderator's answer ---\n" + text[-3000:])
         return 4
 
@@ -366,7 +366,7 @@ def main() -> int:
 
     reason, when = interruption(text, proc.returncode, interrupted)
     print(f"Interrupted after {minutes} min ({reason}).")
-    print(f"To resume: run this script again (or /mock-jury run at the project root){when}.")
+    print(f"To resume: run this script again (or /mock-jury at the project root){when}.")
     print("\n--- end of output ---\n" + text[-3000:])
     return 2
 

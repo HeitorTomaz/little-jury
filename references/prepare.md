@@ -22,7 +22,7 @@ This session is open at the project root and can read the concept document, the 
 ## 1. Evaluation type and reading the material
 
 - If the current directory is `panel/` or inside it, stop: preparation must run at the root.
-- If `panel/` already holds a run that is **in progress or unfinished**, do not prepare over it: preparing rewrites `input/`, `personas.md` and `config.md`, which that run reads. Signs: `panel/runs/.lock.json` exists (a run is going on now, or one was killed before its cleanup), or a `panel/rounds/<version>/progress.md` has no finished round 5 (it may have a `- Paused:` line). Tell the author what you found and stop, with the options: if a run is going on, wait for it to end; to resume an unfinished or paused run, `/mock-jury run`; if a run was killed, `python <skill>/scripts/run_panel.py panel --unlock` cleans up after it. Only if the author asks to **abandon** the unfinished run and prepare again, move its folder to `panel/rounds/_abandoned-<version>-<date>/` (never delete it) and go on; record it under "Notes for the moderator" in `config.md`.
+- If `panel/` already holds a run that is **in progress or unfinished**, do not prepare over it: preparing rewrites `input/`, `personas.md` and `config.md`, which that run reads. Signs: `panel/runs/.lock.json` exists (a run is going on now, or one was killed before its cleanup), or a `panel/rounds/<version>/progress.md` has no finished round 5 (it may have a `- Paused:` line). A lock means stop (see `SKILL.md`, "How to know what to do"): wait for the run to end or, if it was killed, `python <skill>/scripts/run_panel.py panel --unlock` cleans up after it. An unfinished or paused run is normally **resumed** (section 7) instead of prepared again. You only get here when the invocation brought new objectives or a new file: ask the author, before anything else, whether to resume the unfinished run or abandon it. Only if the author chooses to **abandon** the unfinished run and prepare again, move its folder to `panel/rounds/_abandoned-<version>-<date>/` (never delete it) and go on; record it under "Notes for the moderator" in `config.md`.
 - If `panel/` already exists with a completed run of an earlier version of the same project, this is a **re-evaluation**: read `panel/config.md` to learn what was evaluated before, confirm it in the question block and follow section 8 as well.
 - Decide the type with the table in `SKILL.md`:
   - **concept:** look for the concept document at the root (and only there; do not sweep the disk). Follow this file.
@@ -38,7 +38,7 @@ Ask **a single block of questions**, in the author's language, only about what t
 | Item | Why it matters |
 |---|---|
 | **Who the project is for**, in the author's view | defines the "imagined audience" persona and the user profiles |
-| **What the author wants to decide with this evaluation** (go or no-go, what to cut, what to test first, whether a change is worth the risk…) | goes into `config.md` as the objective; the moderator uses it to choose scenarios, the debate agenda and the emphasis of the consolidation. It **never** goes to the personas |
+| **What the author wants to find out with this evaluation** (go or no-go, what to cut, what to test first, whether a change is worth the risk…). If the invocation already said it (the text after `/mock-jury`), only confirm it, in your own words. If it did not, offer **"General evaluation of the project"** as the first option, then two or three objectives that fit the material | goes into `config.md` as the objective; the moderator uses it to choose scenarios, the debate agenda and the emphasis of the consolidation. It **never** goes to the personas |
 | **What the author wants to test or fears** (concerns) | becomes `moderator/author-concerns.md` |
 
 If the author has not settled who the project is for, say so in the question block and record `- Defined: no` under `## Audience` in `config.md`: the panel will then record what each group wants instead of tallying together profiles that want opposite things (section 4).
@@ -57,7 +57,7 @@ The other items, when the material does not answer them:
 | Is there a list for the panel to rank? (names, slogans, variants) | turns on the list, the draw and the report section |
 | Which external facts need checking against a source (store rules, regulations, trademarks, platform documentation) | defines the questions for the expert with web access |
 | Size: lean (default) or full | see `composition.md` |
-| **Checkpoints** (optional, off by default): "Do you want to check the run after round 1 (are the voices distinct?) and before the debate (adjust the agenda)?" | at each checkpoint the run saves everything and stops; the author looks, may edit the agenda, and continues with `/mock-jury run` |
+| **Checkpoints** (optional, off by default): "Do you want to check the run after round 1 (are the voices distinct?) and before the debate (adjust the agenda)?" | at each checkpoint the run saves everything and stops; the author looks, may edit the agenda, and continues with `/mock-jury` |
 | For a re-evaluation: confirm that it is a revised version of the project evaluated in `rounds/v<earlier>/`, and ask what changed if the material does not say | see section 8 |
 
 In the same block, say what happens next: the run takes from tens of minutes to a few hours, makes about 50 to 70 agent calls (it may span more than one usage window of the plan) and ends with the report open in the browser (or pauses at the checkpoints, if the author wants them). External evaluations made in another AI tool can be placed in `panel/input/external/` before the author answers; after that there is no way to include them in this run.
@@ -160,7 +160,8 @@ Keep the headings and the field names (`- Language:`, `- Defined:`, `- Checkpoin
 <!-- If no: the moderator does not tally together profiles that want opposite things; it records what each group wants and what each audience choice would cost (report section "Who it is for"). -->
 
 ## Author's objectives with this evaluation
-- <what they want to decide; guides scenarios, agenda and consolidation; never goes to the personas>
+- <what they want to find out, or "General evaluation of the project"; guides scenarios, agenda and consolidation; never goes to the personas>
+<!-- General evaluation: no single focus. Choose scenarios and the debate agenda by how much each point matters to the project as a whole (contradictions, the riskiest assumption, the audience split), and give every report section its usual weight. -->
 
 ## Grid dimensions (stances: yes / only if / no)
 <!-- Each dimension is a question answered with a stance: yes, only if <condition>, or no, with the reason first. -->
@@ -282,9 +283,9 @@ python <skill-folder>/scripts/run_panel.py <project-root>/panel --open
 4. that the `.md` files in `panel/rounds/v<version>/` are for Claude: to continue the conversation about the project in a future session, just point Claude at that folder;
 5. that new ideas the author has during or after the run go in `prep/next-version-notes.md`, never in the panel's inputs: the inputs of a run are not changed while it runs, and the notes feed the next version.
 
-**Paused at a checkpoint** (exit code 4, only when the author asked for checkpoints): tell the author which checkpoint it is, what to look at (`panel/rounds/v<version>/r1.md` after round 1, or `panel/rounds/v<version>/r4-agenda.md` before the debate, which they may edit), and that `/mock-jury run` at the project root continues the run.
+**Paused at a checkpoint** (exit code 4, only when the author asked for checkpoints): tell the author which checkpoint it is, what to look at (`panel/rounds/v<version>/r1.md` after round 1, or `panel/rounds/v<version>/r4-agenda.md` before the debate, which they may edit), and that `/mock-jury` at the project root continues the run.
 
-**Interrupted:** tell the author at which stage it stopped (from `progress.md`) and how to resume: `/mock-jury run` at the project root, after the usage limit resets. The script resumes where it stopped. Say the cause the script printed (usage limit, expired login, Ctrl+C, or a session that ended without a report). If the run was killed outright (terminal closed, tool call stopped), the next call cleans up by itself; `python <skill>/scripts/run_panel.py panel --unlock` does only the cleanup.
+**Interrupted:** tell the author at which stage it stopped (from `progress.md`) and how to resume: `/mock-jury` at the project root, after the usage limit resets. The script resumes where it stopped. Say the cause the script printed (usage limit, expired login, Ctrl+C, or a session that ended without a report). If the run was killed outright (terminal closed, tool call stopped), the next call cleans up by itself; `python <skill>/scripts/run_panel.py panel --unlock` does only the cleanup.
 
 ## 8. Re-evaluation of a revised version
 
