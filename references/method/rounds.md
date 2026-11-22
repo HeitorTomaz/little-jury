@@ -2,13 +2,14 @@
 
 ## Contents
 
+- Vocabulary
 - What each agent receives
 - Prompt skeleton
-- Round 1 — First impression
-- Round 2 — In-depth analysis
-- Round 3 — Extreme scenarios
-- Round 4 — Contrarian and debate
-- Round 5 — Consolidation
+- Round 1 — Opening
+- Round 2 — Testimony
+- Round 3 — Cross-examination
+- Round 4 — Deliberation
+- Round 5 — The judge's summary
 - Re-evaluation
 
 In the questions below, "the project" and "use" must be replaced with the domain's vocabulary (for games: "the game", "play"; for a work: "the work", "read"). Dimension names come from `config.md`. Write the questions, like everything sent to personas, in the language set in `config.md` (`- Language:`).
@@ -17,7 +18,7 @@ In the questions below, "the project" and "use" must be replaced with the domain
 
 - **concept** and **system**: use the questions in this file. For the system type, "would try" means "would keep using or would start using", and experts treat **[divergent]** items as written rules in conflict. A **[divergent]** item is already a proven problem in itself (documentation and code disagree). When another rule contradicts **one side** of it, classify by that side: contradicting the code side (what the system really does) is a **proven problem**; contradicting only the documentation side is a **hypothesis**, because the author has not said which side holds. It is the same criterion the change type uses for **[implemented]** against **[documented]**.
 - **change**: use the questions in `method/rounds-change.md`, which replace those in this file; everything else still applies.
-- **work**: the object is a piece read as it is (a paper, a manuscript, a thesis, an exam, an answer). Wherever this file says `02-full-description.md`, use the work: `input/02-work.md` (or `input/02-work-*.md`, in order), verbatim after a short header written by preparation; experts and the destroyer also receive `input/04-summary-of-the-rest.md` when the work was scoped. Round 1 still receives the opening (`01-short-pitch.md`, usually the work's own abstract or first page). "The description" in the questions becomes "the work"; a quoted passage is a passage of the work, with its section or page. In the audience family, "rules" in the expert questions means what the work sets for itself: its claims and conventions, a story's internal logic, an exam's instructions and scoring.
+- **work**: the object is a piece read as it is (a paper, a manuscript, a thesis, an exam, an answer). Wherever this file says `02-full-description.md`, use the work: `input/02-work.md` (or `input/02-work-*.md`, in order), verbatim after a short header written by preparation; experts and the prosecutor also receive `input/04-summary-of-the-rest.md` when the work was scoped. Round 1 still receives the opening (`01-short-pitch.md`, usually the work's own abstract or first page). "The description" in the questions becomes "the work"; a quoted passage is a passage of the work, with its section or page. In the audience family, "rules" in the expert questions means what the work sets for itself: its claims and conventions, a story's internal logic, an exam's instructions and scoring.
 
 **Family** (`- Family:` in `config.md`, default `audience`):
 
@@ -26,11 +27,30 @@ In the questions below, "the project" and "use" must be replaced with the domain
 
 **Effort level** (`- Effort:` in `config.md`, default `standard`; table in `run.md`, section 4):
 
-- **quick:** rounds 1 and 2, the contrarian in one call, then consolidation. Round 3 and the debate are skipped. The quick wins come from the experts' "smallest change" question in round 2 (question 6 of the experts here; the equivalent question in `rounds-change.md` and `rounds-criteria.md`): each one keeps its proposer, and nobody supported or opposed it, because there was no debate.
+- **quick:** rounds 1 and 2, the devil's advocate in one call, then consolidation. Round 3 and the debate are skipped. The quick wins come from the experts' "smallest change" question in round 2 (question 6 of the experts here; the equivalent question in `rounds-change.md` and `rounds-criteria.md`): each one keeps its proposer, and nobody supported or opposed it, because there was no debate.
 - **standard:** everything in this file, as written.
-- **deep:** a second destroyer (`destroyer-2`) on the other model in round 2; 8 to 10 round 3 items with four users (two per model) besides the experts; 5 to 7 debate points, each **always** with a second turn.
+- **deep:** a second prosecutor (`destroyer-2`) on the other model in round 2; 8 to 10 round 3 items with four users (two per model) besides the experts; 5 to 7 debate points, each **always** with a second turn.
 
 **Round 3 tests.** If `config.md` has a `- Round 3 tests:` line (from the field profile), round 3 puts that under challenge: rules in scenarios (the default, below), claims against objections (as in `rounds-criteria.md`), or questions against possible answers (an exam seen by its students: a correct answer the key would penalize, a reading of the question the author did not intend). The rules for writing round 3 items stay the same: neutral, the situation or the claim and never the outcome, one origin per persona's proposal.
+
+## Vocabulary
+
+The skill speaks to the author and the report reader in the language of a jury trial. The method files and the run use the same names; ids, file names and JSON keys keep their older, fixed names:
+
+| Name (what people read) | Role | Id, file or key that stays fixed |
+|---|---|---|
+| **judge** | you, the moderator: runs the sessions, writes every prompt, keeps the record and writes the summary; never votes, and the decision stays with the author | `moderator/` folder, "Notes for the moderator", "Moderator notes" |
+| **jurors** | the users of the audience family (audience jurors) and the bench of the criteria family | `users`, `meta.usersLabel` |
+| **witnesses** | in the system and change types, the current users: they testify how the system is used today before judging; their testimony is simulated, so it stays a hypothesis | `users` |
+| **expert witnesses** ("experts") | give technical opinion on the exhibits; one may check facts on the web | `experts` |
+| **prosecutor** | argues the strongest case against the project | `destroyer` (deep level: `destroyer-2`) |
+| **devil's advocate** | challenges the consensus and reviews the judge's own record | `contrarian`, `r4-contrarian*.md` |
+| **the exhibits** (the case file) | the inputs the jury judges: pitch, description, work, extracted system. A **proven problem** is two exhibits contradicting each other | `input/` |
+| **amicus briefs** | reviews of the project made elsewhere (other AI tools), in `input/external/`: the jury may read them, but they are not part of the jury | `input/external/` |
+
+Rounds: **1 Opening** (first impression), **2 Testimony** (in-depth analysis), **3 Cross-examination** (the exhibits put to the test in scenarios or against objections), **4 Deliberation** (the devil's advocate and the debate), **5 The judge's summary** (consolidation). The jury never hands down a verdict on the project as a whole: the decision belongs to the author (per-criterion verdicts in the criteria family are another matter).
+
+**The courtroom stays out of the personas' prompts.** Personas are never told about the trial metaphor, that they are jurors or witnesses, or that the project is "on trial": they get their persona, the material and the questions, as before. A persona who thinks it is in a courtroom starts to act a role (prosecuting, defending, delivering a verdict) instead of answering as the person it is. The metaphor is for the author and the report reader.
 
 ## What each agent receives
 
@@ -39,12 +59,12 @@ In the questions below, "the project" and "use" must be replaced with the domain
 | 1 | users | general rules, their own persona, `01-short-pitch.md` | full description, list, any other answer |
 | 2 | users | general rules, persona, `02-full-description.md`, **their own round 1 answer**, list in drawn order (if active) | other people's answers |
 | 2 | experts | general rules, persona, `02-full-description.md`, drawn list (only the relevant expert), specific questions | users' round 1 |
-| 2 | destroyer | general rules, persona, `02-full-description.md` | everything else |
+| 2 | prosecutor | general rules, persona, `02-full-description.md` | everything else |
 | 3 | experts and 2 users | general rules, persona, `02-full-description.md`, the scenarios (in a re-evaluation, also the checks built from the earlier problems) | other people's answers, the author's concerns as such, anything from an earlier run |
-| 4 | contrarian | general rules, persona, `02-full-description.md`, the contrarian pack; then up to six answers in full, on request | the author's concerns |
+| 4 | devil's advocate | general rules, persona, `02-full-description.md`, the devil's advocate pack; then up to six answers in full, on request | the author's concerns |
 | 4 | participants of each point | general rules, persona, `02-full-description.md`, the summary of the point, the excerpt of their own previous answer | the author's concerns |
 
-**Fresh agents only.** Agents from earlier rounds (or earlier turns) are never resumed or continued: do not send a message to an earlier agent. Every call is a new agent that receives, when it needs it, the verbatim excerpt of that persona's own earlier answer. This includes the debate's second turn and the contrarian's second call. In a real run, some personas continued their own agent and others got a fresh one, so they read the same reply with different context.
+**Fresh agents only.** Agents from earlier rounds (or earlier turns) are never resumed or continued: do not send a message to an earlier agent. Every call is a new agent that receives, when it needs it, the verbatim excerpt of that persona's own earlier answer. This includes the debate's second turn and the devil's advocate's second call. In a real run, some personas continued their own agent and others got a fresh one, so they read the same reply with different context.
 
 `moderator/author-concerns.md` and `config.md` never go to anyone. The concerns inspire the scenarios, but the scenarios are written as situations, without saying they came from the author. In a re-evaluation, `moderator/changes.md` and `moderator/previous-problems.md` never go to anyone either, and no persona receives anything from the earlier run: every instance is new.
 
@@ -55,7 +75,7 @@ Write the prompt in the language set in `config.md`. The skeleton below is in En
 ```markdown
 You are a persona on a panel evaluating <a project still being conceived | a system that already exists |
 a planned change to a system that already exists | a work (paper, manuscript, thesis, exam, answer) as it
-is written>, according to the type in config.md. <criteria family: "You are a juror on a bench judging it
+is written>, according to the type in config.md. <criteria family: "You are one of several reviewers judging it
 against the criteria below."> You have no tools and
 must not ask for files: answer only from the text below. Your answer will be saved exactly as you write it.
 
@@ -90,7 +110,7 @@ The last sentence of the format exists because, in the pilot, all answers came o
 
 ---
 
-## Round 1 — First impression (users only, isolated)
+## Round 1 — Opening: first impression (jurors only, isolated)
 
 Input: `01-short-pitch.md`. Questions:
 
@@ -107,13 +127,13 @@ Input: `01-short-pitch.md`. Questions:
 
 Output: `r1.md`, one section per user.
 
-### Comprehension check (moderator)
+### Comprehension check (judge)
 
 Compare each answer to question 1 and each confusion in question 3 with what the pitch meant to say. List the **pitch problems**: sentences or ideas that half of the users or more understood differently from what was intended, with the sentence, what it meant to say, how it was understood and by whom. They are problems of the **text**, not of the project, and the report shows them separately (`pitchIssues`). In a real run, three sentences of the pitch were misunderstood by half of the panel or more. Record the check in "Moderator notes" in `progress.md`.
 
 Then record there too whether the curiosity stances came out uniform (for "only if", whether the conditions are the same), whether the objections repeat almost word for word and whether the voices sound distinct. Unless `config.md` asks for checkpoints (`run.md`, section 8), there is no stop: go on to round 2. Near-identical voices go into `diversity.md` as a limit.
 
-## Round 2 — In-depth analysis (isolated)
+## Round 2 — Testimony: in-depth analysis (isolated)
 
 Input: `02-full-description.md`.
 
@@ -143,7 +163,7 @@ Question 8 asks for the passage behind the change because, in the pilot, all 8 u
 
 **Spread the paths.** If the project has different roles, modes or paths (a player role, an admin and a member, a guided and a free mode), assign them across users in question 1, so they do not all imagine the same one; give each user a path that fits their persona and record the assignment in `progress.md`. In a real run, every user imagined the same role, and the other roles went untested.
 
-### Experts (all)
+### Expert witnesses (all)
 
 1. Are there rules that contradict each other or conflict? Quote both rules in each case. If you find none, say so and say what keeps them coherent.
 2. Is there a strategy, shortcut or use that would always or almost always win? If so, describe it step by step; if not, say what prevents one.
@@ -159,19 +179,19 @@ Question 8 asks for the passage behind the change because, in the pilot, all 8 u
 
 For the expert with web access, add to the format: "For each external fact, cite the source (address and date accessed). Mark **[not verified]** everything you could not access or confirm, and say why (interactive form, CAPTCHA, connection error). Do not use the web for anything beyond what these questions ask."
 
-### Destroyer
+### Prosecutor
 
 "Present the three strongest arguments for this project to fail. For each one: (a) the claim; (b) the chain of reasoning, grounded in what is written in the description; (c) what would bring this argument down. Do not attack what is not written; if the argument depends on a gap, say so."
 
 At the deep level, `destroyer-2` gets the same question on the other model, with its own persona (a different angle of attack). Save both in `r2.md`; their arguments are examined separately, and agreement between them is not a convergence of the panel.
 
-The destroyer's role is to attack, so it is **not an independent voice**: leave it out of every convergence, consensus or "N of M agree" count, in every round. Its arguments still count as findings to examine. The same goes for the contrarian.
+The prosecutor's role is to attack, so it is **not an independent voice**: leave it out of every convergence, consensus or "N of M agree" count, in every round. Its arguments still count as findings to examine. The same goes for the devil's advocate.
 
 Output: `r2.md`, one section per agent. After saving, run the list analysis if active (see `outputs.md`).
 
 **Same-model duplicates.** When two personas on the same model deliver the same finding (the same strategy, the same calculation, nearly the same wording), count it as **one** piece of evidence, cite both, and record it in `diversity.md`. In a real run, two same-model experts produced the same finding with the same arithmetic and almost the same sentence.
 
-## Round 3 — Extreme scenarios (moderator, experts and 2 users)
+## Round 3 — Cross-examination: extreme scenarios (judge, experts and 2 jurors)
 
 ### Write the scenarios
 
@@ -201,50 +221,50 @@ Save the answers in `r3.md`, one section per participant, and write `r3-scenario
 
 **Split by model.** When a classification or a position splits exactly along model lines, record it as "split by model", do not resolve it by majority, and keep it as a hypothesis. In a real run, the classification of one scenario split exactly by model: the three participants on one model said "proven problem", the three on the other said "hypothesis".
 
-## Round 4 — Contrarian and debate
+## Round 4 — Deliberation: devil's advocate and debate
 
-### 4a. Contrarian
+### 4a. Devil's advocate
 
-The material from rounds 1 to 3 does not fit whole in one prompt (in the pilot, about 357 KB). Build the **contrarian pack** in `rounds/v<version>/r4-contrarian-pack.md`:
+The material from rounds 1 to 3 does not fit whole in one prompt (in the pilot, about 357 KB). Build the **devil's advocate pack** in `rounds/v<version>/r4-contrarian-pack.md`:
 
 - **As verbatim text**, marked `[verbatim: r2.md, <id>]`:
   - the experts' answers to the contradiction, dominant-strategy and strongest-part questions;
   - **everything users said they would keep**;
   - every excerpt where **three or more participants said the same thing**, with who said it (this includes the most repeated criticism);
   - **every** mention of strengths, from any participant;
-  - the destroyer's three arguments.
-- **As your summary**, marked `[moderator summary]`: the rest, per participant. Every attribution in the summary points to its source as `(r2.md § <id>)`, so the contrarian can check it.
-- A table of every user's stances in both rounds (with the conditions of the "only if" answers) and the count of who mentioned each recurring criticism (the destroyer and the contrarian do not count).
-- An **index of every answer**: one numbered line per answer (round, persona id, one-line summary), so the contrarian can ask for any of them.
-- External evaluations, if any, identified as external.
+  - the prosecutor's three arguments.
+- **As your summary**, marked `[moderator summary]`: the rest, per participant. Every attribution in the summary points to its source as `(r2.md § <id>)`, so the devil's advocate can check it.
+- A table of every user's stances in both rounds (with the conditions of the "only if" answers) and the count of who mentioned each recurring criticism (the prosecutor and the devil's advocate do not count).
+- An **index of every answer**: one numbered line per answer (round, persona id, one-line summary), so the devil's advocate can ask for any of them.
+- Amicus briefs (external evaluations in `input/external/`), if any, identified as external.
 
-The contrarian also receives the full description (`02-full-description.md`), to check the panel's criticisms against the text. Tell it in the prompt that only the excerpts marked as verbatim are original text, and that it may **request up to six answers in full**, by index number.
+The devil's advocate also receives the full description (`02-full-description.md`), to check the panel's criticisms against the text. Tell it in the prompt that only the excerpts marked as verbatim are original text, and that it may **request up to six answers in full**, by index number.
 
-At the **quick** level there is no round 3, so the pack is built from rounds 1 and 2, the contrarian works in **one call** (no index and no requests for full answers), and item 5 below becomes "the point the author should look at first, and why". Save it in `r4-contrarian.md` and go straight to consolidation.
+At the **quick** level there is no round 3, so the pack is built from rounds 1 and 2, the devil's advocate works in **one call** (no index and no requests for full answers), and item 5 below becomes "the point the author should look at first, and why". Save it in `r4-contrarian.md` and go straight to consolidation.
 
-At the standard and deep levels, the contrarian works in **two calls**:
+At the standard and deep levels, the devil's advocate works in **two calls**:
 
 1. **First call:** the pack and the description. Ask for its findings so far on the five items below, and for the list of answers it wants in full (up to six index numbers), each with the reason.
 2. **Second call:** a new agent (never the first one resumed) that receives the pack, the description, the first call's answer verbatim and the requested answers verbatim, and is asked for the final findings on the five items.
 
-Never shorten the pack, the description or the requested answers in either call, whatever their size: save them once in `prompts/shared/` and point to them with `include:` lines (`run.md`, section 5). In a real run, the second call got a shortened pack, and the contrarian checked the panel against less than it should have.
+Never shorten the pack, the description or the requested answers in either call, whatever their size: save them once in `prompts/shared/` and point to them with `include:` lines (`run.md`, section 5). In a real run, the second call got a shortened pack, and the devil's advocate checked the panel against less than it should have.
 
 Items to ask for:
 
 1. Criticisms repeated by several personas without grounding in the description's text (cite the rule that would refute them or the absence of a rule that would support them).
 2. Premises nobody checked.
 3. Strengths ignored or mentioned once and forgotten.
-4. Where the panel agreed too quickly, separating agreement on **contradictions verifiable in the text** (expected) from agreement on **recommendations** (where the risk lies). Include errors of attribution or exaggeration in the moderator's own summary.
+4. Where the panel agreed too quickly, separating agreement on **contradictions verifiable in the text** (expected) from agreement on **recommendations** (where the risk lies). Include errors of attribution or exaggeration in the judge's own summary.
 5. The point you consider most important to take to the debate, and why.
 
-Save both calls and the list of requested answers in `r4-contrarian.md`. It is worth the extra call: in a real run, the full answers the contrarian requested revealed two attribution errors in the moderator's own summary, two panel exaggerations and one premise nobody had checked against the text.
+Save both calls and the list of requested answers in `r4-contrarian.md`. It is worth the extra call: in a real run, the full answers the devil's advocate requested revealed two attribution errors in the judge's own summary, two panel exaggerations and one premise nobody had checked against the text.
 
 ### 4b. Agenda
 
 Propose 3 to 5 points (5 to 7 at the deep level), the most controversial ones. Items that are already **settled** (for example, a contradiction every expert pointed out) do not go to the debate: send them straight to consolidation and list them in `r4-agenda.md` under "Settled, not debated". This saves calls without losing anything. Mandatory:
 
 - **the list**, when active: count of the rankings (from `list-analysis.json`), rejections, order effect and conflicts found by the expert with web access. The author did not state a preference and you must not suggest one;
-- **a slot for the contrarian's point** (question 5). The contrarian speaks only on that point, with one reply, like the others; it does not take part in the other points, so that the debate does not lean towards the adversary with more speaking turns.
+- **a slot for the devil's advocate's point** (question 5). The devil's advocate speaks only on that point, with one reply, like the others; it does not take part in the other points, so that the debate does not lean towards the adversary with more speaking turns.
 
 Choose the points with the author's goals for the evaluation in mind too (`config.md`). For each point, say who takes part and why, and save the agenda in `r4-agenda.md` and in `progress.md`. Unless `config.md` asks for checkpoints (`run.md`, section 8), there is no stop: go on to the debate. At checkpoint 2, the author may edit `r4-agenda.md`; when the run resumes, use the agenda as it is in the file.
 
@@ -252,7 +272,7 @@ Choose the points with the author's goals for the evaluation in mind too (`confi
 
 For each point:
 
-1. Write a summary of the positions, saying who defended each one (by id) and with short verbatim excerpts when possible. Every attribution points to its source as `(r2.md § <id>)` or `(r3.md § <id>)`. In a real run, the moderator's summary had five attribution errors, found only by the contrarian; a source next to each attribution lets the consolidation check them too.
+1. Write a summary of the positions, saying who defended each one (by id) and with short verbatim excerpts when possible. Every attribution points to its source as `(r2.md § <id>)` or `(r3.md § <id>)`. In a real run, the judge's summary had five attribution errors, found only by the devil's advocate; a source next to each attribution lets the consolidation check them too.
 2. Ask **each participant involved, in a separate, new agent**, for a short reply (up to 250 words) with two parts. They receive the summary of the point and the excerpt of their own previous answer, never other people's whole answers.
    - **Position:** start with one of these words: **keeps**, **adjusts** (same position, with a caveat or new condition) or **changes** (different position), and say why. Whoever adjusts or changes **quotes the passage of the description (or of a scenario) that supports the new position**.
    - **Smallest change:** the smallest change to a rule or decision that would solve the problem in this point, and what is lost with it; or "no change needed", and why. Big redesigns are not what is asked: the aim is the change that costs least for the effect it has.
@@ -263,13 +283,13 @@ For each point:
    - **verified:** the position changed (adjusts or changes) after reading an argument, and the reply quotes a passage of the description or of a scenario that supports it. It counts as **one confirmation of that argument's origin**, not as a new agreement: several verified changes after the same argument are still one origin, checked several times;
    - **persuaded:** the position changed with no quoted passage behind it. It does not count toward agreement at all.
 
-   The test is the order and the anchor, not the tone of the reply: a position that already existed is independent; a new one is verified only with a quote. In a real run, four convergences all came from one participant's argument read in the same summary, and a rule that only separated "with or without a quote" still left the moderator unsure how to count them.
-6. **Non-independent convergence.** If half or more of a point's participants change position in the same direction after reading the same argument, record it as non-independent convergence, in `r4-debate.md` and in `diversity.md`, naming the argument's origin; whatever the mix of verified and persuaded changes, it is one movement, not several independent agreements. The destroyer and the contrarian are never counted among the participants for this rule.
+   The test is the order and the anchor, not the tone of the reply: a position that already existed is independent; a new one is verified only with a quote. In a real run, four convergences all came from one participant's argument read in the same summary, and a rule that only separated "with or without a quote" still left the judge unsure how to count them.
+6. **Non-independent convergence.** If half or more of a point's participants change position in the same direction after reading the same argument, record it as non-independent convergence, in `r4-debate.md` and in `diversity.md`, naming the argument's origin; whatever the mix of verified and persuaded changes, it is one movement, not several independent agreements. The prosecutor and the devil's advocate are never counted among the participants for this rule.
 7. **Split by model.** If the final positions on a point split exactly along model lines, record it as "split by model" and do not resolve it by majority (see round 3).
 
 Save the replies in `r4-debate-replies.md`, one `## <point> — <id> — turn <n>` section per reply, and the synthesis in `r4-debate.md`.
 
-## Round 5 — Consolidation (moderator, no agents)
+## Round 5 — The judge's summary: consolidation (judge, no agents)
 
 Produce the files in `outputs.md`, in this order: `concept-review.md`, `strengths-and-risks.md`, `design-alternatives.md`, `mvp-hypotheses.md`, `comparison.md` (re-evaluation only), `list.md` (if active), `diversity.md`, `report-data.json` and `report.html` (with the `fonts/` folder next to it, which the script copies). Items settled before the debate enter here, with the evidence from rounds 2 and 3.
 
@@ -277,8 +297,8 @@ Rules for the consolidation:
 
 - Keep the **pitch problems** (comprehension check) apart from the project's problems: they say how the pitch was read, not whether the project works.
 - When the audience is undefined (`## Audience` in `config.md`), do not tally or summarize together profiles that want opposite things: record what each group wants and what choosing each audience would cost.
-- Every attribution points to its source (`(r2.md § <id>)`); check the ones in your earlier summaries against the round files, and correct any the contrarian flagged.
-- Same-model duplicates count as one piece of evidence; the destroyer and the contrarian are not counted in any "N of M agree".
+- Every attribution points to its source (`(r2.md § <id>)`); check the ones in your earlier summaries against the round files, and correct any the devil's advocate flagged.
+- Same-model duplicates count as one piece of evidence; the prosecutor and the devil's advocate are not counted in any "N of M agree".
 - For each strength, record who cited it **and who opposed it**, and why.
 - **Never recommend running the panel again**: that is the author's decision.
 

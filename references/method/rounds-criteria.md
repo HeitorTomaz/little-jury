@@ -1,16 +1,16 @@
 # Rounds — variant for the criteria family
 
-Use this file when `config.md` says `- Family: criteria`. Here a **bench of jurors** judges a work against explicit **criteria**: peer review of a paper, a thesis committee, an editorial assessment of a manuscript, grading an exam answer against its answer key. It **replaces the questions and the round 3 material** of `rounds.md`. Everything else still follows `rounds.md`, `run.md` and `outputs.md`: isolation, fresh agents only, the prompt skeleton, the `include:` rule for shared text, stances and "does not apply", neutral questions, same-model duplicates, the destroyer and the contrarian left out of every count, the contrarian pack and its two calls, the debate (keeps / adjusts / changes, independent / verified / persuaded, two turns at most), split by model, consolidation rules and re-evaluation.
+Use this file when `config.md` says `- Family: criteria`. Here a **bench of jurors** judges a work against explicit **criteria**: peer review of a paper, a thesis committee, an editorial assessment of a manuscript, grading an exam answer against its answer key. It **replaces the questions and the round 3 material** of `rounds.md`. Everything else still follows `rounds.md`, `run.md` and `outputs.md`: isolation, fresh agents only, the prompt skeleton, the `include:` rule for shared text, stances and "does not apply", neutral questions, same-model duplicates, the prosecutor and the devil's advocate left out of every count, the devil's advocate pack and its two calls, the debate (keeps / adjusts / changes, independent / verified / persuaded, two turns at most), split by model, consolidation rules and re-evaluation.
 
 ## Contents
 
 - Vocabulary and inputs
 - What each agent receives
-- Round 1 — Jurors judge the work (isolated)
-- Round 2 — Experts and the harshest reviewer (isolated)
-- Round 3 — Claims under challenge
-- Round 4 — Contrarian and debate
-- Round 5 — Consolidation
+- Round 1 — Opening: the bench judges the work
+- Round 2 — Testimony: expert witnesses and the harshest reviewer
+- Round 3 — Cross-examination: claims under challenge
+- Round 4 — Deliberation: devil's advocate and debate
+- Round 5 — The judge's summary
 - Exam answers
 
 ## Vocabulary and inputs
@@ -40,14 +40,14 @@ Stances keep their enum values (`yes`, `only if`, `no`, `does not apply`); in th
 |---|---|---|---|
 | 1 | jurors | general rules, their own persona, the opening, the work (the scoped excerpt), the criteria (with `03-criteria.md` when it exists) | the summary of the rest, the list, any other answer |
 | 2 | experts | general rules, persona, the opening, the work, the summary of the rest (if any), the criteria, specific questions | jurors' round 1 |
-| 2 | destroyer (harshest reviewer) | general rules, persona, the opening, the work, the summary of the rest (if any), the criteria | everything else |
+| 2 | prosecutor (harshest reviewer) | general rules, persona, the opening, the work, the summary of the rest (if any), the criteria | everything else |
 | 3 | experts and 2 jurors | general rules, persona, the work, the criteria, the items under challenge (in a re-evaluation, also the checks) | other people's answers, the author's concerns as such, anything from an earlier run |
-| 4 | contrarian | general rules, persona, the work, the criteria, the contrarian pack; then up to six answers in full, on request | the author's concerns |
+| 4 | devil's advocate | general rules, persona, the work, the criteria, the devil's advocate pack; then up to six answers in full, on request | the author's concerns |
 | 4 | participants of each point | general rules, persona, the work, the criteria, the summary of the point, the excerpt of their own previous answer | the author's concerns |
 
 The work, the summary of the rest and the criteria go to many calls: save them once in `prompts/shared/` (or point to `inputs-used/`) and use `include:` lines (`run.md`, section 5). Never shorten them.
 
-## Round 1 — Jurors judge the work (isolated)
+## Round 1 — Opening: the bench judges the work (isolated)
 
 Prompt material, in this order: the opening (headed "Opening of the work"), the work, the criteria. Questions:
 
@@ -63,13 +63,13 @@ Answer format: add to the skeleton's format "Judge only from the text you receiv
 
 Output: `r1.md`, one section per juror.
 
-### Opening check (moderator)
+### Opening check (judge)
 
 The comprehension check of `rounds.md`, adapted: compare each answer to question 1 with what the opening promises. List as **pitch problems** (`pitchIssues`) the sentences of the opening that half of the bench or more read differently from what the work delivers, or promises the work does not keep, with the sentence, what the work delivers, how it was read and by whom. They are problems of the opening, not of the rest of the work. Record the check in "Moderator notes" in `progress.md`, with whether the stances on any criterion came out uniform (for "only if", whether the revisions asked are the same) and whether the jurors' profiles sound distinct. Unless `config.md` asks for checkpoints, go on to round 2.
 
-## Round 2 — Experts and the harshest reviewer (isolated)
+## Round 2 — Testimony: expert witnesses and the harshest reviewer (isolated)
 
-### Experts (all)
+### Expert witnesses (all)
 
 The experts come from the field profile (for a paper: methodologist, statistician, specialist of the topic; the one with web access checks citations and facts). Questions, each accepting "none":
 
@@ -85,7 +85,7 @@ The experts come from the field profile (for a paper: methodologist, statisticia
 
 For the expert with web access, add the format note of `rounds.md` (source, address, date accessed, **[not verified]** with the reason). The web is used only for what question 4 and the specific questions ask.
 
-### Harshest reviewer (destroyer)
+### Harshest reviewer (prosecutor)
 
 "Present the three strongest reasons to reject or fail this work. For each one: (a) the objection; (b) the chain of reasoning, grounded in quoted passages of the work; (c) what would answer this objection: a revision, an analysis, or a passage of the work that already answers it. Do not attack what is not in the work; if the objection depends on something the work does not show, say so."
 
@@ -93,9 +93,9 @@ As in `rounds.md`, the harshest reviewer attacks by role: its objections are fin
 
 Output: `r2.md`, one section per agent.
 
-**Effort level.** The levels of `rounds.md` ("Effort level") apply here too: at the **quick** level there is no round 3 and no debate, the contrarian works in one call from rounds 1 and 2, and the quick wins come from the experts' question 6 (the smallest revision); at the **deep** level, `destroyer-2` is a second harshest reviewer on the other model, round 3 has 8 to 10 items, and every debate point gets a second turn.
+**Effort level.** The levels of `rounds.md` ("Effort level") apply here too: at the **quick** level there is no round 3 and no debate, the devil's advocate works in one call from rounds 1 and 2, and the quick wins come from the experts' question 6 (the smallest revision); at the **deep** level, `destroyer-2` is a second harshest reviewer on the other model, round 3 has 8 to 10 items, and every debate point gets a second turn.
 
-## Round 3 — Claims under challenge (moderator, experts and 2 jurors)
+## Round 3 — Cross-examination: claims under challenge (judge, experts and 2 jurors)
 
 ### Write the items
 
@@ -122,23 +122,23 @@ All experts, plus **two jurors, one from each model** (four at the deep level, t
 
 Save the answers in `r3.md`, one section per participant, and write `r3-scenarios.md` with one table per item: participant, model, outcome, classification. Criterion for classification disagreements: an objection that rests only on knowledge from outside the work (another study, the field's consensus) and not on the work's own text, data or criteria stays a **hypothesis**, however strong; record whoever classified it differently as a dissent. Split by model: as in `rounds.md`.
 
-## Round 4 — Contrarian and debate
+## Round 4 — Deliberation: devil's advocate and debate
 
 As in `rounds.md`, with these differences.
 
-**Contrarian pack.** Verbatim: the experts' answers to questions 2, 3 and 5; everything any juror named as the strongest part; every excerpt where three or more participants said the same thing; every mention of strengths; the harshest reviewer's three objections. The stances table has one row per juror and one column per criterion, with each "only if" revision and the passage quoted. In the five items to ask the contrarian, read "grounding in the description's text" as "grounding in the work's text".
+**Devil's advocate pack.** Verbatim: the experts' answers to questions 2, 3 and 5; everything any juror named as the strongest part; every excerpt where three or more participants said the same thing; every mention of strengths; the harshest reviewer's three objections. The stances table has one row per juror and one column per criterion, with each "only if" revision and the passage quoted. In the five items to ask the devil's advocate, read "grounding in the description's text" as "grounding in the work's text".
 
 **Agenda.** Draw the 3 to 5 points (5 to 7 at the deep level) from:
 
 - **criteria where the bench split**: at least one "yes" and one "no" on the same criterion, or "only if" answers asking for incompatible revisions;
 - items of round 3 whose classification split;
-- the contrarian's point (mandatory slot, as in `rounds.md`).
+- the devil's advocate's point (mandatory slot, as in `rounds.md`).
 
 A criterion every juror judged the same way, each with a quoted passage, is **settled**: it goes straight to consolidation, listed under "Settled, not debated" in `r4-agenda.md`.
 
 **Debate replies.** Position: keeps, adjusts or changes, and whoever adjusts or changes **quotes the passage of the work** (or of a round 3 item) behind the new position; the independent / verified / persuaded classification follows `rounds.md`. **Smallest revision** (instead of smallest change): the smallest revision to the work that would change a verdict on this point, and what the work loses with it; or "no revision needed", and why. These are the quick wins.
 
-## Round 5 — Consolidation
+## Round 5 — The judge's summary
 
 Produce the files of `outputs.md`, read for a work:
 

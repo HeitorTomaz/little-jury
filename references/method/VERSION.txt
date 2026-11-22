@@ -1,4 +1,11 @@
-little-jury, method 0.11.0 (2026-11-22)
+little-jury, method 0.12.0 (2026-11-22)
+0.12.0: jury vocabulary for the author and the report. The moderator is the judge (runs the sessions, keeps
+the record, never votes); the users and the bench are the jurors; in the system and change types the current
+users are witnesses (simulated testimony, still a hypothesis); experts are expert witnesses; the destroyer is
+the prosecutor; the contrarian is the devil's advocate; the inputs are the exhibits; external reviews are
+amicus briefs. Rounds: Opening, Testimony, Cross-examination, Deliberation, the judge's summary. Ids, file
+names and JSON keys keep their fixed names (vocabulary tables in SKILL.md and method/rounds.md), and the
+personas are never told about the trial: their prompts keep neutral role names.
 0.11.0: effort levels replace lean and full. The question block asks for quick (4 users or jurors, 2
 experts, rounds 1, 2 and consolidation, the contrarian in one call, quick wins from the experts' smallest
 change; about 12 to 20 calls), standard (the method as before; 50 to 70 calls, 35 to 55 for criteria) or deep

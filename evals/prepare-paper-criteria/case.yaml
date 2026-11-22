@@ -9,5 +9,5 @@ expected_outcome: |
   journal's guidelines are saved verbatim in input/03-criteria.md and become 3 to 7 criteria in
   config.md, each written as a question. The cover letter's arguments for the paper are not passed to
   the panel: they are recorded in prep/removed.md. The bench has six jurors with distinct profiles,
-  three per model, with a strict and a lenient juror on each model, and the destroyer is written as the
+  three per model, with a strict and a lenient juror on each model, and the prosecutor is written as the
   harshest reviewer. It assembles panel/ and stops, as the request says, without launching the run.

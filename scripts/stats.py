@@ -7,7 +7,7 @@ Reads the one-file-per-round layout (r1.md, r2.md, r3.md and r4-debate-replies.m
 section that starts with a `## ` heading followed by a `- Model: <model> (<agent type>)` line; headings
 inside an answer are part of the answer, not new sections. Counts the words of each answer and shows
 the mean per round and per model, and how many answers have the same number of headings (a sign of
-uniform shape). Does not count the moderator's files (scenarios, agenda, pack, debate synthesis).
+uniform shape). Does not count the judge's files (scenarios, agenda, pack, debate synthesis).
 """
 
 import re

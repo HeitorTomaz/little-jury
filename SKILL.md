@@ -6,7 +6,24 @@ argument-hint: "[what you want to find out] [change-plan-file]"
 
 # Little jury
 
-A little jury, a mock jury in miniature: a panel of agents that examines a project the way an independent group would, before the real decision, and leaves the decision to the author. It tries to find out whether the proposal is interesting, for whom, what the problems are and what to test first. It does not exist to improve or defend the idea. The main session is both orchestrator and moderator: it builds the prompts, creates the agents, saves the answers and consolidates the result.
+A little jury, a mock jury in miniature: a panel of agents that examines a project the way an independent group would, before the real decision, and leaves the decision to the author. It tries to find out whether the proposal is interesting, for whom, what the problems are and what to test first. It does not exist to improve or defend the idea. The main session is both orchestrator and judge: it builds the prompts, creates the agents, saves the answers and consolidates the result.
+
+## Vocabulary
+
+The skill speaks the language of a jury trial to the author and in the report. Ids, file names and JSON keys keep their fixed names:
+
+| Name | Role | Fixed id, file or key |
+|---|---|---|
+| **judge** | the session that runs the panel (the moderator): writes the prompts, keeps the record, writes the summary; never votes | `moderator/`, "Notes for the moderator" |
+| **jurors** | the users (audience family) or the bench (criteria family) | `users` |
+| **witnesses** | current users of an existing system, who testify how it is used today (system and change types) | `users` |
+| **expert witnesses** | technical opinion on the exhibits; one may check facts on the web | `experts` |
+| **prosecutor** | the strongest case against the project | `destroyer` |
+| **devil's advocate** | challenges the consensus and reviews the judge's record | `contrarian` |
+| **exhibits** | the inputs the jury judges (pitch, description, work); a proven problem is two exhibits contradicting each other | `input/` |
+| **amicus briefs** | evaluations made elsewhere, readable by the jury but not part of it | `input/external/` |
+
+Rounds: 1 **Opening**, 2 **Testimony**, 3 **Cross-examination**, 4 **Deliberation**, 5 **The judge's summary**. The jury never hands down a verdict on the project as a whole; the decision is the author's. The personas are never told about the trial: the metaphor is for the author and the report reader (`method/rounds.md`, "Vocabulary").
 
 **Language.** Talk to the user and write every output in the language the user is using in this conversation; default to English. Preparation records it in `config.md` as `- Language: <language>`, because the isolated run session cannot see this conversation. The method files stay in English; everything the panel produces (questions to the author, inputs, personas, persona prompts and answers, round files, `.md` outputs, report data and report labels) is in that language. The skill's machine-readable vocabulary stays in English in every language: markers such as `[decided]` or `[implemented]`, ids, dimension ids, file and folder names, JSON keys and enum values. The "How to read" block of the full description explains the markers in the author's language.
 
@@ -67,7 +84,7 @@ They apply to every type. Explain them to the author when asked for something th
 
 1. **Isolated initial evaluations.** No agent sees another's answer before the debate. This is what keeps the panel from becoming an echo of a single opinion.
 2. **An adversarial group** to fight artificial agreement, the natural defect of several agents on the same model.
-3. **Every claim is classified** as an **observation**, a **hypothesis** or a **proven problem**. A proven problem only when it follows directly from two written rules that contradict each other (in an existing system, code and documentation count as written rules); everything else is a hypothesis until someone uses the product.
+3. **Every claim is classified** as an **observation**, a **hypothesis** or a **proven problem**. A proven problem only when it follows directly from two written rules that contradict each other (two exhibits that contradict each other) (in an existing system, code and documentation count as written rules); everything else is a hypothesis until someone uses the product.
 4. **Do not invent what is not specified.** Gaps are recorded as gaps: a panel that fills holes with assumptions is evaluating a project that does not exist.
 5. **Preserve minority positions**, recording who disagreed.
 6. **Do not force consensus.**

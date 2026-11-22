@@ -40,12 +40,12 @@ This session is open at the project root and can read the concept document, the 
 
 **Write nothing before the answers:** no `prep/`, no `panel/`, no draft on disk. The answers change the inputs (audience, objectives, scope, family), so drafts written earlier would be wrong or would have to be rewritten; keep what you worked out while reading in mind, show the plan in the block if it helps, and end your turn with the block. Only when the author's request already answers everything (as in a test that gives the answers up front) do you go straight on.
 
-Ask **a single block of questions**, in the author's language, only about what the material does not answer, offering options with a recommendation where it fits. If there is doubt about the type or which document to use, it goes in this block. Three questions matter most, because no document usually answers them and because they guide the moderator:
+Ask **a single block of questions**, in the author's language, only about what the material does not answer, offering options with a recommendation where it fits. If there is doubt about the type or which document to use, it goes in this block. Three questions matter most, because no document usually answers them and because they guide the judge:
 
 | Item | Why it matters |
 |---|---|
 | **Who the project is for**, in the author's view (criteria family: **who will judge it, or where it will be submitted**: a journal, a committee, an exam board) | defines the "imagined audience" persona and the user profiles, or the bench of jurors |
-| **What the author wants to find out with this evaluation** (go or no-go, what to cut, what to test first, whether a change is worth the risk…). If the invocation already said it (the text after `/little-jury`), only confirm it, in your own words. If it did not, offer **"General evaluation of the project"** as the first option, then two or three objectives that fit the material | goes into `config.md` as the objective; the moderator uses it to choose scenarios, the debate agenda and the emphasis of the consolidation. It **never** goes to the personas |
+| **What the author wants to find out with this evaluation** (go or no-go, what to cut, what to test first, whether a change is worth the risk…). If the invocation already said it (the text after `/little-jury`), only confirm it, in your own words. If it did not, offer **"General evaluation of the project"** as the first option, then two or three objectives that fit the material | goes into `config.md` as the objective; the judge uses it to choose scenarios, the debate agenda and the emphasis of the consolidation. It **never** goes to the personas |
 | **What the author wants to test or fears** (concerns) | becomes `moderator/author-concerns.md` |
 
 If the author has not settled who the project is for, say so in the question block and record `- Defined: no` under `## Audience` in `config.md`: the panel will then record what each group wants instead of tallying together profiles that want opposite things (section 4).
@@ -67,11 +67,11 @@ The other items, when the material does not answer them:
 | Author situation that is a fact (e.g. an existing developer account) | goes in as **[fact]** |
 | Is there a list for the panel to rank? (names, slogans, variants) | turns on the list, the draw and the report section |
 | Which external facts need checking against a source (store rules, regulations, trademarks, platform documentation) | defines the questions for the expert with web access |
-| **Effort level**: quick (a cheap first reading: 4 users, 2 experts, no scenarios and no debate, about 12 to 20 calls, minutes), **standard** (recommended: the full method, about 50 to 70 calls), or deep (11 users, 5 experts, two destroyers, more scenarios and debate points, about 90 to 130 calls, likely more than one usage window) | sets the seats, the rounds and the cost; see "Effort levels" in `composition.md`. When the author says "lean" or "full", read it as standard or deep |
+| **Effort level**: quick (a cheap first reading: 4 users, 2 experts, no scenarios and no debate, about 12 to 20 calls, minutes), **standard** (recommended: the full method, about 50 to 70 calls), or deep (11 users, 5 experts, two prosecutors, more scenarios and debate points, about 90 to 130 calls, likely more than one usage window) | sets the seats, the rounds and the cost; see "Effort levels" in `composition.md`. When the author says "lean" or "full", read it as standard or deep |
 | **Checkpoints** (optional, off by default): "Do you want to check the run after round 1 (are the voices distinct?) and before the debate (adjust the agenda)?" | at each checkpoint the run saves everything and stops; the author looks, may edit the agenda, and continues with `/little-jury` |
 | For a re-evaluation: confirm that it is a revised version of the project evaluated in `rounds/v<earlier>/`, and ask what changed if the material does not say | see section 8 |
 
-In the same block, say what happens next: the run takes from tens of minutes to a few hours, makes the number of agent calls of the chosen effort level (standard: about 50 to 70, or 35 to 55 for a criteria panel; quick and deep in `composition.md`), may span more than one usage window of the plan, and ends with the report open in the browser (or pauses at the checkpoints, if the author wants them). External evaluations made in another AI tool can be placed in `panel/input/external/` before the author answers; after that there is no way to include them in this run.
+In the same block, say what happens next: the run takes from tens of minutes to a few hours, makes the number of agent calls of the chosen effort level (standard: about 50 to 70, or 35 to 55 for a criteria panel; quick and deep in `composition.md`), may span more than one usage window of the plan, and ends with the report open in the browser (or pauses at the checkpoints, if the author wants them). External evaluations made in another AI tool (**amicus briefs**: the jury may read them, but they are not part of the jury) can be placed in `panel/input/external/` before the author answers; after that there is no way to include them in this run.
 
 Do not ask the author which list item they prefer; the panel must not know.
 
@@ -93,7 +93,7 @@ Do not ask the author which list item they prefer; the panel must not know.
 
 **Where to write:** write the inputs in `prep/`, **at the root, outside `panel/`**, with the same names they will have in the panel (`prep/input/01-short-pitch.md`, `prep/moderator/author-concerns.md`, `prep/personas.md`, `prep/config.md` etc.). Setup copies them into `panel/`.
 
-Keep everything you removed, with the original passage and the reason, in `prep/removed.md`. That file **never** goes into `panel/`: the author can check it later, but the moderator must not see it, because it would be influenced too.
+Keep everything you removed, with the original passage and the reason, in `prep/removed.md`. That file **never** goes into `panel/`: the author can check it later, but the judge must not see it, because it would be influenced too.
 
 ### `input/01-short-pitch.md` (round 1, users only)
 
@@ -115,7 +115,7 @@ assuming how it works.
 None of these decisions is untouchable. The panel may recommend changing any of them.
 ```
 
-Write this block in the author's language, but keep the markers themselves in English (`[decided]`, `[proposed]`, `[undefined]`, `[fact]` and the others): they are the skill's vocabulary, read by the moderator and the method in any language.
+Write this block in the author's language, but keep the markers themselves in English (`[decided]`, `[proposed]`, `[undefined]`, `[fact]` and the others): they are the skill's vocabulary, read by the judge and the method in any language.
 
 
 - Organize into sections that make sense for the domain (for a game: experience, structure, actions, rules; for an app: problem, audience, main flow, features, data, revenue model; for a business: proposition, customer, operations, revenue, costs).
@@ -131,7 +131,7 @@ Write this block in the author's language, but keep the markers themselves in En
 - Say explicitly that the order does not reflect the author's preference and that it will be shuffled per agent.
 - Record what the author has already checked and what it did not cover (e.g. "web search found no conflict; did not cover store catalogs or trademark registries").
 
-### `moderator/author-concerns.md` (moderator only)
+### `moderator/author-concerns.md` (judge only)
 
 - Open with an italic warning: do not pass this file, or any part of it, to any persona; it only serves to build the round 3 scenarios.
 - One concern per line, as a question. Include rule variants the author is considering: they become scenarios presented as anonymous alternatives.
@@ -146,7 +146,7 @@ Produce two files:
 
 Same format as the domain profile: the general rules for all personas, then each role with its `id`. Each user with perspective, what they usually use, tolerance for complexity, available time, what they look for and what makes them quit. Write only the seats of the chosen effort level (quick: 4 users or jurors and 2 experts; standard: the profile's 8 users or 6 jurors and 4 experts; deep: 11 users or 9 jurors, 5 experts and `destroyer-2`); at the quick and standard levels, list the roles reserved for the deep level at the end, unused.
 
-### `config.md` (read by the moderator only)
+### `config.md` (read by the judge only)
 
 Keep the headings and the field names (`- Language:`, `- Defined:`, `- Checkpoints:`…) **in English**, exactly as below, and write the values in the author's language: the method refers to them by name, so a translated heading would no longer match. It is the same rule as the markers and ids in `SKILL.md`.
 
@@ -173,7 +173,7 @@ Keep the headings and the field names (`- Language:`, `- Defined:`, `- Checkpoin
 - Defined: yes | no
 - <if yes: who the project is for, as the author declared it>
 - Session length: <expected length of a session, match or task | undefined>
-<!-- If no: the moderator does not tally together profiles that want opposite things; it records what each group wants and what each audience choice would cost (report section "Who it is for"). -->
+<!-- If no: the judge does not tally together profiles that want opposite things; it records what each group wants and what each audience choice would cost (report section "Who it is for"). -->
 
 ## Author's objectives with this evaluation
 - <what they want to find out, or "General evaluation of the project"; guides scenarios, agenda and consolidation; never goes to the personas>
@@ -183,7 +183,7 @@ Keep the headings and the field names (`- Language:`, `- Defined:`, `- Checkpoin
 <!-- Each dimension is a question answered with a stance: yes, only if <condition>, or no, with the reason first. -->
 <!-- Change type: use the dimensions in change.md (relevance, value, adaptation, would_accept). -->
 <!-- System type: the same as below; "Would try" means "would keep using or start using". -->
-<!-- Clarity is not a stance: the moderator checks comprehension of the short pitch in round 1 and reports pitch problems separately. -->
+<!-- Clarity is not a stance: the judge checks comprehension of the short pitch in round 1 and reports pitch problems separately. -->
 <!-- Criteria family: this table holds the CRITERIA instead (3 to 7, same columns, all in round 1), each question "Does the work meet <criterion>?"; criteria the author gave are also saved verbatim in input/03-criteria.md. Example row: | method | Method fits the question | Does the work's method fit its research question? | 1 | -->
 | id | Name | Question | Round |
 |---|---|---|---|
@@ -218,14 +218,14 @@ Keep the headings and the field names (`- Language:`, `- Defined:`, `- Checkpoin
 |---|---|---|---|
 
 ## Author decisions that limit the recommendations
-- <copied from the full description, for the moderator to check the recommendations against>
+- <copied from the full description, for the judge to check the recommendations against>
 
 ## Notes for the moderator
 - <known limits of this run: self-evaluation, scope above 5,000 words kept by the author,
   system without real users etc.; they go in as limits in diversity.md>
 ```
 
-When the audience is undefined (`- Defined: no`), still build the user personas to cover the candidate audiences; the moderator then reports what each group wants and what choosing it would cost, instead of a panel tally.
+When the audience is undefined (`- Defined: no`), still build the user personas to cover the candidate audiences; the judge then reports what each group wants and what choosing it would cost, instead of a panel tally.
 
 In a system that has no users yet besides the author, the user personas are in practice potential users: in "Usually uses" write what each one uses today instead of this system, and record this under "Notes for the moderator".
 
@@ -315,10 +315,10 @@ Use this when `panel/rounds/` already has a completed run of an earlier version 
 - **Same persona profiles and the same model distribution** as the earlier run: that is what makes the versions comparable. The instances are always fresh: no persona receives anything from the earlier run, ever.
 - **Earlier outputs stay** in `rounds/v<earlier-version>/`, each with a copy of the inputs it used; do not delete them. Give the new version a name that says what it is (for example, `v0.4` or `v2.3-billing-change`).
 - **Write new inputs** from the revised material, with the same neutrality rules. You may overwrite `input/` and `moderator/author-concerns.md`, because the earlier run kept its own copy.
-- **Two moderator-only files**, never passed to any persona:
-  - `moderator/changes.md`: a table of what changed between the versions (item, before, after, marker), so the moderator knows where to look;
+- **Two judge-only files** (in the `moderator/` folder), never passed to any persona:
+  - `moderator/changes.md`: a table of what changed between the versions (item, before, after, marker), so the judge knows where to look;
   - `moderator/previous-problems.md`: the earlier run's problems, numbered P1, P2…, each with its source file and classification (observation, hypothesis, proven problem).
 - **Rounds 1 and 2 stay fully independent.** The earlier problems enter only in round 3, as checks against the current text written neutrally ("Check against the current description whether …"), never saying they were problems before; giving them earlier would anchor the personas on the old problems instead of the new text. Round 3 also checks each changed section for problems of its own, so write `changes.md` with the section of the description each change touches.
-- The moderator reads the earlier run only during consolidation, and writes `comparison.md` (each earlier problem as resolved, partly resolved or unresolved, plus the new problems the changes created); the report shows it as "Since the previous version".
+- The judge reads the earlier run only during consolidation, and writes `comparison.md` (each earlier problem as resolved, partly resolved or unresolved, plus the new problems the changes created); the report shows it as "Since the previous version".
 - In `config.md`: `- Re-evaluation of: v<earlier version>`.
 - Run `assemble_panel.py` again to update `method/` and `template/` if the skill changed; the script warns if the method version changed, and the author must be told, because it affects the comparison.

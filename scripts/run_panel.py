@@ -8,7 +8,7 @@ The run cannot happen in the session that prepared the panel, because that sessi
 concept, the code and what was removed from the inputs. This script starts `claude -p` with the
 working directory in panel/, where the read blocking, the CLAUDE.md exclusions and the absence of
 git state apply (see check_isolation.py), and allows only the tools the method needs. There are no
-stops unless config.md asks for checkpoints: the moderator goes all the way to the report and only
+stops unless config.md asks for checkpoints: the judge (the moderator session) goes all the way to the report and only
 stops at a requested checkpoint or if an isolation test fails.
 
 If rounds/ already holds an unfinished run (or one paused at a checkpoint), the new session resumes it
@@ -352,7 +352,7 @@ def main() -> int:
         print(f"Paused after {minutes} min at {checkpoint}.")
         print(f"1. Look at {folder / target}{note}.")
         print("2. To continue: run this script again (or /little-jury at the project root).")
-        print("\n--- moderator's answer ---\n" + text[-3000:])
+        print("\n--- the judge's answer ---\n" + text[-3000:])
         return 4
 
     new = [p for p, t in reports(panel).items() if p not in before or t > before[p]]
@@ -361,7 +361,7 @@ def main() -> int:
         print(f"Finished in {minutes} min. Report: {report}")
         if a.open:
             webbrowser.open(report.as_uri())
-        print("\n--- moderator's answer ---\n" + text[-6000:])
+        print("\n--- the judge's answer ---\n" + text[-6000:])
         return 0
 
     reason, when = interruption(text, proc.returncode, interrupted)

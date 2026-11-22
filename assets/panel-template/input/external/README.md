@@ -1,1 +1,1 @@
-Optional folder. Put here evaluations made in another AI tool, one file per evaluation, before the run starts. The moderator includes them from round 4 onwards, identified as external.
+Optional folder for **amicus briefs**: evaluations of this project made in another AI tool, one file per evaluation, put here before the run starts. The judge includes them from round 4 (deliberation) onwards, identified as external: the jury may read them, but they are not part of the jury.

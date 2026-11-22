@@ -4,7 +4,7 @@
 - **Round 3 tests:** the text's rules against edge cases the drafters did not foresee, against conflicts between clauses or with other rules, and against **bad-faith uses**: what someone who wants to abuse the rule, avoid it or turn it against others would do. Also: who enforces each rule, and what happens when it is broken.
 - **Users label:** Affected people (audience) · Reviewers (criteria)
 
-A starting point for evaluating an internal policy, a code of conduct, a contract or a template contract, terms of service or a privacy notice, a set of rules for a community, or a draft regulation, before it is adopted. The type is `work` when the text is drafted (it goes in verbatim, `references/work.md`) or `concept` when only the intent exists. The short pitch is the text's own summary or preamble, or a neutral summary written by preparation. The personas below are generic; **adapt them to who the text binds and who applies it** (employees and managers, customers and a company, members and moderators, citizens and an agency). Write them in the language recorded in `config.md`.
+A starting point for evaluating an internal policy, a code of conduct, a contract or a template contract, terms of service or a privacy notice, a set of rules for a community, or a draft regulation, before it is adopted. The type is `work` when the text is drafted (it goes in verbatim, `references/work.md`) or `concept` when only the intent exists. The short pitch is the text's own summary or preamble, or a neutral summary written by preparation. The personas below are generic; **adapt them to who the text binds and who applies it** (employees and managers, customers and a company, members and judges, citizens and an agency). Write them in the language recorded in `config.md`.
 
 **This panel is not legal advice.** Simulated reviewers can find ambiguities, contradictions, gaps and loopholes in a text, and questions worth asking; they cannot say what a law requires in a given jurisdiction or how a court would read a clause. Say so to the author in the question block and in the report's method section; every finding about legality is a question to take to a qualified lawyer, marked as a hypothesis, never a proven problem, unless the text contradicts itself.
 
@@ -38,7 +38,7 @@ The eighth seat is the **audience the author imagines**. Some personas apply the
 - **Quits when:** the text forces them into a category that does not fit.
 
 ### less-power — Person with less power
-- **Perspective:** on the weaker side of the relation (an employee facing a manager, a customer facing a company, a new member facing moderators).
+- **Perspective:** on the weaker side of the relation (an employee facing a manager, a customer facing a company, a new member facing judges).
 - **Relation to the project:** bound by the text.
 - **Usually deals with rules by:** accepting them because there is no alternative.
 - **Tolerance for complexity:** low; cannot afford advice.
@@ -47,7 +47,7 @@ The eighth seat is the **audience the author imagines**. Some personas apply the
 - **Quits when:** (resigns, cancels, leaves) the text gives all the discretion to the other side.
 
 ### enforcer — Person who applies the text
-- **Perspective:** a manager, a moderator, a support agent or an officer who must apply the rules to real cases.
+- **Perspective:** a manager, a judge, a support agent or an officer who must apply the rules to real cases.
 - **Relation to the project:** applies the text.
 - **Usually deals with rules by:** looking for a clear answer they can defend.
 - **Tolerance for complexity:** medium.

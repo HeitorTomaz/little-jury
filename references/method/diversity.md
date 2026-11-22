@@ -27,7 +27,7 @@ A table of every agent, with the model used in each round and the agent type. Po
 
 ## 3. Arguments
 
-- **Repeated criticisms:** for each criticism mentioned by 3 or more participants, how many made it, who, and whether the contrarian considered it grounded. In the pilot, one criticism appeared in 7 of 8 users.
+- **Repeated criticisms:** for each criticism mentioned by 3 or more participants, how many made it, who, and whether the devil's advocate considered it grounded. In the pilot, one criticism appeared in 7 of 8 users.
 - **Same-model duplicates:** findings delivered by two personas on the same model with the same strategy, the same calculation or nearly the same wording. List them; each counts as one piece of evidence. In a real run, two same-model experts produced the same finding with the same arithmetic.
 - **Unique arguments:** the arguments raised by a single persona that survived the debate. They are the best evidence that the variety paid off.
 - **The imagined-audience persona and the personas outside the audience:** did they say something no other persona said?
@@ -53,26 +53,26 @@ From `list-analysis.json`: how many agents put first the item they received on t
 
 ## 7. Round 3
 
-At the quick level there is no round 3 and no debate: write "skipped (effort: quick)" under sections 7 and 8 (keep the contrarian's part of section 8), and record in section 9 that the panel's agreements were never tested against each other. At the deep level, also say what the second destroyer found that the first did not.
+At the quick level there is no round 3 and no debate: write "skipped (effort: quick)" under sections 7 and 8 (keep the devil's advocate's part of section 8), and record in section 9 that the panel's agreements were never tested against each other. At the deep level, also say what the second prosecutor found that the first did not.
 
 Who took part, on which models, the reason for choosing the two users (one per model), and whether every central rule had at least one defender and one critic. List every **split by model**: classifications or positions that divided exactly along model lines, which stay as hypotheses. In a real run, one scenario split exactly by model: three said "proven problem", three said "hypothesis".
 
-## 8. Contrarian and debate
+## 8. Devil's advocate and debate
 
-- What the contrarian pointed out that the rest of the panel had not seen, and what the answers it requested in full revealed (including errors in the moderator's own summary).
-- How many replies were **keeps**, **adjusts** and **changes**, from whom, and in which direction: the majority's, the destroyer's or the contrarian's. Retreats that almost all go towards an adversary are conformity just as much as those that go towards the majority.
+- What the devil's advocate pointed out that the rest of the panel had not seen, and what the answers it requested in full revealed (including errors in the judge's own summary).
+- How many replies were **keeps**, **adjusts** and **changes**, from whom, and in which direction: the majority's, the prosecutor's or the devil's advocate's. Retreats that almost all go towards an adversary are conformity just as much as those that go towards the majority.
 - **Non-independent convergence:** every point where half or more of the participants changed position in the same direction after reading the same argument. Count it as one movement, not as several independent agreements. Say whose argument it was: in a real run, four convergences all came from one participant's argument read in the same summary.
 - **Independent, verified or persuaded:** for each point, how many final positions were independent (held before any argument), verified (changed after an argument, with a quoted passage: one confirmation of that argument's origin) and persuaded (changed with no quote: not counted). Only independent positions count as separate agreements.
-- **Who is counted:** confirm that the destroyer and the contrarian were left out of every convergence, consensus or "N of M agree" count.
+- **Who is counted:** confirm that the prosecutor and the devil's advocate were left out of every convergence, consensus or "N of M agree" count.
 - **Fresh agents:** confirm that every call was a new agent and that no earlier agent was resumed or continued.
 - Which items were settled before the debate and sent straight to consolidation, and why.
-- Limitation of the contrarian pack: what reached it as a summary rather than as verbatim text, and which answers it did not request.
+- Limitation of the devil's advocate pack: what reached it as a summary rather than as verbatim text, and which answers it did not request.
 
-## 9. Moderator bias risks
+## 9. Judge bias risks
 
-The moderator wrote the scenarios, the summaries, the agenda and the synthesis. Say where your choices may have influenced the result: scenarios that favored one reading, summaries that may have softened a position, points left off the agenda and why.
+The judge wrote the scenarios, the summaries, the agenda and the synthesis. Say where your choices may have influenced the result: scenarios that favored one reading, summaries that may have softened a position, points left off the agenda and why.
 
-- **Summary attributions:** how many attribution errors the contrarian (or your own check against the sources) found in your summaries, and which were corrected. In a real run, the moderator's summary had five, and it was the strongest filter of the panel.
+- **Summary attributions:** how many attribution errors the devil's advocate (or your own check against the sources) found in your summaries, and which were corrected. In a real run, the judge's summary had five, and it was the strongest filter of the panel.
 - **Scenarios that held the answer:** which proposed scenarios described the action or the outcome and were rewritten before round 3, and whether any that reached the participants still suggested its answer (every participant reproducing the same line is the sign).
 - **Leading questions:** whether any question presupposed a problem instead of accepting "none".
 

@@ -16,7 +16,7 @@ For the **system** and **change** types. The preparation session is at the repos
 ## 1. Defining the scope
 
 - **System:** ask the author whether the panel evaluates the whole system or one area (a module, a flow, a type of user). Large systems described in full produce a description no persona can judge; prefer the areas the author wants to discuss. If the full description is likely to exceed about **5,000 words** (not counting the `[ref: …]` references), include in the interview's question block how it would split into areas and ask whether the author wants to evaluate one at a time. That is why the light survey (section 2) comes before the questions.
-- **Evaluating the panel skill itself** (or any other system whose code ends up inside `panel/`): the method copied to `panel/method/` is the very system being evaluated, with the justifications you removed. The personas do not receive it, but the moderator does. Tell the author and record it in `config.md`, so it goes in as a limit in `diversity.md`.
+- **Evaluating the panel skill itself** (or any other system whose code ends up inside `panel/`): the method copied to `panel/method/` is the very system being evaluated, with the justifications you removed. The personas do not receive it, but the judge does. Tell the author and record it in `config.md`, so it goes in as a limit in `diversity.md`.
 - **Change:** the scope is the part the plan alters **plus its neighborhood**: what calls it, what it calls, what reads or writes the same data, or what appears on the same screen as what changes. List the areas you intend to extract and include them in the question block.
 - Record the source: commit (`git rev-parse --short HEAD`), branch and whether there are uncommitted changes. This goes into `config.md` and makes it possible to know, later, which version of the code the panel gave its opinion on.
 
@@ -88,6 +88,8 @@ User profiles come from the system itself, in addition to what the author says:
 - usage data the author has, if they want to share it (no personal data).
 
 Write the personas with the same structure as `composition.md`, saying under "Usually uses" **how each one uses this system today**. Include **one or two who do not use** the system: someone who might start using it, or someone who gave up. If the system has no users besides the author, see the end of section 4 of `prepare.md`.
+
+In the report's language these current users are the **witnesses**: they testify how the system is used today before they judge it, while the non-users are jurors only. In `personas.md`, mark them under **Relation to the project** as `witness (current user)`. Their testimony is simulated, so it never counts as a fact about the system: the facts are the exhibits (the code and the documentation, with their references). Personas are not told they are witnesses.
 
 ## 6. Check before the run
 

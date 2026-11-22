@@ -35,10 +35,10 @@ In the same single question block of `prepare.md`:
 When the work in scope is longer than about **5,000 words**, ask for the scope in the question block (chapters, sections, questions). The limit is about what **one persona receives in one call**, not the size of the work: choose the scope so that the excerpt, plus the summary of the rest for the experts, stays under about 5,000 words.
 
 - **Users and jurors** receive the scoped excerpt, verbatim.
-- **Experts and the destroyer** receive the scoped excerpt plus a **structured summary of the rest**, written by you, in `input/04-summary-of-the-rest.md`: one paragraph per section left out, each claim marked **[claim]** (the work asserts it), **[data]** (the work presents data or results for it), **[citation]** (the work attributes it to a source) or **[not verified]** (you could not tell from the text). The summary reports what the work says, never whether it is right.
+- **Experts and the prosecutor** receive the scoped excerpt plus a **structured summary of the rest**, written by you, in `input/04-summary-of-the-rest.md`: one paragraph per section left out, each claim marked **[claim]** (the work asserts it), **[data]** (the work presents data or results for it), **[citation]** (the work attributes it to a source) or **[not verified]** (you could not tell from the text). The summary reports what the work says, never whether it is right.
 - Record the scope and what was left out in the header of the work (section 4) and in `config.md` (`- Scope:`).
 
-The run saves the excerpt and the summary once in `prompts/shared/` and points to them with `include:` lines, so their size never pushes the moderator to shorten them.
+The run saves the excerpt and the summary once in `prompts/shared/` and points to them with `include:` lines, so their size never pushes the judge to shorten them.
 
 ## 4. Inputs
 
@@ -79,7 +79,7 @@ As in `prepare.md`. For a work, concerns are often about a reviewer's likely obj
 
 - Start from the field profile in `references/domains/` when one fits (`paper.md`, `book.md`, `thesis.md`, `exam.md`); otherwise build one from `composition.md`.
 - **Audience family:** users are the work's public (readers, students) with distinct profiles; the eighth seat is the public the author imagines. For an exam judged by its students, students receive the exam only, never the answer key; experts receive the exam and the key. Record the choice in `config.md`.
-- **Criteria family:** the bench of jurors of `composition.md` (standard 6, 3 per model; quick 4; deep 9; distinct profiles), the experts of the field profile and the destroyer as the harshest reviewer.
+- **Criteria family:** the bench of jurors of `composition.md` (standard 6, 3 per model; quick 4; deep 9; distinct profiles), the experts of the field profile and the prosecutor as the harshest reviewer.
 - In `config.md`: `- Type: work`, `- Family: audience | criteria`, `- Work files:` (the `02-work*.md` files), `- Scope:` (whole work, or what is in and what was left out), and the grid dimensions (audience) or criteria (criteria).
 
 ## 6. Exam answers
