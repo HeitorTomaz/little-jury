@@ -1073,7 +1073,7 @@ footer{margin-top:56px; padding:20px 0 48px; border-top:1px solid var(--rule); f
       var tdn = h('td', 'name'), bt = h('button');
       bt.type = 'button'; bt.setAttribute('aria-expanded', 'false');
       add(bt, h('strong', null, u.name));
-      add(bt, h('small', null, u.model ? L('profileModel', {profile: u.profile || '', model: u.model}) : (u.profile || '')));
+      add(bt, h('small', null, u.model ? L('profileModel', {profile: String(u.profile || '').replace(/[.\s]+$/, ''), model: u.model}) : (u.profile || '')));
       var tog = h('span', 'toggle', L('readEvaluation')); add(bt, tog);
       add(tdn, bt); add(tr, tdn);
       dims.forEach(function(d){

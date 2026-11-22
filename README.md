@@ -2,6 +2,8 @@
 
 A [Claude Code](https://code.claude.com) skill that puts your project or your work in front of a **little jury**, a mock jury of synthetic personas (jurors, expert witnesses, a prosecutor and a devil's advocate, with a judge running the sessions) that review it in isolated rounds and hand you an HTML report with the tensions, risks, gaps and what to test or revise first.
 
+![A little jury reviewing a fictional pilot study: the call with the goal, the questions, the run and the report](docs/media/demo.gif)
+
 It is not only for software. It works on:
 
 - **a concept** that is still on paper (a game, an app, a product, a service, a business);
@@ -14,6 +16,28 @@ The jury works in one of two ways. In the **audience** family, the personas reac
 The jury deliberates; **you decide**. The report never gives a verdict.
 
 **Who is in the room.** The **judge** (the Claude session that runs the panel) writes the prompts, keeps the record and writes the summary, but never votes. The **jurors** are the personas who react as your audience, or the bench that applies your criteria. In an existing system, its current users are **witnesses**: they say how they use it today before judging. **Expert witnesses** give technical opinion, and one of them can check facts on the web. The **prosecutor** argues the strongest case against the project, and the **devil's advocate** challenges whatever the panel agreed on too easily, including the judge's own summary. Your documents are the **exhibits**; reviews you made in other AI tools can join as **amicus briefs**. The personas themselves are never told they are in a trial.
+
+## Two examples
+
+Both were run with the skill itself at the **quick** effort level (8 and 12 persona calls, 20 and 27 minutes) on fictional material. The terminal scenes in the animation above reproduce the text of the real session; the report images are screenshots of the real reports.
+
+**Outside software: a pilot study judged like a peer review.** A short paper on potted plants and attention in one classroom, judged by a bench of four reviewers against the journal's five criteria (criteria family, type work). The cover letter, which argues for the paper, was kept out of the jury's reach.
+
+![The opening of the report: what the jury concluded and the jury box](docs/media/paper-hero.png)
+
+Each juror judges each criterion: meets, only if revised (with the revision it asks for) or does not meet.
+
+![Each juror, criterion by criterion](docs/media/paper-criteria.png)
+
+Where the jury split, each side is shown with who held it, the jury's proposal, what it costs and how to test it.
+
+![Where the jury split](docs/media/paper-split.png)
+
+**Software: a developer tool concept.** Flakeguard, a CLI and CI bot that quarantines flaky tests automatically. The author asked whether teams would trust automatic quarantine, and had not decided between small product teams and platform teams, so the report shows the split instead of a tally.
+
+![Each persona, question by question, with the conditions behind every "only if"](docs/media/devtool-stances.png)
+
+![Quick wins: the smallest change for each problem and what it costs](docs/media/devtool-quick-wins.png)
 
 ## What it is good at, and what it is not
 
