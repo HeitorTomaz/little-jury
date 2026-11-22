@@ -14,7 +14,7 @@ A starting point for evaluating developer documentation, an API reference, an SD
 - Proven problem in documentation: two pages contradict each other, an example contradicts the reference, or a documented behavior contradicts the code or the specification when both are available. A task the documentation does not cover is a gap, not a proven problem.
 - The report keeps the `users` key in the JSON; the label on the page comes from `meta.usersLabel` ("Developers").
 
-## Developers (lean: 8)
+## Developers (standard: 8; quick: 4; deep: 11)
 
 The eighth seat is the persona of the **audience the author imagines**. Write it from what the author declared about who the documentation is for. When the audience includes people who would only be affected (the end users of the integrations, a support team answering questions about the API), give one seat to them and say so in **Relation to the project**.
 
@@ -91,7 +91,7 @@ Write it from the documentation. A made-up example, only as a form:
 - **Looks for:** authentication explained once, clearly, and one example that lists data.
 - **Quits when:** getting a token takes longer than writing the script.
 
-### Reserved for the full panel
+### Reserved for the deep level
 - **affected:** a support agent who answers customers' questions about integrations, or an end user of an integration; answers "does not apply" to questions about building on the API.
 - **tooling:** generates clients from the specification; quits when the specification and the documentation disagree.
 - **security-reader:** reads for authentication, scopes and data exposure; quits when the docs show secrets in examples.
@@ -110,7 +110,7 @@ Evaluates the code samples, SDKs and tooling: whether the examples run, cover er
 ### standards — Standards and platform specialist (the only one who gets web access, in round 2)
 Evaluates the standards and conventions the API and documentation claim to follow (an API description format, authentication protocols, accessibility of the documentation site) and how comparable APIs document the same tasks. When this persona has web access in a round, it checks those standards and comparable public documentation in their current official sources and marks [not verified] what it could not check; without web access, it says it is answering without checking.
 
-### Reserved for the full panel
+### Reserved for the deep level
 - **security — API security specialist:** authentication flows, scopes, token handling in examples, abuse cases.
 
 ## Grid questions

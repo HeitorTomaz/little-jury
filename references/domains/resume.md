@@ -31,7 +31,7 @@ Turn the posting's mandatory requirements, its desirable ones and the way it des
 | consistency | Consistency | Do dates, titles, numbers and claims agree across the CV and the letter? |
 | letter | Cover letter | Does the letter add something the CV does not say (motivation, a link to the job, an explanation)? No letter: "does not apply". |
 
-## Recruiters (criteria family, lean: 6, 3 per model)
+## Recruiters (criteria family, standard: 6, 3 per model; quick: 4; deep: 9)
 
 Distribute the strict and the lenient profiles across both models, so strictness is not confused with the model.
 
@@ -77,7 +77,7 @@ Distribute the strict and the lenient profiles across both models, so strictness
 - **Tends to miss:** formal requirements and gaps in the timeline.
 - **Rejects when:** the application reads as generic, or the tone of the letter does not fit the kind of team the posting describes.
 
-### Reserved for the full panel
+### Reserved for the deep level
 - **headhunter:** an external recruiter who places candidates at this level; strict on positioning and on salary-level signals.
 - **career-switch reader:** a recruiter who often hires people from other fields; judges how well the application translates past experience into this job.
 
@@ -92,7 +92,7 @@ Evaluates the content against what this job really requires: whether the skills 
 ### market — Labor market specialist (the only one who gets web access, in round 2)
 Evaluates the conventions and the context of this application: what employers in this field and country expect from a CV (length, photo or none, format, language), how this kind of job is usually described, what the employer says about itself publicly. When this persona has web access in a round, it checks the employer's public information, current conventions for CVs in that country and field, and how similar jobs are posted, marking [not verified] what it could not check; without web access, it says it is answering without checking.
 
-### Reserved for the full panel
+### Reserved for the deep level
 - **writing — Editor:** evaluates the language line by line: verbs, length, jargon, typos.
 
 ## Typical additional questions (they go into `config.md` when they apply)

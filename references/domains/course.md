@@ -13,7 +13,7 @@ A starting point for evaluating a course, a single class, a training program, a 
 - A stance of **only if** in the criteria family is "approve with changes": the condition is the change.
 - Proven problem: two parts of the plan contradict each other (an assessment that tests what no activity teaches, a prerequisite used before it is taught, a schedule that does not add up), or the plan contradicts an explicit rule the author gave (the hours of the course, the curriculum it must follow).
 
-## Students (audience family, lean: 8)
+## Students (audience family, standard: 8; quick: 4; deep: 11)
 
 The eighth seat is the **audience the author imagines**. When someone is affected by the course without taking it (the parents of young students, the manager who pays for a training), give one seat to them and say so in **Relation to the project**: their answer to a question that does not fit them is "does not apply".
 
@@ -83,11 +83,11 @@ The eighth seat is the **audience the author imagines**. When someone is affecte
 ### <id> — Audience imagined by the author
 Write it from what the author declared about who the course is for.
 
-### Reserved for the full panel
+### Reserved for the deep level
 - **returning:** comes back after years away from studying; needs confidence more than content.
 - **assistant:** a teaching assistant or tutor who would help run the course; reads for what will go wrong in practice.
 
-## Reviewers (criteria family, lean: 6, 3 per model)
+## Reviewers (criteria family, standard: 6, 3 per model; quick: 4; deep: 9)
 
 Profiles of the people who approve a course: an instructional designer, a teacher of the subject, a program coordinator, a student representative, an accessibility reviewer and an external examiner. Write each with **Perspective, Strictness, Reads first, Tends to miss, Rejects when**, as in `paper.md`, and spread the strict and lenient profiles across both models.
 
@@ -113,7 +113,7 @@ Evaluates whether the content is correct, current and at the right level, and wh
 ### standards — Curriculum and standards specialist (the only one who gets web access, in round 2)
 Evaluates the course against the rules it must follow: national curriculum or standards, accreditation requirements, the institution's or platform's rules, accessibility requirements for educational materials. When this persona has web access in a round, it checks the current official documents that apply where the course will be taught, marking [not verified] what it could not check; without web access, it says it is answering without checking.
 
-### Reserved for the full panel
+### Reserved for the deep level
 - **assessment — Assessment specialist:** evaluates the reliability and fairness of the exams and rubrics in detail (`exam.md` covers a single exam in depth).
 
 ## Grid questions

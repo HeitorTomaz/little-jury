@@ -28,6 +28,7 @@ PRIORITIES = {"high", "medium", "low"}
 CATEGORIES = {"design", "audience", "production", "scope", "market"}
 TYPES = {"concept", "system", "change", "work"}
 FAMILIES = {"audience", "criteria"}
+EFFORTS = {"quick", "standard", "deep"}
 STATUSES = {"resolved", "partly", "unresolved", "new"}
 STANCES = {"yes", "only if", "no", "does not apply"}
 COUNTED = {"yes", "only if", "no"}
@@ -74,6 +75,13 @@ def validate(d: dict, example: dict, default_labels: dict):
     if meta.get("family", "audience") not in FAMILIES:
         errors.append(f"meta.family must be audience or criteria (got {meta.get('family')!r})")
     criteria = meta.get("family") == "criteria"
+    if meta.get("effort", "standard") not in EFFORTS:
+        errors.append(f"meta.effort must be quick, standard or deep (got {meta.get('effort')!r})")
+    effort = meta.get("effort", "standard")
+    if effort == "quick" and d.get("scenarios"):
+        warnings.append("meta.effort is quick but scenarios is filled: a quick panel has no round 3")
+    if effort == "quick" and any(q.get("support") or q.get("against") for q in d.get("quickWins", [])):
+        warnings.append("meta.effort is quick but some quick wins have support or against: a quick panel has no debate")
     if criteria and not meta.get("usersLabel"):
         warnings.append("meta.family is criteria but meta.usersLabel is empty: the bench will be labelled 'Users'")
 
@@ -83,7 +91,11 @@ def validate(d: dict, example: dict, default_labels: dict):
         errors.append(f"labels: unknown key '{k}'")
     if not is_english(meta.get("language")):
         # Criteria variants ("...Criteria", "stance_..._criteria") are only needed in a criteria report.
-        needed = [k for k in default_labels if criteria or not (k.endswith("Criteria") or k.endswith("_criteria"))]
+        # Effort variants ("...Quick", "...Deep") only at that level.
+        needed = [k for k in default_labels
+                  if (criteria or not (k.endswith("Criteria") or k.endswith("_criteria")))
+                  and (effort == "quick" or not k.endswith("Quick"))
+                  and (effort == "deep" or not k.endswith("Deep"))]
         missing = sorted(k for k in needed if not labels.get(k))
         if missing:
             errors.append(f"meta.language is {meta.get('language')!r}: labels must translate every key; "
@@ -235,6 +247,8 @@ def validate(d: dict, example: dict, default_labels: dict):
             check_ids(x.get("rejected"), f"list.order[{i}].rejected")
 
     for k in ["tensions", "quickWins", "risks", "strengths", "scenarios", "hypotheses", "gaps"]:
+        if k == "scenarios" and effort == "quick":
+            continue  # a quick panel has no round 3
         if not d.get(k):
             warnings.append(f"section '{k}' is empty")
 

@@ -13,4 +13,4 @@ expected_outcome: |
   call with requested answers, settled items sent straight to consolidation, and no panel tally
   because the audience is undefined), saving full prompts and unedited answers, without passing
   the author's concerns or the config to any agent, and ends with a validated report.html.
-  WARNING: this is a full run (about 50 to 70 agent calls).
+  WARNING: this is a complete standard run (about 50 to 70 agent calls).

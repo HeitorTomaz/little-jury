@@ -13,7 +13,7 @@ A starting point for evaluating a book, a manuscript, a chapter or a book propos
 - In the criteria family, jurors are **editorial readers**; a stance of **only if** names the revision ("only if the middle section is cut by a third").
 - The report keeps the `users` key in the JSON; the label comes from `meta.usersLabel` ("Readers" or "Editorial readers").
 
-## Readers (audience family, lean: 8)
+## Readers (audience family, standard: 8; quick: 4; deep: 11)
 
 The eighth seat is the **audience the author imagines**, written from what the author declared about who the book is for.
 
@@ -82,11 +82,11 @@ Write it from the manuscript and what the author declared. A made-up example, on
 - **Looks for:** one idea per chapter they can retell at breakfast.
 - **Quits when:** a chapter needs the previous three to make sense.
 
-### Reserved for the full panel
+### Reserved for the deep level
 - **book-club:** reads to discuss with others; quits when there is nothing to argue about.
 - **reviewer:** writes reviews; reads for the one-line verdict and the passage to quote.
 
-## Editorial readers (criteria family, lean: 6, 3 per model)
+## Editorial readers (criteria family, standard: 6, 3 per model; quick: 4; deep: 9)
 
 Profiles of the people who decide on a manuscript: an acquisitions editor, a literary agent, a developmental editor, a copy editor's eye, a sales and marketing reader, and a reader from the target audience who reports to the publisher. Write each with **Perspective, Strictness, Reads first, Tends to miss, Rejects when**, as in `paper.md`, and spread the strict and lenient profiles across both models.
 

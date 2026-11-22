@@ -45,6 +45,8 @@ Input: `02-full-description.md` and your own round 1 answer.
 11. For the most serious problem you found, what is the **smallest adjustment to the plan** that would solve it, and what is lost with it?
 12. The expert's specific questions, in `config.md`.
 
+**Effort level.** As in `rounds.md` ("Effort level"): at the **quick** level the quick wins come from the experts' question 11 (the smallest adjustment to the plan); at the **deep** level `destroyer-2` gets the same question on the other model.
+
 ## Round 2 — destroyer
 
 "Present the three strongest arguments for this change to fail or to leave the system worse than it is. For each one: (a) the claim; (b) the chain of reasoning, grounded in the description's items (cite A and B); (c) what would bring this argument down. Also consider the option of not making the change: if it is better, say why."

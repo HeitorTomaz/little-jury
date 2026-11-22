@@ -6,7 +6,7 @@
 - Language: English
 - Version: 0.1   → outputs in rounds/v0.1/
 - Origin: concept document
-- Size: lean
+- Effort: standard
 - Checkpoints: none
 - Re-evaluation of: none
 - Preparation date: 2026-11-20

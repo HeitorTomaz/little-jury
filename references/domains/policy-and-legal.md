@@ -15,7 +15,7 @@ A starting point for evaluating an internal policy, a code of conduct, a contrac
 - A stance of **only if** in the criteria family is "approve with changes": the condition is the change.
 - Proven problem: two clauses of the text contradict each other, a clause refers to something the text never defines, or the text contradicts a rule the author gave as binding (a parent policy, a template it must follow). That the text may conflict with a law is a hypothesis for a lawyer to check.
 
-## Affected people (audience family, lean: 8)
+## Affected people (audience family, standard: 8; quick: 4; deep: 11)
 
 The eighth seat is the **audience the author imagines**. Some personas apply the text instead of being bound by it; say so in **Relation to the project**.
 
@@ -85,11 +85,11 @@ The eighth seat is the **audience the author imagines**. Some personas apply the
 ### <id> — Audience imagined by the author
 Write it from what the author declared about who the text is for.
 
-### Reserved for the full panel
+### Reserved for the deep level
 - **third-party:** someone not bound by the text but affected by it (a customer of the company whose employees it binds, a neighbor of the community).
 - **auditor:** checks, after the fact, whether the text was followed; needs records and evidence.
 
-## Reviewers (criteria family, lean: 6, 3 per model)
+## Reviewers (criteria family, standard: 6, 3 per model; quick: 4; deep: 9)
 
 Profiles of the people who review a normative text before it is adopted: in-house counsel, a compliance officer, a plain-language editor, a representative of the people affected (an employee representative, a consumer advocate), an internal auditor and an ombudsperson. Write each with **Perspective, Strictness, Reads first, Tends to miss, Rejects when**, as in `paper.md`, and spread the strict and lenient profiles across both models. None of them gives legal advice; their findings are questions for a lawyer.
 

@@ -1,4 +1,12 @@
-little-jury, method 0.10.2 (2026-11-22)
+little-jury, method 0.11.0 (2026-11-22)
+0.11.0: effort levels replace lean and full. The question block asks for quick (4 users or jurors, 2
+experts, rounds 1, 2 and consolidation, the contrarian in one call, quick wins from the experts' smallest
+change; about 12 to 20 calls), standard (the method as before; 50 to 70 calls, 35 to 55 for criteria) or deep
+(11 users or 9 jurors, 5 experts, a second destroyer on the other model, 8 to 10 round 3 items, 5 to 7 debate
+points always with a second turn; about 90 to 130 calls). config.md records `- Effort:`; the report gets
+meta.effort, hides the scenarios and quick wins sections when they are empty, and its method section says what
+a quick panel skipped. Isolation, independent initial evaluations, classification, two models and the
+contrarian stay at every level.
 0.10.2: prepare writes nothing before the author answers the question block, and ends its turn there.
 0.10.1: the skill is renamed little-jury (it was mock-jury); the command is /little-jury.
 0.10.0: eleven new field profiles: design-doc, open-source, developer-docs, business-plan, grant-proposal,

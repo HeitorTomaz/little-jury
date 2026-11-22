@@ -25,7 +25,7 @@ A starting point for evaluating a thesis, a dissertation, a capstone or final co
 
 The level matters: a capstone (TCC) is not judged like a doctoral thesis. Record the level in `config.md` and tell the committee in the prompt.
 
-## Committee (criteria family, lean: 6, 3 per model)
+## Committee (criteria family, standard: 6, 3 per model; quick: 4; deep: 9)
 
 Distribute the strict and the lenient profiles across both models, so strictness is not confused with the model.
 
@@ -71,7 +71,7 @@ Distribute the strict and the lenient profiles across both models, so strictness
 - **Tends to miss:** problems of substance.
 - **Rejects when:** the text does not meet mandatory norms, or plagiarism-like reuse appears without citation.
 
-### Reserved for the full panel
+### Reserved for the deep level
 - **future-reader:** a student who would build on this thesis next year; asks what they could actually reuse.
 
 ## Experts

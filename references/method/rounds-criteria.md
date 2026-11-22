@@ -23,7 +23,7 @@ Wherever `rounds.md` says "the project", "the description" or "use", read "the w
 | **The opening** | `input/01-short-pitch.md` | the work's own opening (abstract, back cover text, first page, the exam's instructions; for an exam answer, the question it answers), verbatim, or a neutral summary written by preparation |
 | **Summary of the rest** | `input/04-summary-of-the-rest.md` (only for long works) | a structured summary of the parts outside the scope, with each claim marked **[claim]**, **[data]**, **[citation]** or **[not verified]**. Only experts receive it |
 | **Criteria** | the grid table in `config.md` and, when the author gave a rubric, answer key, journal guidelines or program regulation, `input/03-criteria.md` (verbatim) | 3 to 7 criteria, each with `id`, `name` and a question "Does the work meet <criterion>?". They are the grid dimensions: all of them are judged in round 1 |
-| **Bench** | the `users` seat in `personas.md` and `config.md` | the jurors: lean 6, 3 per model, each a distinct profile (for example strict, lenient, methodologist, specialist of the topic, reader from outside the field, practitioner) |
+| **Bench** | the `users` seat in `personas.md` and `config.md` | the jurors: standard 6, 3 per model (quick 4, deep 9; `- Effort:` in `config.md`), each a distinct profile (for example strict, lenient, methodologist, specialist of the topic, reader from outside the field, practitioner) |
 
 Stances keep their enum values (`yes`, `only if`, `no`, `does not apply`); in this family they mean:
 
@@ -93,6 +93,8 @@ As in `rounds.md`, the harshest reviewer attacks by role: its objections are fin
 
 Output: `r2.md`, one section per agent.
 
+**Effort level.** The levels of `rounds.md` ("Effort level") apply here too: at the **quick** level there is no round 3 and no debate, the contrarian works in one call from rounds 1 and 2, and the quick wins come from the experts' question 6 (the smallest revision); at the **deep** level, `destroyer-2` is a second harshest reviewer on the other model, round 3 has 8 to 10 items, and every debate point gets a second turn.
+
 ## Round 3 — Claims under challenge (moderator, experts and 2 jurors)
 
 ### Write the items
@@ -110,7 +112,7 @@ Rules, as in `rounds.md`:
 
 ### Choose the participants
 
-All experts, plus **two jurors, one from each model**, chosen so that for each central claim there is **at least one defender and one critic** among the participants (from their round 1 stances and quotes). Record the claims, who defends and who criticizes each, and the reason for the choice in `progress.md`.
+All experts, plus **two jurors, one from each model** (four at the deep level, two per model), chosen so that for each central claim there is **at least one defender and one critic** among the participants (from their round 1 stances and quotes). Record the claims, who defends and who criticizes each, and the reason for the choice in `progress.md`.
 
 ### Question
 
@@ -126,7 +128,7 @@ As in `rounds.md`, with these differences.
 
 **Contrarian pack.** Verbatim: the experts' answers to questions 2, 3 and 5; everything any juror named as the strongest part; every excerpt where three or more participants said the same thing; every mention of strengths; the harshest reviewer's three objections. The stances table has one row per juror and one column per criterion, with each "only if" revision and the passage quoted. In the five items to ask the contrarian, read "grounding in the description's text" as "grounding in the work's text".
 
-**Agenda.** Draw the 3 to 5 points from:
+**Agenda.** Draw the 3 to 5 points (5 to 7 at the deep level) from:
 
 - **criteria where the bench split**: at least one "yes" and one "no" on the same criterion, or "only if" answers asking for incompatible revisions;
 - items of round 3 whose classification split;

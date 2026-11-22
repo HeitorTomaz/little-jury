@@ -9,4 +9,4 @@ expected_outcome: |
   session, which can see the concept: it launches scripts/run_panel.py, which opens an isolated
   session inside panel/, waits and delivers the report (or explains how to resume if the run is
   interrupted).
-  WARNING: launches a full run.
+  WARNING: launches a complete standard run.

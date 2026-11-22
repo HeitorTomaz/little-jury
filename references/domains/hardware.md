@@ -13,7 +13,7 @@ A starting point for evaluating a physical product, a device with electronics, a
 - The `value` dimension keeps its name; `would_try` becomes "Would you buy it at the stated price?".
 - Proven problem: two parts of the specification contradict each other (a battery life that the stated capacity and consumption cannot give, a size that does not fit the stated components, a feature promised in the description and absent in the specification). That something will break, wear or fail is a hypothesis until a prototype is tested.
 
-## Users (lean: 8)
+## Users (standard: 8; quick: 4; deep: 11)
 
 The eighth seat is the **audience the author imagines**. When someone is affected by the product without using it (the person who receives it as a gift, a household member who shares the space, a neighbor who hears it), give one seat to them and say so in **Relation to the project**: their answer to a question that does not fit them is "does not apply".
 
@@ -83,7 +83,7 @@ The eighth seat is the **audience the author imagines**. When someone is affecte
 ### <id> — Audience imagined by the author
 Write it from what the author declared about who the product is for.
 
-### Reserved for the full panel
+### Reserved for the deep level
 - **installer:** installs or maintains the product for others (a technician, a retailer); judges how long it takes and what goes wrong in the field.
 - **gift-receiver:** receives it without choosing it; judges the unboxing and whether it fits their life.
 
@@ -101,7 +101,7 @@ Evaluates the product's life after the sale: setup support, warranty claims, ret
 ### certification — Certification and compliance specialist (the only one who gets web access, in round 2)
 Evaluates what the product needs before it can be sold where the author intends: electrical safety, electromagnetic compatibility, radio approval, battery transport rules, chemical and material restrictions, labeling, toy or food-contact rules when they apply. When this persona has web access in a round, it checks the current official requirements for the target markets, marking [not verified] what it could not check; without web access, it says it is answering without checking.
 
-### Reserved for the full panel
+### Reserved for the deep level
 - **sustainability — Environmental specialist:** evaluates materials, energy use, packaging and the end of life.
 
 ## Grid questions

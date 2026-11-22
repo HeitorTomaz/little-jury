@@ -25,7 +25,7 @@ A starting point for evaluating a scientific paper, a preprint or a manuscript b
 
 Keep 3 to 7 criteria. A journal's own review form, when the author has one, is better than this set: save it verbatim in `input/03-criteria.md`.
 
-## Reviewers (criteria family, lean: 6, 3 per model)
+## Reviewers (criteria family, standard: 6, 3 per model; quick: 4; deep: 9)
 
 Distribute the strict and the lenient profiles across both models, so strictness is not confused with the model.
 
@@ -71,11 +71,11 @@ Distribute the strict and the lenient profiles across both models, so strictness
 - **Tends to miss:** problems hidden in the method.
 - **Rejects when:** the paper promises more than it shows, or belongs to another kind of venue.
 
-### Reserved for the full panel
+### Reserved for the deep level
 - **replicator:** would try to reproduce the study; strict on whether the paper gives enough detail (materials, code, data availability) to do it.
 - **statistician-reviewer:** a reviewer whose only focus is the analysis plan and the reporting of effects and uncertainty.
 
-## Readers (audience family, lean: 8)
+## Readers (audience family, standard: 8; quick: 4; deep: 11)
 
 Use these when the question is how the paper will be received, not whether it should be accepted. The eighth seat is the **audience the author imagines**.
 
@@ -101,7 +101,7 @@ Evaluates the paper's place in its field: what is new, what is missing from the 
 ### integrity — Sources and research integrity specialist (the only one who gets web access, in round 2)
 Evaluates citations, data availability, ethics approval and reporting standards. When this persona has web access in a round, it checks that cited works exist and say what the paper says they say, that the reporting guideline for this kind of study is followed, and that the journal's requirements are met, marking [not verified] what it could not check (paywalls, unreachable sources); without web access, it says it is answering without checking.
 
-### Reserved for the full panel
+### Reserved for the deep level
 - **writing — Scientific editor:** evaluates structure, the abstract and the title, and whether each section does its job.
 
 ## Typical additional questions (they go into `config.md` when they apply)

@@ -18,7 +18,7 @@ A starting point for evaluating an exam, a test, an assignment brief or a graded
 - **Audience family:** users are **students**; "use" becomes "take the exam"; "first 15 minutes of use" becomes "the first 15 minutes of the exam". Grid questions: `curiosity` becomes **Understood the task** ("After reading the instructions, do you know what is asked and how you will be graded?"); `value` **Fair** ("Does the exam measure what the course taught, without tricks?"); `ease` **Doable in the time** ("Could a well-prepared student finish it in the time given?"); `would_try` **Would show what you know** ("Would this exam let you show what you know?").
 - **Criteria family:** jurors are **graders**; the criteria are the items of the answer key or rubric, one per criterion, each answered "Does the answer meet <item>?". A stance of **only if** is partial credit: the condition says what is missing. The report label is "Graders".
 
-## Students (audience family, lean: 8)
+## Students (audience family, standard: 8; quick: 4; deep: 11)
 
 The eighth seat is the **student the teacher has in mind** (the typical student of this class, as the teacher describes it).
 
@@ -79,7 +79,7 @@ Write it from what the teacher said about the class. A made-up example, only as 
 - **Looks for:** questions that look like the ones from class.
 - **Feels it is unfair when:** a question uses a context never seen in class to test a known idea.
 
-## Graders (criteria family, lean: 6, 3 per model)
+## Graders (criteria family, standard: 6, 3 per model; quick: 4; deep: 9)
 
 Distribute the strict and the lenient graders across both models, so strictness is not confused with the model. Write each with **Perspective, Strictness, Reads first, Tends to miss, Rejects when**, as in `paper.md`:
 

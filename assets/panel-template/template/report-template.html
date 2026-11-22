@@ -344,7 +344,6 @@ footer{margin-top:56px; padding:20px 0 48px; border-top:1px solid var(--rule); f
   "quickWinAgainst": "Opposed by {who}.",
   "tallyFor": "{count} for",
   "tallyAgainst": "{count} against",
-  "noQuickWins": "The panel recorded no quick wins.",
   "testTitle": "What to test first",
   "testNav": "What to test",
   "testIntro": "Questions the panel cannot answer: only real people using the project can. In order of priority.",
@@ -443,6 +442,13 @@ footer{margin-top:56px; padding:20px 0 48px; border-top:1px solid var(--rule); f
   "method_3Criteria": "Claims under challenge: the moderator puts the work's central claims against the strongest objections raised.",
   "method_4": "Debate: the participants learn each other's positions and the adversaries challenge the consensus.",
   "method_5": "Consolidation: the moderator separates what is proven from what is a hypothesis, without forcing agreement.",
+  "method_4Quick": "Challenge: one adversary looks for the panel's own mistakes in the first two rounds.",
+  "methodNoteQuick": "Quick effort: this panel skipped the extreme-situations round and the debate. Nobody tested the rules against each other in scenarios, and nobody could change their mind after hearing the others; the quick wins are the experts' own proposals, never supported or opposed by anyone.",
+  "methodNoteDeep": "Deep effort: a larger panel, two adversaries attacking from different angles, more extreme situations and debate points, and a second turn on every point.",
+  "quickWinsIntroQuick": "The smallest change each expert proposed for the most serious problem they found. At this effort level there was no debate, so nobody supported or opposed them yet.",
+  "effort_quick": "quick panel",
+  "effort_standard": "standard panel",
+  "effort_deep": "deep panel",
   "limitsTitle": "Limits of this run",
   "emptySection": "The panel recorded nothing here.",
   "footer": "Every decision is still the author's. The .md files next to this report hold every persona's full answers, for reference and for future sessions with Claude."
@@ -456,7 +462,7 @@ footer{margin-top:56px; padding:20px 0 48px; border-top:1px solid var(--rule); f
     "concept": "Example project",
     "version": "0.1",
     "date": "run date",
-    "panelSize": "lean panel",
+    "effort": "standard",
     "composition": "3 users, 2 experts and 2 adversaries (example)",
     "domain": "example",
     "type": "concept",
@@ -803,6 +809,7 @@ footer{margin-top:56px; padding:20px 0 48px; border-top:1px solid var(--rule); f
   var CRIT = m.family === 'criteria';
   // Criteria family: use the label's criteria variant when it exists ("stance_yes" -> "stance_yes_criteria",
   // "stancesTitle" -> "stancesTitleCriteria"), otherwise the usual label.
+  var EFFORT = ({quick:1, standard:1, deep:1})[m.effort] ? m.effort : 'standard';
   function LC(key, vars){
     if(CRIT){ var alt = /^stance_/.test(key) ? key + '_criteria' : key + 'Criteria'; if(LBL[alt] !== undefined || DEF[alt] !== undefined) return L(alt, vars); }
     return L(key, vars);
@@ -832,7 +839,7 @@ footer{margin-top:56px; padding:20px 0 48px; border-top:1px solid var(--rule); f
   var typeKey = {'system':'type_system', 'change':'type_change', 'work':'type_work'}[m.type] || 'type_concept';
   add(ot, h('p', 'kind', L(typeKey, {version: m.version || '?'})));
   add(ot, h('h1', null, m.concept || '?'));
-  add(ot, h('p', 'when', L('metaLine', {date: m.date || '?', panelSize: m.panelSize || '?', composition: m.composition || '?'})));
+  add(ot, h('p', 'when', L('metaLine', {date: m.date || '?', panelSize: m.panelSize || L('effort_' + EFFORT), composition: m.composition || '?'})));
   if(m.example) add(ot, h('p', 'notice example', L('exampleNotice')));
   var conc = h('div', 'conclusions'); add(conc, h('h2', null, L('conclusionsTitle')));
   if(n(D.summary)){ var ul = h('ul'); D.summary.forEach(function(t){ add(ul, h('li', null, t)); }); add(conc, ul); }
@@ -967,7 +974,8 @@ footer{margin-top:56px; padding:20px 0 48px; border-top:1px solid var(--rule); f
   } else empty(wt, L('noTensions'));
 
   /* Quick wins */
-  var wsc = section('quick-wins', L('quickWinsTitle'), L('quickWinsNav'), LC('quickWinsIntro'));
+  if(n(D.quickWins)){
+  var wsc = section('quick-wins', L('quickWinsTitle'), L('quickWinsNav'), EFFORT === 'quick' ? L('quickWinsIntroQuick') : LC('quickWinsIntro'));
   var sc = D.quickWins || [];
   if(sc.length){
     var order = [], byPoint = {};
@@ -983,11 +991,12 @@ footer{margin-top:56px; padding:20px 0 48px; border-top:1px solid var(--rule); f
         if(n(c.proposedBy)) add(body, h('p', 'who', L('quickWinProposedBy', {who: who(c.proposedBy)})));
         if(n(c.support)) add(body, h('p', 'who', L('quickWinSupport', {who: who(c.support)})));
         if(n(c.against)) add(body, h('p', 'who', L('quickWinAgainst', {who: who(c.against)})));
-        add(row, t, body); add(g, row);
+        if(EFFORT === 'quick') add(row, body); else add(row, t, body); add(g, row);
       });
       add(wsc, g);
     });
-  } else empty(wsc, L('noQuickWins'));
+  }
+  }
 
   /* Who it is for (optional) */
   if(n(D.audienceSplit)){
@@ -1147,12 +1156,12 @@ footer{margin-top:56px; padding:20px 0 48px; border-top:1px solid var(--rule); f
   } else empty(wf);
 
   /* Scenarios */
-  var wc = section('scenarios', L('scenariosTitle'), L('scenariosNav'), L('scenariosIntro'));
   if(n(D.scenarios)){
+    var wc = section('scenarios', L('scenariosTitle'), L('scenariosNav'), L('scenariosIntro'));
     var uc = h('ul', 'plain');
     D.scenarios.forEach(function(c){ var li = h('li', 'scenario'); add(li, h('p', 'sit', c.situation), h('p', null, c.outcome)); if(c.classification) add(li, ev(c.classification)); add(uc, li); });
     add(wc, uc);
-  } else empty(wc);
+  }
 
   /* Gaps */
   var wg = section('gaps', L('gapsTitle'), L('gapsNav'), L('gapsIntro'));
@@ -1187,8 +1196,9 @@ footer{margin-top:56px; padding:20px 0 48px; border-top:1px solid var(--rule); f
   /* Method */
   var wmt = section('method', L('methodTitle'), L('methodNav'));
   var olr = h('ol', 'order');
-  [1,2,3,4,5].forEach(function(i){ add(olr, h('li', null, LC('method_' + i, {usersLabel: usersLabel.toLowerCase()}))); });
+  (EFFORT === 'quick' ? [1, 2, '4Quick', 5] : [1, 2, 3, 4, 5]).forEach(function(i){ add(olr, h('li', null, LC('method_' + i, {usersLabel: usersLabel.toLowerCase()}))); });
   add(wmt, olr);
+  if(EFFORT !== 'standard') add(wmt, h('p', 'footnote', L(EFFORT === 'quick' ? 'methodNoteQuick' : 'methodNoteDeep')));
   if(n(D.limits)){
     var bl = h('div', 'block'); add(bl, h('h3', null, L('limitsTitle')));
     var ul3 = h('ul'); D.limits.forEach(function(t){ add(ul3, h('li', null, t)); }); add(bl, ul3); add(wmt, bl);

@@ -13,7 +13,7 @@ A starting point for evaluating an open-source project, a library or a command-l
 - The `value` dimension keeps its name; `would_try` becomes "Would you add it to a real project?".
 - The report keeps the `users` key in the JSON; the label on the page comes from `meta.usersLabel` ("Developers").
 
-## Developers (lean: 8)
+## Developers (standard: 8; quick: 4; deep: 11)
 
 The eighth seat is the persona of the **audience the author imagines**. Write it from what the author declared about who the project is for. When the audience includes people who would only be affected (end users of software built with the library, an operations team that runs it without choosing it), give one seat to them and say so in **Relation to the project**.
 
@@ -90,7 +90,7 @@ Write it from the concept or the repository. A made-up example, only as a form:
 - **Looks for:** a tool that fails loudly and explains itself.
 - **Quits when:** it needs a configuration file before doing anything useful.
 
-### Reserved for the full panel
+### Reserved for the deep level
 - **affected:** an end user of software built with the library, or an operator who runs the tool without choosing it; answers "does not apply" to questions about adopting it.
 - **packager:** packages software for a distribution or a registry; quits when builds are not reproducible.
 - **educator:** would teach with it; quits when the concepts change between minor versions.
@@ -109,7 +109,7 @@ Evaluates the versioning promise, deprecation policy, supported platforms and th
 ### licensing — Licensing and supply-chain specialist (the only one who gets web access, in round 2)
 Evaluates the license and its compatibility with the dependencies, the security policy, trademark and name conflicts, and how comparable projects present themselves. When this persona has web access in a round, it checks the license terms, the dependencies' licenses and maintenance status, existing projects and package names, and the registries the project will publish to, marking [not verified] what it could not check; without web access, it says it is answering without checking.
 
-### Reserved for the full panel
+### Reserved for the deep level
 - **security — Security specialist:** evaluates what the tool can do on a user's machine, input handling and the release signing process.
 
 ## Grid questions

@@ -13,7 +13,7 @@ A starting point for evaluating a feature film, a series pilot or season outline
 - In the criteria family, the stances map to coverage verdicts: **yes** is "recommend", **only if** is "consider" (the condition is the rewrite that would make it a recommend), **no** is "pass".
 - Proven problem: two passages of the script contradict each other (a character knows what they could not know, a timeline that does not add up, a rule of the story's world broken without consequence). A choice that feels unmotivated is a hypothesis.
 
-## Viewers (audience family, lean: 8)
+## Viewers (audience family, standard: 8; quick: 4; deep: 11)
 
 Write each with the structure of `composition.md`. The eighth seat is the **audience the author imagines**.
 
@@ -28,7 +28,7 @@ Write each with the structure of `composition.md`. The eighth seat is the **audi
 
 Grid questions for viewers: `curiosity` "Would you start watching after the logline?"; `value` "Would it stay with you after it ends?"; `ease` "Could you follow who is who and what is at stake without effort?"; `would_try` "Would you watch it to the end and recommend it?".
 
-## Readers (criteria family, lean: 6, 3 per model)
+## Readers (criteria family, standard: 6, 3 per model; quick: 4; deep: 9)
 
 Distribute the strict and the lenient profiles across both models, so strictness is not confused with the model.
 
@@ -74,7 +74,7 @@ Distribute the strict and the lenient profiles across both models, so strictness
 - **Tends to miss:** whether the script could be produced.
 - **Rejects when:** the script is competent but indistinguishable from the others.
 
-### Reserved for the full panel
+### Reserved for the deep level
 - **showrunner:** for series, judges whether the pilot sets up an engine for many episodes.
 - **sensitivity-reader:** judges how the script represents people and experiences it is not written from.
 

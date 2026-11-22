@@ -53,6 +53,8 @@ From `list-analysis.json`: how many agents put first the item they received on t
 
 ## 7. Round 3
 
+At the quick level there is no round 3 and no debate: write "skipped (effort: quick)" under sections 7 and 8 (keep the contrarian's part of section 8), and record in section 9 that the panel's agreements were never tested against each other. At the deep level, also say what the second destroyer found that the first did not.
+
 Who took part, on which models, the reason for choosing the two users (one per model), and whether every central rule had at least one defender and one critic. List every **split by model**: classifications or positions that divided exactly along model lines, which stay as hypotheses. In a real run, one scenario split exactly by model: three said "proven problem", three said "hypothesis".
 
 ## 8. Contrarian and debate
@@ -78,4 +80,4 @@ Pay special attention to **agreement created by scenarios**: when a finding from
 
 ## 10. Conclusion
 
-In 3 to 5 sentences: was the variety sufficient? What should change in the next run (personas, models, questions, size)?
+In 3 to 5 sentences: was the variety sufficient? What should change in the next run (personas, models, questions, effort level)?

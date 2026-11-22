@@ -27,7 +27,7 @@ A starting point for evaluating a grant proposal, a research funding application
 
 Keep 3 to 7 criteria when there is no call grid. With a call grid, use all of its criteria, even if there are more.
 
-## Evaluators (criteria family, lean: 6, 3 per model)
+## Evaluators (criteria family, standard: 6, 3 per model; quick: 4; deep: 9)
 
 Distribute the strict and the lenient profiles across both models, so strictness is not confused with the model.
 
@@ -73,7 +73,7 @@ Distribute the strict and the lenient profiles across both models, so strictness
 - **Tends to miss:** problems the proposal does not mention.
 - **Rejects when:** even read generously, the proposal does not fit the call.
 
-### Reserved for the full panel
+### Reserved for the deep level
 - **funder-staff:** a program officer of the funder who knows what was funded in earlier rounds and what the program wants more of.
 - **partner:** a representative of a partner institution named in the proposal; checks that its role is real and agreed.
 
@@ -91,7 +91,7 @@ Evaluates how evaluators of this kind of call read proposals: the weight of each
 ### call — Call and regulations specialist (the only one who gets web access, in round 2)
 Evaluates the call and the rules around it: eligibility, deadlines, required documents, applicable regulations, and earlier funded projects when the funder publishes them. When this persona has web access in a round, it checks the call document and its annexes, the funder's published rules and frequently asked questions, and lists of earlier funded projects in the official sources, and marks [not verified] what it could not check; without web access, it says it is answering without checking.
 
-### Reserved for the full panel
+### Reserved for the deep level
 - **ethics — Ethics and data specialist:** consent, data protection and ethics approval when the project involves people or personal data.
 
 ## Typical additional questions (they go into `config.md` when they apply)

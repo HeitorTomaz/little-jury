@@ -25,7 +25,7 @@ Remove the speaker's name, employer and biography before the panel sees the prop
 | timing | Fits the slot | Can the outline be delivered in the time given, with room for questions? |
 | abstract | Clear abstract | Would an attendee reading only the title and the abstract know what the talk is and whether it is for them? |
 
-## Reviewers (criteria family, lean: 6, 3 per model)
+## Reviewers (criteria family, standard: 6, 3 per model; quick: 4; deep: 9)
 
 Distribute the strict and the lenient profiles across both models, so strictness is not confused with the model.
 
@@ -71,11 +71,11 @@ Distribute the strict and the lenient profiles across both models, so strictness
 - **Tends to miss:** fit with the call's formal rules.
 - **Rejects when:** the talk has no arc (a list of points with no reason to be in that order) or no clear ending.
 
-### Reserved for the full panel
+### Reserved for the deep level
 - **diversity-reviewer:** checks whether the examples and the language exclude part of the audience.
 - **academic-referee:** for academic conferences, judges the proposal as a short paper.
 
-## Attendees (audience family, lean: 8)
+## Attendees (audience family, standard: 8; quick: 4; deep: 11)
 
 Write each with the structure of `composition.md`. The eighth seat is the **audience the author imagines**.
 
@@ -101,7 +101,7 @@ Evaluates the arc, the opening, the ending, the pacing and the slides as text. A
 ### event — Event and community specialist (the only one who gets web access, in round 2)
 Evaluates fit with the event and its audience: the call's rules, past programs, the kind of talk that is usually accepted, overlap with talks already given. When this persona has web access in a round, it checks the call for papers, the event's past programs and recordings, and recent talks on the same topic, marking [not verified] what it could not check; without web access, it says it is answering without checking.
 
-### Reserved for the full panel
+### Reserved for the deep level
 - **demo — Live demo specialist:** evaluates whether a live demo is worth its risk, and the fallback.
 
 ## Typical additional questions (they go into `config.md` when they apply)

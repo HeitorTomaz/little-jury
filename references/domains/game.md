@@ -12,7 +12,7 @@ A starting point for evaluating a game. It comes from a pilot that evaluated a g
 - The `value` dimension is called **Expected fun** ("How they imagine playing would be").
 - The report keeps the `users` key in the JSON; the label on the page comes from `meta.usersLabel` ("Players").
 
-## Players (lean: 8)
+## Players (standard: 8; quick: 4; deep: 11)
 
 The eighth seat is the persona of the **audience the author imagines**. Write it from what the author declared about who the game is for; in the pilot, this was the persona that questioned the game's positioning most sharply.
 
@@ -81,7 +81,7 @@ Write it from the concept. A made-up example, only as a form:
 - **Looks for:** moments where neither could solve it alone, and the talk about it afterwards.
 - **Quits when:** one player ends up doing everything, or the puzzles repeat.
 
-### Reserved for the full panel
+### Reserved for the deep level
 - **experimenter:** likes unusual mechanics; quits when the game is just a variation of what they already know.
 - **dedicated:** looks for depth for hundreds of hours; quits when the game runs dry.
 - **social:** values stories to tell and playing with other people; quits when there is nothing to share.
@@ -100,7 +100,7 @@ Investigates how the mechanics interact: balance, emergent effects and loopholes
 ### publishing — Publishing specialist (the only one who gets web access, in round 2)
 Evaluates how the game reaches people: platform, store, game page, discovery and business model. Asks: who would look for this game, and where? What does the store page need to show in a few seconds? Is the proposed revenue model viable at the audience size a first version reaches? When this persona has web access in a round, it checks store rules and costs in the current official documentation and marks [not verified] what it could not check; without web access, it says it is answering without checking.
 
-### Reserved for the full panel
+### Reserved for the deep level
 - **narrative — Narrative designer:** evaluates the coherence of the world, the characters and the stories the rules can produce.
 
 ## Typical additional questions (they go into `config.md` when they apply)

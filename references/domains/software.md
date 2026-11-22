@@ -13,7 +13,7 @@ A starting point for evaluating an app, a tool or an internal system, as a conce
 - The `value` dimension keeps its name. For a system people are required to use, `would_try` becomes "Would you keep using it if you had a choice?".
 - The report keeps the `users` key in the JSON; the label on the page comes from `meta.usersLabel` ("Users").
 
-## Users (lean: 8)
+## Users (standard: 8; quick: 4; deep: 11)
 
 The eighth seat is the persona of the **audience the author imagines**. Write it from what the author declared about who the product is for. When the audience includes people who would only be affected (they receive notifications, reports or decisions the product produces, but never open it), give one seat to them and say so in **Relation to the project**: their answer to a question that does not fit them is "does not apply".
 
@@ -90,7 +90,7 @@ Write it from the concept or the system. A made-up example, only as a form:
 - **Looks for:** knowing what is late without asking.
 - **Quits when:** the team refuses to update it, so it shows the wrong picture.
 
-### Reserved for the full panel
+### Reserved for the deep level
 - **affected:** never opens the product but receives what it produces (a notification, a report, a decision); answers "does not apply" to questions about using it.
 - **buyer:** decides on the purchase without being a daily user; quits when the price or the contract does not match the value they can show.
 - **migrating:** comes from a competitor or an old system with years of data; quits when the migration loses history.
@@ -109,7 +109,7 @@ Evaluates what happens after launch: onboarding, support load, permissions, data
 ### domain — Domain and compliance specialist (the only one who gets web access, in round 2)
 Evaluates the rules of the field the product operates in: regulations, privacy, accessibility, contracts, store or platform policies, and how competitors present themselves. When this persona has web access in a round, it checks laws, standards and platform rules in the current official sources and marks [not verified] what it could not check; without web access, it says it is answering without checking.
 
-### Reserved for the full panel
+### Reserved for the deep level
 - **security — Security specialist:** evaluates authentication, permissions, data exposure and abuse cases (what a malicious user would try first).
 
 ## Grid questions

@@ -1,6 +1,6 @@
 # Panel personas
 
-This panel uses 8 players, 4 experts, 2 adversaries and 1 moderator. The other roles are defined at the end, for the full panel.
+This panel uses 8 players, 4 experts, 2 adversaries and 1 moderator. The other roles are defined at the end, for the deep level.
 
 ## Rules for all personas
 
@@ -131,7 +131,7 @@ Organizes the rounds, writes the extreme scenarios, runs the debate and consolid
 
 ---
 
-## Roles reserved for the full panel
+## Roles reserved for the deep level
 
 **Players**
 

@@ -25,7 +25,7 @@ A starting point for evaluating a technical design document, an RFC or an archit
 
 Keep 3 to 7 criteria. Add `security` ("Does it say what data it touches, who can access it and what an attacker would try first?") when the design handles user data, money or permissions.
 
-## Reviewers (criteria family, lean: 6, 3 per model)
+## Reviewers (criteria family, standard: 6, 3 per model; quick: 4; deep: 9)
 
 Distribute the strict and the lenient profiles across both models, so strictness is not confused with the model.
 
@@ -71,11 +71,11 @@ Distribute the strict and the lenient profiles across both models, so strictness
 - **Tends to miss:** long-term consequences the document does not raise.
 - **Rejects when:** the design needs a team or a timeline the author does not have.
 
-### Reserved for the full panel
+### Reserved for the deep level
 - **data — Data engineer:** strict on schemas, data quality, retention and what analytics will lose or gain.
 - **cost-reviewer:** a reviewer whose only focus is the infrastructure and licensing cost at the stated and at ten times the stated volume.
 
-## Readers (audience family, lean: 8)
+## Readers (audience family, standard: 8; quick: 4; deep: 11)
 
 Use these when the question is how the design will be received by the people around it, not whether it should be approved. The eighth seat is the **audience the author imagines**.
 
@@ -104,7 +104,7 @@ Evaluates how the system gets from the current state to the proposed one: data m
 ### standards — Standards and dependencies specialist (the only one who gets web access, in round 2)
 Evaluates the external pieces the design relies on: libraries, managed services, protocols, licenses and their stated limits. When this persona has web access in a round, it checks the current documentation, quotas, pricing pages, deprecation notices and license terms of the dependencies the document names, and marks [not verified] what it could not check; without web access, it says it is answering without checking.
 
-### Reserved for the full panel
+### Reserved for the deep level
 - **security-expert — Security architect:** threat model, trust boundaries, secrets handling, abuse cases.
 
 ## Typical additional questions (they go into `config.md` when they apply)

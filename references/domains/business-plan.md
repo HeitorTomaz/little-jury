@@ -27,7 +27,7 @@ A starting point for evaluating a business plan, an investor pitch deck, an acce
 
 Keep 3 to 7 criteria. A lender's grid will weigh cash flow and guarantees instead of growth; replace the set accordingly.
 
-## Investors (criteria family, lean: 6, 3 per model)
+## Investors (criteria family, standard: 6, 3 per model; quick: 4; deep: 9)
 
 Distribute the strict and the lenient profiles across both models, so strictness is not confused with the model.
 
@@ -73,11 +73,11 @@ Distribute the strict and the lenient profiles across both models, so strictness
 - **Tends to miss:** the qualitative strengths of the team.
 - **Passes when:** a key figure has no source, or two slides disagree.
 
-### Reserved for the full panel
+### Reserved for the deep level
 - **impact:** an impact investor who weighs the social or environmental outcome next to the return; strict on how impact is measured.
 - **corporate:** a corporate venture investor who reads for strategic fit with a larger company.
 
-## Customers (audience family, lean: 8)
+## Customers (audience family, standard: 8; quick: 4; deep: 11)
 
 Use these when the question is how the offer will be received by the people who would buy it. Derive the profiles from the plan's stated customer segments; these are generic forms. The eighth seat is the **audience the author imagines**.
 
@@ -106,7 +106,7 @@ Evaluates whether the plan can be delivered: team, hiring, suppliers, operations
 ### market — Market and regulation specialist (the only one who gets web access, in round 2)
 Evaluates the market data, competitors and the rules of the sector. When this persona has web access in a round, it checks the market figures and their sources, the competitors the plan names and the ones it does not, and the regulations or licenses the business needs, in current public sources, and marks [not verified] what it could not check (paid reports, private company data); without web access, it says it is answering without checking.
 
-### Reserved for the full panel
+### Reserved for the deep level
 - **legal — Legal specialist:** company structure, contracts, intellectual property, the terms of the ask.
 
 ## Typical additional questions (they go into `config.md` when they apply)

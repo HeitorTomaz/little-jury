@@ -16,7 +16,7 @@ Method files, in this folder:
 | `method/diversity.md` | how to evaluate the panel itself |
 | `method/scripts/` | isolation check, list draw, ranking analysis, report build and validation, statistics |
 
-Read `config.md` first: the `Type` field (concept, system, change or work) and the `Family` field (audience, the default, or criteria) tell you which questions to use, and `Language` tells you which language to write in. Then read the method files (`rounds-change.md` only for the change type, `rounds-criteria.md` only for the criteria family) and `personas.md`.
+Read `config.md` first: the `Type` field (concept, system, change or work) and the `Family` field (audience, the default, or criteria) tell you which questions to use, `Effort` (quick, standard or deep; standard when absent) tells you which rounds to run and how wide (section 4), and `Language` tells you which language to write in. Then read the method files (`rounds-change.md` only for the change type, `rounds-criteria.md` only for the criteria family) and `personas.md`.
 
 ## 1. Where you are and what you must not do
 
@@ -56,12 +56,26 @@ The run is autonomous: the author answered the questions during preparation and 
 
 - the result of the check;
 - the type and the family (`- Type:` and `- Family:` in `config.md`), and which rounds file you follow;
+- the effort level (`- Effort:`) and what it runs or skips (below);
 - the roles with each one's model (from `config.md`; the same in every round);
 - the author's goals for the evaluation (from `config.md`), which guide the choice of scenarios, the debate agenda and the emphasis of the consolidation;
 - the estimated number of agent calls, with the expected agenda;
 - whether the audience is defined (`## Audience` in `config.md`; see section 10, rule 8);
 - the checkpoints asked for in `config.md` (`- Checkpoints:`), if any (section 8);
 - whether this is a re-evaluation (`- Re-evaluation of:` in `config.md`; see "Re-evaluation" in `rounds.md`).
+
+### Effort level
+
+| | Quick | Standard | Deep |
+|---|---|---|---|
+| Rounds 1 and 2 | yes | yes | yes |
+| Round 3 (scenarios or claims) | **skipped** | 5 to 8 items, experts + 2 users | 8 to 10 items, experts + 4 users (2 per model) |
+| Contrarian | **one call**, no requests for full answers; it reads the pack built from rounds 1 and 2 | two calls, up to six full answers | two calls, up to six full answers |
+| Debate (round 4) | **skipped**; quick wins come from the experts' "smallest change" question in round 2 (`rounds.md`, "Effort level") | 3 to 5 points, second turn when the rules ask for it | 5 to 7 points, **always** a second turn |
+| Second destroyer | no | no | `destroyer-2`, on the other model, in round 2 |
+| Round 5 (consolidation) | yes | yes | yes |
+
+The seats come from `personas.md` and `config.md`, which preparation already wrote for the chosen level. At the quick level, mark the skipped steps in `progress.md` as `skipped (effort: quick)` and do not create their files; consolidation works from rounds 1 and 2 and the contrarian, and `diversity.md` records the level as a limit (no rule was tested against another in scenarios, and nobody could change their mind in a debate). What never changes with the level: the isolation, the environment check, independent initial evaluations, the classification of every claim, at least two models in every round with more than one participant, and the contrarian.
 
 Then continue straight on. The only reasons to stop are an isolation test that fails (section 3) or an isolated persona that uses a tool (section 6), in which case you explain what happened and do not work around it, and a checkpoint the author asked for (section 8).
 
@@ -82,10 +96,10 @@ Then continue straight on. The only reasons to stop are an isolation test that f
 - Environment check: completed on <date> (results below)
 - Round 1: completed | in progress (launched: <ids>; saved: <ids>) | pending
 - Round 2: ...
-- Round 3: ...
-- Contrarian: ... (call 1 / requests / call 2)
-- Debate agenda: ...
-- Round 4: ... (per point and turn)
+- Round 3: ...   (skipped (effort: quick) at the quick level)
+- Contrarian: ... (call 1 / requests / call 2; call 1 only at the quick level)
+- Debate agenda: ...   (skipped (effort: quick))
+- Round 4: ... (per point and turn)   (skipped (effort: quick))
 - Round 5: ...
 - Next step: <exact sentence saying what to do next>
 - Paused: checkpoint <1|2> (<after round 1 | before the debate>)   <- only while paused at a checkpoint
@@ -128,7 +142,7 @@ Then continue straight on. The only reasons to stop are an isolation test that f
 
 ## 8. Checkpoints (optional)
 
-They are off by default. When `config.md` says `- Checkpoints: after round 1, before the debate`, pause twice:
+They are off by default. When `config.md` says `- Checkpoints: after round 1, before the debate`, pause twice (at the quick level there is no debate, so only the first pause applies):
 
 1. **After round 1**, once `r1.md`, the moderator notes and the comprehension check are written: is it worth going on with these voices?
 2. **Before the debate**, once `r4-agenda.md` is written: the author may adjust the agenda.
@@ -146,7 +160,7 @@ If `rounds/v<version>/progress.md` already exists without round 5 completed:
 1. Repeat tests 1, 2 and 3 of the check (Claude Code version, context exclusions and read block): this is a new session. Record the version; if it changed since the run started, note it as a limit in `diversity.md`. If `progress.md` has a `- Paused:` line, this is the continuation after a checkpoint: follow section 8.
 2. Do not rely on "Next step" alone: compare the sections present in the round files (`r1.md`, `r2.md`, `r3.md`, `r4-contrarian.md`, `r4-debate-replies.md`) with the call log. A call that was launched but has no section is redone with the prompt saved in `prompts/`, unchanged, with its `include:` lines expanded as section 5 says. A section missing from the log is added to it, with tool uses "not recorded".
 3. Facts about the run itself that you put into summaries already sent (for example, "there was no interruption") and that stopped being true: correct them in the next summary and record it in `diversity.md`.
-4. Do not redo completed rounds. Record the resume in `progress.md`, with the date and what was redone.
+4. Do not redo completed rounds. A step marked `skipped (effort: quick)` counts as done. Record the resume in `progress.md`, with the date and what was redone.
 
 ## 10. Limits
 

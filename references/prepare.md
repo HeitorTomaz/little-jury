@@ -67,11 +67,11 @@ The other items, when the material does not answer them:
 | Author situation that is a fact (e.g. an existing developer account) | goes in as **[fact]** |
 | Is there a list for the panel to rank? (names, slogans, variants) | turns on the list, the draw and the report section |
 | Which external facts need checking against a source (store rules, regulations, trademarks, platform documentation) | defines the questions for the expert with web access |
-| Size: lean (default) or full | see `composition.md` |
+| **Effort level**: quick (a cheap first reading: 4 users, 2 experts, no scenarios and no debate, about 12 to 20 calls, minutes), **standard** (recommended: the full method, about 50 to 70 calls), or deep (11 users, 5 experts, two destroyers, more scenarios and debate points, about 90 to 130 calls, likely more than one usage window) | sets the seats, the rounds and the cost; see "Effort levels" in `composition.md`. When the author says "lean" or "full", read it as standard or deep |
 | **Checkpoints** (optional, off by default): "Do you want to check the run after round 1 (are the voices distinct?) and before the debate (adjust the agenda)?" | at each checkpoint the run saves everything and stops; the author looks, may edit the agenda, and continues with `/little-jury` |
 | For a re-evaluation: confirm that it is a revised version of the project evaluated in `rounds/v<earlier>/`, and ask what changed if the material does not say | see section 8 |
 
-In the same block, say what happens next: the run takes from tens of minutes to a few hours, makes about 50 to 70 agent calls (35 to 55 for a lean criteria panel) (it may span more than one usage window of the plan) and ends with the report open in the browser (or pauses at the checkpoints, if the author wants them). External evaluations made in another AI tool can be placed in `panel/input/external/` before the author answers; after that there is no way to include them in this run.
+In the same block, say what happens next: the run takes from tens of minutes to a few hours, makes the number of agent calls of the chosen effort level (standard: about 50 to 70, or 35 to 55 for a criteria panel; quick and deep in `composition.md`), may span more than one usage window of the plan, and ends with the report open in the browser (or pauses at the checkpoints, if the author wants them). External evaluations made in another AI tool can be placed in `panel/input/external/` before the author answers; after that there is no way to include them in this run.
 
 Do not ask the author which list item they prefer; the panel must not know.
 
@@ -144,7 +144,7 @@ Produce two files:
 
 ### `personas.md`
 
-Same format as the domain profile: the general rules for all personas, then each role with its `id`. Each user with perspective, what they usually use, tolerance for complexity, available time, what they look for and what makes them quit. Roles reserved for the full panel at the end.
+Same format as the domain profile: the general rules for all personas, then each role with its `id`. Each user with perspective, what they usually use, tolerance for complexity, available time, what they look for and what makes them quit. Write only the seats of the chosen effort level (quick: 4 users or jurors and 2 experts; standard: the profile's 8 users or 6 jurors and 4 experts; deep: 11 users or 9 jurors, 5 experts and `destroyer-2`); at the quick and standard levels, list the roles reserved for the deep level at the end, unused.
 
 ### `config.md` (read by the moderator only)
 
@@ -164,7 +164,7 @@ Keep the headings and the field names (`- Language:`, `- Defined:`, `- Checkpoin
 - Work files: <input/02-work.md, or input/02-work-1.md, -2.md…>   (type work)
 - Scope: <chapters, sections or questions in scope | whole>   (type work)
 - Round 3 tests: <copied from the field profile header: rules in scenarios | claims against objections | questions against possible answers>
-- Size: lean | full
+- Effort: quick | standard | deep
 - Preparation date: <date>
 - Checkpoints: none | after round 1, before the debate
 - Re-evaluation of: none | v<earlier version>

@@ -24,6 +24,12 @@ In the questions below, "the project" and "use" must be replaced with the domain
 - **audience**: the personas react to the work as its public would; use this file (or `rounds-change.md`).
 - **criteria**: a bench of jurors judges the work against explicit criteria; use `method/rounds-criteria.md`, which replaces the questions and the round 3 material of this file; everything else here still applies.
 
+**Effort level** (`- Effort:` in `config.md`, default `standard`; table in `run.md`, section 4):
+
+- **quick:** rounds 1 and 2, the contrarian in one call, then consolidation. Round 3 and the debate are skipped. The quick wins come from the experts' "smallest change" question in round 2 (question 6 of the experts here; the equivalent question in `rounds-change.md` and `rounds-criteria.md`): each one keeps its proposer, and nobody supported or opposed it, because there was no debate.
+- **standard:** everything in this file, as written.
+- **deep:** a second destroyer (`destroyer-2`) on the other model in round 2; 8 to 10 round 3 items with four users (two per model) besides the experts; 5 to 7 debate points, each **always** with a second turn.
+
 **Round 3 tests.** If `config.md` has a `- Round 3 tests:` line (from the field profile), round 3 puts that under challenge: rules in scenarios (the default, below), claims against objections (as in `rounds-criteria.md`), or questions against possible answers (an exam seen by its students: a correct answer the key would penalize, a reading of the question the author did not intend). The rules for writing round 3 items stay the same: neutral, the situation or the claim and never the outcome, one origin per persona's proposal.
 
 ## What each agent receives
@@ -157,6 +163,8 @@ For the expert with web access, add to the format: "For each external fact, cite
 
 "Present the three strongest arguments for this project to fail. For each one: (a) the claim; (b) the chain of reasoning, grounded in what is written in the description; (c) what would bring this argument down. Do not attack what is not written; if the argument depends on a gap, say so."
 
+At the deep level, `destroyer-2` gets the same question on the other model, with its own persona (a different angle of attack). Save both in `r2.md`; their arguments are examined separately, and agreement between them is not a convergence of the panel.
+
 The destroyer's role is to attack, so it is **not an independent voice**: leave it out of every convergence, consensus or "N of M agree" count, in every round. Its arguments still count as findings to examine. The same goes for the contrarian.
 
 Output: `r2.md`, one section per agent. After saving, run the list analysis if active (see `outputs.md`).
@@ -167,7 +175,7 @@ Output: `r2.md`, one section per agent. After saving, run the list analysis if a
 
 ### Write the scenarios
 
-Write 5 to 8 hypothetical situations in `rounds/v<version>/r3-scenarios-proposed.md`, drawing on:
+Write 5 to 8 hypothetical situations (8 to 10 at the deep level) in `rounds/v<version>/r3-scenarios-proposed.md`, drawing on:
 
 - `moderator/author-concerns.md`, rewritten as concrete situations ("The user does X in the first minute and then Y"), without saying they are the author's concerns;
 - contradictions, dominant strategies and gaps that came up in rounds 1 and 2;
@@ -180,7 +188,7 @@ Write 5 to 8 hypothetical situations in `rounds/v<version>/r3-scenarios-proposed
 ### Choose the participants
 
 - All experts.
-- **Two users, one from each model**, chosen so that, for each central rule discussed in the scenarios, there is **at least one defender and one critic** among the participants (counting experts too). Record the rules, who defends and who criticizes each, and the reason for the choice in `progress.md`.
+- **Two users, one from each model** (four at the deep level, two per model), chosen so that, for each central rule discussed in the scenarios, there is **at least one defender and one critic** among the participants (counting experts too). Record the rules, who defends and who criticizes each, and the reason for the choice in `progress.md`.
 - This keeps at least two models in the round (in the pilot, all six participants were on the same model, and the round lost variety). If no pair of users covers every central rule, choose the pair that covers the most and record the limitation.
 
 ### Question
@@ -212,7 +220,9 @@ The material from rounds 1 to 3 does not fit whole in one prompt (in the pilot, 
 
 The contrarian also receives the full description (`02-full-description.md`), to check the panel's criticisms against the text. Tell it in the prompt that only the excerpts marked as verbatim are original text, and that it may **request up to six answers in full**, by index number.
 
-The contrarian works in **two calls**:
+At the **quick** level there is no round 3, so the pack is built from rounds 1 and 2, the contrarian works in **one call** (no index and no requests for full answers), and item 5 below becomes "the point the author should look at first, and why". Save it in `r4-contrarian.md` and go straight to consolidation.
+
+At the standard and deep levels, the contrarian works in **two calls**:
 
 1. **First call:** the pack and the description. Ask for its findings so far on the five items below, and for the list of answers it wants in full (up to six index numbers), each with the reason.
 2. **Second call:** a new agent (never the first one resumed) that receives the pack, the description, the first call's answer verbatim and the requested answers verbatim, and is asked for the final findings on the five items.
@@ -231,7 +241,7 @@ Save both calls and the list of requested answers in `r4-contrarian.md`. It is w
 
 ### 4b. Agenda
 
-Propose 3 to 5 points, the most controversial ones. Items that are already **settled** (for example, a contradiction every expert pointed out) do not go to the debate: send them straight to consolidation and list them in `r4-agenda.md` under "Settled, not debated". This saves calls without losing anything. Mandatory:
+Propose 3 to 5 points (5 to 7 at the deep level), the most controversial ones. Items that are already **settled** (for example, a contradiction every expert pointed out) do not go to the debate: send them straight to consolidation and list them in `r4-agenda.md` under "Settled, not debated". This saves calls without losing anything. Mandatory:
 
 - **the list**, when active: count of the rankings (from `list-analysis.json`), rejections, order effect and conflicts found by the expert with web access. The author did not state a preference and you must not suggest one;
 - **a slot for the contrarian's point** (question 5). The contrarian speaks only on that point, with one reply, like the others; it does not take part in the other points, so that the debate does not lean towards the adversary with more speaking turns.
@@ -246,7 +256,7 @@ For each point:
 2. Ask **each participant involved, in a separate, new agent**, for a short reply (up to 250 words) with two parts. They receive the summary of the point and the excerpt of their own previous answer, never other people's whole answers.
    - **Position:** start with one of these words: **keeps**, **adjusts** (same position, with a caveat or new condition) or **changes** (different position), and say why. Whoever adjusts or changes **quotes the passage of the description (or of a scenario) that supports the new position**.
    - **Smallest change:** the smallest change to a rule or decision that would solve the problem in this point, and what is lost with it; or "no change needed", and why. Big redesigns are not what is asked: the aim is the change that costs least for the effect it has.
-3. Collect the smallest changes of the point (the **quick wins** of the consolidation), merging the ones that say the same thing. Run a **second turn** if someone said **changes** or if the point has **two or more different proposals**: the new summary lists the proposals (without saying who made them), and each participant says, in one line each, whether they **support** or **oppose** each proposal, and why, besides keeping, adjusting or changing their position. **Two turns at most.**
+3. Collect the smallest changes of the point (the **quick wins** of the consolidation), merging the ones that say the same thing. Run a **second turn** if someone said **changes** or if the point has **two or more different proposals**: the new summary lists the proposals (without saying who made them), and each participant says, in one line each, whether they **support** or **oppose** each proposal, and why, besides keeping, adjusting or changing their position. **Two turns at most.** At the deep level, every point gets the second turn.
 4. Record each participant's final position, who disagreed, and, for each quick win, who proposed it, who supported it and who opposed it. A proposal supported only by the one who made it still goes on record. Agreement is not required.
 5. **Independent, verified or persuaded.** Classify every final position on the point in one of three kinds, and record the kind next to it in `r4-debate.md`:
    - **independent:** the participant held this position before reading anyone's argument (in rounds 1 to 3, with the source). Only independent positions count as separate agreements;

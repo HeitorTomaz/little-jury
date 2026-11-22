@@ -79,7 +79,7 @@ As in `prepare.md`. For a work, concerns are often about a reviewer's likely obj
 
 - Start from the field profile in `references/domains/` when one fits (`paper.md`, `book.md`, `thesis.md`, `exam.md`); otherwise build one from `composition.md`.
 - **Audience family:** users are the work's public (readers, students) with distinct profiles; the eighth seat is the public the author imagines. For an exam judged by its students, students receive the exam only, never the answer key; experts receive the exam and the key. Record the choice in `config.md`.
-- **Criteria family:** the bench of jurors of `composition.md` (lean 6, 3 per model, distinct profiles), the experts of the field profile and the destroyer as the harshest reviewer.
+- **Criteria family:** the bench of jurors of `composition.md` (standard 6, 3 per model; quick 4; deep 9; distinct profiles), the experts of the field profile and the destroyer as the harshest reviewer.
 - In `config.md`: `- Type: work`, `- Family: audience | criteria`, `- Work files:` (the `02-work*.md` files), `- Scope:` (whole work, or what is in and what was left out), and the grid dimensions (audience) or criteria (criteria).
 
 ## 6. Exam answers

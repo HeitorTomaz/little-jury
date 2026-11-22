@@ -21,10 +21,10 @@ The jury deliberates; **you decide**. The report never gives a verdict.
 
 ## How it works
 
-1. **You ask once.** Run `/little-jury` at the root of your project, optionally followed by what you want to find out. The skill reads your material and asks one block of questions: who the project is for, what you want to find out (it only confirms it if you already said it, and offers a general evaluation of the project if you did not), what worries you, and anything the material does not answer.
+1. **You ask once.** Run `/little-jury` at the root of your project, optionally followed by what you want to find out. The skill reads your material and asks one block of questions: who the project is for, what you want to find out (it only confirms it if you already said it, and offers a general evaluation of the project if you did not), what worries you, how much effort to spend, and anything the material does not answer.
 2. **It writes neutral inputs.** It strips your arguments in favor of the idea, your comparisons with other products and the justifications in code comments, and records what it removed in `prep/removed.md` so you can check later.
 3. **It runs the jury in isolation.** It assembles a `panel/` folder and starts a separate Claude Code session inside it. That session cannot read the rest of your project: reads outside the folder are blocked, the project's `CLAUDE.md` files and git history are kept out of its context, and the personas run as subagents with no tools at all.
-4. **Five rounds:** first impression, detailed analysis, extreme scenarios, debate (with a consensus challenger) and consolidation. By default there are no stops; if you ask for the optional **checkpoints** in the question block, the run pauses after round 1 (to see whether the voices are distinct) and before the debate (to adjust the agenda), and `/little-jury` continues it.
+4. **Five rounds:** first impression, detailed analysis, extreme scenarios, debate (with a consensus challenger) and consolidation. You pick the **effort level**: **quick** (4 users and 2 experts, no scenarios and no debate, about 12 to 20 calls, a cheap first reading), **standard** (the default, all five rounds, about 50 to 70 calls) or **deep** (11 users, 5 experts, two destroyers, more scenarios and debate points, about 90 to 130 calls). By default there are no stops; if you ask for the optional **checkpoints** in the question block, the run pauses after round 1 (to see whether the voices are distinct) and before the debate (to adjust the agenda), and `/little-jury` continues it.
 5. **You get the report.** `report.html` opens in your browser. The `.md` files next to it are the jury's full record, written for Claude to pick up in a later session.
 
 The skill talks to you and writes everything in the language you use with Claude Code. English is the default.
@@ -36,7 +36,7 @@ The skill talks to you and writes everything in the language you use with Claude
 - **Claude Code 2.1.271 or later**: the isolation relies on `blockReadsOutsideWorkingDirectories` (2.1.257) and on subagents with `omitClaudeMd` (2.1.271). Check with `claude --version`.
 - **Python 3.9 or later**, available as `python` or `python3`.
 - **The `claude` command on your `PATH`**: the skill starts the isolated session with `claude -p`.
-- **Usage budget:** a lean jury makes roughly **50 to 70 agent calls** and can take from tens of minutes to a few hours. It may cross more than one usage window of your plan; if it stops at a limit, `/little-jury` resumes from where it stopped.
+- **Usage budget:** a standard jury makes roughly **50 to 70 agent calls** (quick: 12 to 20; deep: 90 to 130) and can take from tens of minutes to a few hours. It may cross more than one usage window of your plan; if it stops at a limit, `/little-jury` resumes from where it stopped.
 
 ## Installation
 
@@ -126,7 +126,7 @@ The `evals/` folder holds test cases in the format that `claude plugin eval` rea
 claude plugin eval . --allow-tools Write,Edit,Bash --scaffold
 ```
 
-These are real, billed model runs, and the `run-*` cases launch a full jury.
+These are real, billed model runs, and the `run-*` cases launch a complete standard jury.
 
 ## License
 

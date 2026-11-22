@@ -66,7 +66,8 @@ The template's example data is fictitious and neutral ("User A", "Item A"). Do n
 |---|---|
 | `meta.example` | always `false` |
 | `meta.concept`, `meta.version`, `meta.date` | `config.md` and the run date |
-| `meta.panelSize` | "lean panel" or "full panel", in the report language |
+| `meta.effort` | `"quick"`, `"standard"` (default) or `"deep"`, from `- Effort:` in `config.md`. At quick, the method section lists only the steps that ran and says what was skipped (no extreme-situations round, no debate), and the quick wins show who proposed them without support or opposition; at deep, the method section says what was added |
+| `meta.panelSize` | optional; overrides the panel name in the line under the title (by default "quick panel", "standard panel" or "deep panel", from the labels) |
 | `meta.composition` | the actual panel, for example "8 users, 4 experts and 2 adversaries" |
 | `meta.domain` | domain from `config.md` |
 | `meta.type` | `"concept"`, `"system"`, `"change"` or `"work"`, from `config.md`; changes the sentence at the top of the report |
@@ -80,13 +81,13 @@ The template's example data is fictitious and neutral ("User A", "Item A"). Do n
 | `pitchIssues[]` | optional; the pitch problems from the comprehension check: `sentence` (the sentence or idea of the pitch), `intended` (what it meant to say), `understoodAs` (how it was understood), `who` (ids). Only sentences that half of the users or more understood differently. The section is hidden when the list is empty or absent |
 | `comparison[]` | optional, re-evaluation only: `problem`, `status` (`resolved`, `partly`, `unresolved` or `new`), `note` (the evidence from this run). Hidden when absent |
 | `tensions[]` | disagreements from the debate and from round 2: `title`, `evidence`, `severity` (1 to 3), `for` and `against` with `who` (ids) and `text`, `proposal`, `loss`, `experiment`. Reactions to a revenue model go here |
-| `quickWins[]` | the quick wins from the debate (the smallest changes proposed; in the criteria family, the smallest revisions to the work that change a verdict), one entry per proposal: `point` (the debate point, as a short title), `change`, `solves`, `loss`, `proposedBy`, `support` and `against` (ids). Merged proposals list every proposer. Ordered by point; inside a point, the report sorts by support |
+| `quickWins[]` | the quick wins from the debate (at the quick level, from the experts' "smallest change" answers in round 2, with empty `support` and `against`; the smallest changes proposed; in the criteria family, the smallest revisions to the work that change a verdict), one entry per proposal: `point` (the debate point, as a short title), `change`, `solves`, `loss`, `proposedBy`, `support` and `against` (ids). Merged proposals list every proposer. Ordered by point; inside a point, the report sorts by support |
 | `audienceSplit[]` | optional, when the audience is undefined: `group`, `wants`, `who` (ids), `cost` (what choosing this group as the audience would cost). Hidden when absent |
 | `risks[]` | `title`, `category` (`design`, `audience`, `production`, `scope` or `market`), `severity` and `likelihood` (1 to 3), `description`, `who` |
 | `strengths[]` | `title`, `description`, `who`; optional `opposedBy` (ids) and `opposition` (one sentence: why they opposed it) |
 | `experts[]` | `id`, `role`, `opinion`, `mainProblem`, `recommendation` |
 | `adversaries[]` | `id`, `role`, `arguments[]` with `title` and `text` |
-| `scenarios[]` | round 3: `situation`, `outcome`, `classification` (`"hypothesis"` or `"proven problem"`). In the criteria family, `situation` is the claim and the objection, `outcome` whether the work answers it |
+| `scenarios[]` | round 3 (empty at the quick level; the section and its link then disappear, as the quick wins section does when there are none): `situation`, `outcome`, `classification` (`"hypothesis"` or `"proven problem"`). In the criteria family, `situation` is the claim and the objection, `outcome` whether the work answers it |
 | `hypotheses[]` | `hypothesis`, `test`, `signal`, `priority` (`high`, `medium` or `low`) |
 | `launch` | optional; omit it if it was not asked. `title`, `intro`, `recommendation`, `reasons[]`, `preferences[]` (`who`, `where`), `caveats` |
 | `list` | optional; omit it if inactive. `title`, `order[]` with `name`, `comment`, `first` (ids), `rejected` (ids); `note` with the conflicts found and what stayed **[not verified]** |
@@ -97,7 +98,7 @@ The template's example data is fictitious and neutral ("User A", "Item A"). Do n
 Conventions:
 
 - Stances: `"yes"`, `"only if"` (always with its `condition`) or `"no"`. In the criteria family the values are the same and mean meets, meets only with the revision in `condition`, and does not meet; `reason` carries the reason and the passage of the work quoted. They replace the 1-to-5 scores of earlier versions: in a real run, every score fell between 2 and 4 and several users answered 3/3/3, which said nothing a condition would not say better. `"does not apply"` (always with its `reason`) is for a question that does not fit the persona's relation to the project; it stays out of the tally.
-- **Enum values stay in English** whatever the report language: `evidence` only accepts `"observation"`, `"hypothesis"` or `"proven problem"`; `classification` only `"hypothesis"` or `"proven problem"`; `priority` only `high`, `medium` or `low`; `category` one of the five above; `meta.type` one of the four above; `meta.family` only `audience` or `criteria`; `comparison[].status` only `resolved`, `partly`, `unresolved` or `new`; `stance` only `yes`, `only if`, `no` or `does not apply`. The page shows them through the labels.
+- **Enum values stay in English** whatever the report language: `evidence` only accepts `"observation"`, `"hypothesis"` or `"proven problem"`; `classification` only `"hypothesis"` or `"proven problem"`; `priority` only `high`, `medium` or `low`; `category` one of the five above; `meta.type` one of the four above; `meta.family` only `audience` or `criteria`; `meta.effort` only `quick`, `standard` or `deep`; `comparison[].status` only `resolved`, `partly`, `unresolved` or `new`; `stance` only `yes`, `only if`, `no` or `does not apply`. The page shows them through the labels.
 - Every `who` (including those of `pitchIssues` and `audienceSplit`), `opposedBy`, `first`, `rejected`, `proposedBy`, `support`, `against` and `preferences[].who` uses ids that exist in `users`, `experts` or `adversaries`.
 - All free text (summary, titles, descriptions, names, comments) is written in the report language.
 

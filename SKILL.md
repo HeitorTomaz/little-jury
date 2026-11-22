@@ -26,7 +26,7 @@ Arguments for this invocation: `$ARGUMENTS`
 
 The words "prepare" and "run", if the author types them, are just part of that text: decide by the state of the folder (below), not by the word. Natural-language requests ("put this concept through a little jury", "continue the panel") count the same.
 
-**The author is asked only once**, in the question block at the start of preparation: the project, who it is for, and what they want to decide with the evaluation. After that, everything continues without intervention until the report opens in the browser, unless the author asked for the optional **checkpoints** (after round 1 and before the debate): the run then saves everything, stops, and `/little-jury` continues it.
+**The author is asked only once**, in the question block at the start of preparation: the project, who it is for, what they want to decide with the evaluation and the **effort level** (quick, standard or deep; see "Effort levels" in `references/composition.md`). After that, everything continues without intervention until the report opens in the browser, unless the author asked for the optional **checkpoints** (after round 1 and before the debate): the run then saves everything, stops, and `/little-jury` continues it.
 
 **Re-evaluation.** When `panel/rounds/` already has a completed run of an earlier version of the same project, a new invocation offers a re-evaluation of the revised version: same persona profiles and models, fresh instances, the earlier problems checked in round 3 and a comparison (resolved, partly, unresolved, new) in the report. See section 8 of `references/prepare.md`.
 
