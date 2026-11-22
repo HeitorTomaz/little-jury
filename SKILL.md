@@ -33,6 +33,8 @@ Rounds: 1 **Opening**, 2 **Testimony**, 3 **Cross-examination**, 4 **Deliberatio
 
 Arguments for this invocation: `$ARGUMENTS`
 
+This skill's folder: `${CLAUDE_SKILL_DIR}`. Wherever the reference files write `<skill>` (for example `python <skill>/scripts/run_panel.py`), use this folder, quoted, because it changes with how the skill was installed (a personal skill, a project skill or a plugin).
+
 ## One invocation
 
 `/little-jury`, with or without text after it, does everything: it prepares the panel, runs it in an isolated session and delivers the report. There are no subcommands. The text after it is free and may carry:
@@ -64,7 +66,7 @@ Look at where the session is and at the state of `panel/`, in this order:
 
 1. The working directory contains `method/run.md` and `.claude/settings.json` → this already is the isolated session: follow **Run** below (if an incomplete `rounds/<version>/progress.md` exists, it is a resume).
 2. The directory ends in `panel` but has no `method/` → stop and say so: the folder was put together by hand or preparation did not finish.
-3. At the root, `panel/runs/.lock.json` exists → a run is going on, or one was killed before its cleanup. Say so and stop: wait for it to end, or, if it was killed, `python <skill>/scripts/run_panel.py panel --unlock` cleans up.
+3. At the root, `panel/runs/.lock.json` exists → a run is going on, or one was killed before its cleanup. Say so and stop: wait for it to end, or, if it was killed, `python "${CLAUDE_SKILL_DIR}/scripts/run_panel.py" panel --unlock` cleans up.
 4. At the root, `panel/method/` exists and there is no finished run: either the panel is assembled and never ran (no `progress.md` under `panel/rounds/`), or a `progress.md` has no finished round 5 (it may be paused at a checkpoint) → **run or resume it**: start the isolated session as section 7 of `references/prepare.md` says and deliver the report. Do not run it in this session, which can see the concept and the code. If the invocation brought new objectives or a new file, ask first whether to run the panel as it is or prepare a new one (section 1 of `references/prepare.md`).
 5. At the root, `panel/` has a completed run → the question block asks whether this is a **re-evaluation** of a revised version (section 8 of `references/prepare.md`) or a new panel; then **Prepare**.
 6. Otherwise → **Prepare**, with the type decided as follows (ask in the question block when it is not obvious):

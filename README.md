@@ -42,9 +42,26 @@ The skill talks to you and writes everything in the language you use with Claude
 
 ## Installation
 
-The skill is a folder with a `SKILL.md` at its root. Claude Code loads personal skills from `~/.claude/skills/<skill-name>/` in every project, and project skills from `.claude/skills/<skill-name>/` in a single repository.
+Pick one way. All of them need **Python 3.9 or later** and the **`claude` command** on your computer (see Requirements).
 
-### Option 1: ask Claude Code to install it
+### Option 1: as a plugin (recommended)
+
+In Claude Code, send:
+
+```text
+/plugin install little-jury --marketplace HeitorTomaz/little-jury
+```
+
+That works in one step on Claude Code 2.1.275 or later. On older versions, add the marketplace first:
+
+```text
+/plugin marketplace add HeitorTomaz/little-jury
+/plugin install little-jury@heitortomaz
+```
+
+Plugins prefix their skills with the plugin name, so the command becomes **`/little-jury:little-jury`**. You can also just ask in plain words ("put this paper in front of a little jury").
+
+### Option 2: ask Claude Code to install it as a personal skill
 
 Open Claude Code anywhere and send:
 
@@ -54,9 +71,9 @@ skills folder, so that SKILL.md ends up at ~/.claude/skills/little-jury/SKILL.md
 /little-jury shows up; if it doesn't, run /reload-skills.
 ```
 
-To install it only for one repository, ask for `.claude/skills/little-jury/` inside that repository instead.
+The command is then **`/little-jury`**. To install it only for one repository, ask for `.claude/skills/little-jury/` inside that repository instead. Use either the plugin or the personal skill, not both: with both, the skill shows up twice.
 
-### Option 2: install it manually
+### Option 3: install it manually
 
 **macOS and Linux**
 
@@ -72,17 +89,35 @@ git clone https://github.com/HeitorTomaz/little-jury.git "$env:USERPROFILE\.clau
 
 **Without git:** download the repository as a ZIP (Code > Download ZIP), extract it, and rename the folder to `little-jury` so that the path is `~/.claude/skills/little-jury/SKILL.md` (on Windows, `%USERPROFILE%\.claude\skills\little-jury\SKILL.md`).
 
-**For a single repository:** clone into `.claude/skills/little-jury` at the root of that repository instead.
-
 Claude Code picks up new skills during the session. If `/little-jury` does not appear in the `/` menu, run `/reload-skills`.
+
+### Claude Code in the desktop app, step by step
+
+If you use Claude Code in the **Claude desktop app** and have never used a terminal, follow these steps once.
+
+1. **Install the desktop app** from [claude.com/download](https://claude.com/download), sign in, and open **Claude Code** (the Code tab).
+2. **Install Python** from [python.org/downloads](https://www.python.org/downloads/). On Windows, tick **"Add python.exe to PATH"** on the first screen of the installer.
+3. **Install the Claude Code command-line tool.** The jury runs in a second, isolated Claude Code session, which the skill starts with the `claude` command; the desktop app alone may not provide it. Follow the official [quickstart](https://code.claude.com/docs/en/quickstart), or paste one line:
+   - **Windows:** open *PowerShell* from the Start menu and paste `irm https://claude.ai/install.ps1 | iex`
+   - **macOS:** open *Terminal* and paste `curl -fsSL https://claude.ai/install.sh | bash`
+
+   Then **quit and reopen the desktop app**, so it sees the new tools.
+4. **Open your project folder** in a Claude Code session in the app (the folder that holds your document, paper, plan or code).
+5. **Install little-jury.** Click **+** next to the message box, then **Plugins**, and add the plugin from `HeitorTomaz/little-jury` if the app offers it. If you do not see that option, send this message instead:
+
+   ```text
+   Install the little-jury plugin: run claude plugin install little-jury --marketplace HeitorTomaz/little-jury,
+   then check that python --version and claude --version both work.
+   ```
+6. **Use it.** Type `/little-jury:little-jury` followed by what you want to find out, or just write "put my document in front of a little jury". The skill asks you one block of questions; for a first try, choose the **quick** effort level.
+7. **Allow the edits.** The skill writes its files in two folders, `prep/` and `panel/`, inside your project. The app asks before each write unless you allow edits for the session.
+
+When the jury finishes, the report opens in your browser.
 
 ### Updating
 
-```bash
-git -C ~/.claude/skills/little-jury pull
-```
-
-On Windows: `git -C "$env:USERPROFILE\.claude\skills\little-jury" pull`.
+- **Plugin:** open `/plugin`, go to the marketplace `heitortomaz` and update it, or reinstall the plugin.
+- **Personal skill:** `git -C ~/.claude/skills/little-jury pull` (on Windows: `git -C "$env:USERPROFILE\.claude\skills\little-jury" pull`).
 
 ## Usage
 

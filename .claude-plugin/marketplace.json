@@ -1,0 +1,11 @@
+{
+  "name": "heitortomaz",
+  "owner": { "name": "Heitor Tomaz" },
+  "plugins": [
+    {
+      "name": "little-jury",
+      "source": "./",
+      "description": "Put a project or a piece of work in front of a little jury of synthetic personas, and get an HTML report of tensions, risks and what to test or revise first."
+    }
+  ]
+}

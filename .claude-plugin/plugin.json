@@ -1,0 +1,11 @@
+{
+  "name": "little-jury",
+  "description": "Put a project or a piece of work in front of a little jury of synthetic personas (jurors, expert witnesses, a prosecutor and a devil's advocate) in isolated rounds, and get an HTML report of tensions, risks and what to test or revise first.",
+  "version": "0.12.0",
+  "author": { "name": "Heitor Tomaz" },
+  "homepage": "https://github.com/HeitorTomaz/little-jury",
+  "repository": "https://github.com/HeitorTomaz/little-jury",
+  "license": "MIT",
+  "keywords": ["mock-jury", "personas", "review", "peer-review", "design-review"],
+  "skills": ["."]
+}
