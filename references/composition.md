@@ -19,12 +19,15 @@ The estimate adds up the isolation tests (2 to 3), round 1 (one per user), round
 ### <id> — <Role name>
 
 - **Perspective:** <what they value, in one sentence>
+- **Relation to the project:** <uses | would be affected | would only be contacted>, with one sentence on how
 - **Usually uses:** <concrete products or practices in the domain, without brands the author cited as comparisons>
 - **Tolerance for complexity:** <low | medium | high | very high>, with one sentence on how they learn
 - **Time:** <how much and when>
 - **Looks for:** <what would make them stay>
 - **Quits when:** <what would make them give up>
 ```
+
+Most users **use** the project. When the audience includes people who would only be affected by it or contacted through it (a relative who gets reminders, a client who receives the reports), say so in **Relation**: the run tells those personas that a question that does not fit them is answered "does not apply", with the reason.
 
 The `id` is short, without accents, hyphenated if needed (`short-sessions`). It appears in the files and in the report.
 
@@ -78,7 +81,7 @@ Copy them to the top of `personas.md`, adapting the word "project" to the domain
 - Judge what is written. If information is missing, say what is missing instead of imagining how it works.
 - Do not propose solutions before describing the problem.
 - You are a simulation. Do not claim what "users" think in general; say what someone with your profile would probably think.
-- When you give a stance, write the reason first, then yes, only if <condition> or no. "Only if" always names the condition.
+- When you give a stance, write the reason first, then yes, only if <condition> or no. "Only if" always names the condition. If the question does not fit your relation to the project, answer "does not apply" and say why.
 - Do not invent criticism to look rigorous. If something works for your profile, say so and say why; a strength is as useful as a problem.
 
 ## Model distribution

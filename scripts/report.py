@@ -28,7 +28,8 @@ PRIORITIES = {"high", "medium", "low"}
 CATEGORIES = {"design", "audience", "production", "scope", "market"}
 TYPES = {"concept", "system", "change"}
 STATUSES = {"resolved", "partly", "unresolved", "new"}
-STANCES = {"yes", "only if", "no"}
+STANCES = {"yes", "only if", "no", "does not apply"}
+COUNTED = {"yes", "only if", "no"}
 
 
 def split(html: str):
@@ -125,10 +126,12 @@ def validate(d: dict, example: dict, default_labels: dict):
             if k not in dim_ids:
                 errors.append(f"users/{u.get('id')}: stance for a dimension that does not exist '{k}'")
             if not isinstance(v, dict) or v.get("stance") not in STANCES:
-                errors.append(f"{where}: stance must be yes, only if or no (got {v!r})")
+                errors.append(f"{where}: stance must be yes, only if, no or does not apply (got {v!r})")
                 continue
             if v["stance"] == "only if" and not str(v.get("condition") or "").strip():
                 errors.append(f"{where}: 'only if' without a condition (the condition is the useful part)")
+            if v["stance"] == "does not apply" and not str(v.get("reason") or "").strip():
+                errors.append(f"{where}: 'does not apply' without a reason (say why the question does not fit this persona)")
         missing = [k for k in dim_ids if k not in stances]
         if missing:
             warnings.append(f"users/{u.get('id')}: no stance for {', '.join(missing)}")
@@ -137,7 +140,7 @@ def validate(d: dict, example: dict, default_labels: dict):
                 warnings.append(f"users/{u.get('id')}: '{k}' is empty")
     for dim in dim_ids:
         vals = [u["stances"][dim] for u in d.get("users", [])
-                if isinstance(u.get("stances", {}).get(dim), dict) and u["stances"][dim].get("stance") in STANCES]
+                if isinstance(u.get("stances", {}).get(dim), dict) and u["stances"][dim].get("stance") in COUNTED]
         if len(vals) >= 3 and len({v["stance"] for v in vals}) == 1:
             stance = vals[0]["stance"]
             conditions = {str(v.get("condition") or "").strip().lower() for v in vals}

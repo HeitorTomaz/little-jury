@@ -47,7 +47,9 @@ TOOLS = ",".join([
     # rules on method/ in settings.json, the session cannot drop a new script there and run it.
     # On Windows the session may run commands through the PowerShell tool, which Bash(...) rules do
     # not cover, so the same exact commands are allowed there too. Both tools check each part of a
-    # compound command (`;`, `|`, `&&`) on its own, so a rule never lets a second command ride along.
+    # compound command (`;`, `|`, `&&`) on its own, so a rule never lets a second command ride along,
+    # and Claude Code refuses PowerShell arguments with $(...), @(...) or (...) before they run
+    # (tested on 2.1.330), so the " *" arguments cannot execute code; the scripts then confine paths.
     *[f"{shell}({py} method/scripts/{name}{args})"
       for shell in ("Bash", "PowerShell")
       for py in ("python", "python3", "python -I", "python3 -I")
@@ -114,18 +116,91 @@ def alive(pid: int) -> bool:
     return True
 
 
-def stop_tree(proc) -> None:
-    """Stop the claude session and anything it started (on Windows, claude may be a .cmd wrapper)."""
+def start_session(cmd, panel: Path, out):
+    """Start claude -p so that its whole process tree dies with this script.
+
+    On Windows, `claude` is often a claude.CMD wrapper: the PID we get is cmd.exe's, and the real
+    session is a child of it. The session starts suspended, joins a Job Object that kills every
+    member when its last handle closes (when this script ends, however it ends), and only then
+    runs. On other systems it gets its own process group, which stop_tree() and the lock check use.
+    """
+    if os.name != "nt":
+        proc = subprocess.Popen(cmd, cwd=panel, stdin=subprocess.PIPE, stdout=out, stderr=subprocess.STDOUT,
+                                text=True, encoding="utf-8", start_new_session=True)
+        return proc, None
+    import ctypes
+    from ctypes import wintypes
+    k32 = ctypes.WinDLL("kernel32", use_last_error=True)
+    k32.CreateJobObjectW.restype = wintypes.HANDLE
+    k32.SetInformationJobObject.argtypes = (wintypes.HANDLE, ctypes.c_int, ctypes.c_void_p, wintypes.DWORD)
+    k32.AssignProcessToJobObject.argtypes = (wintypes.HANDLE, wintypes.HANDLE)
+    ntdll = ctypes.WinDLL("ntdll")
+    ntdll.NtResumeProcess.argtypes = (wintypes.HANDLE,)
+
+    class Basic(ctypes.Structure):
+        _fields_ = [("PerProcessUserTimeLimit", ctypes.c_int64), ("PerJobUserTimeLimit", ctypes.c_int64),
+                    ("LimitFlags", wintypes.DWORD), ("MinimumWorkingSetSize", ctypes.c_size_t),
+                    ("MaximumWorkingSetSize", ctypes.c_size_t), ("ActiveProcessLimit", wintypes.DWORD),
+                    ("Affinity", ctypes.c_size_t), ("PriorityClass", wintypes.DWORD),
+                    ("SchedulingClass", wintypes.DWORD)]
+
+    class Extended(ctypes.Structure):
+        _fields_ = [("BasicLimitInformation", Basic), ("IoInfo", ctypes.c_uint64 * 6),
+                    ("ProcessMemoryLimit", ctypes.c_size_t), ("JobMemoryLimit", ctypes.c_size_t),
+                    ("PeakProcessMemoryUsed", ctypes.c_size_t), ("PeakJobMemoryUsed", ctypes.c_size_t)]
+
+    proc = subprocess.Popen(cmd, cwd=panel, stdin=subprocess.PIPE, stdout=out, stderr=subprocess.STDOUT,
+                            text=True, encoding="utf-8", creationflags=0x00000004)  # CREATE_SUSPENDED
+    job = k32.CreateJobObjectW(None, None)
+    info = Extended()
+    info.BasicLimitInformation.LimitFlags = 0x2000  # JOB_OBJECT_LIMIT_KILL_ON_JOB_CLOSE
+    joined = bool(job) and bool(k32.SetInformationJobObject(job, 9, ctypes.byref(info), ctypes.sizeof(info)))         and bool(k32.AssignProcessToJobObject(job, int(proc._handle)))
+    ntdll.NtResumeProcess(int(proc._handle))
+    if not joined:
+        print("WARNING: could not tie the session to this script; if you stop this script, check that no "
+              "claude process is left running.")
+    return proc, job
+
+
+def stop_tree(proc, job=None) -> None:
+    """Stop the claude session and anything it started."""
     if proc.poll() is not None:
         return
     if os.name == "nt":
-        subprocess.run(["taskkill", "/PID", str(proc.pid), "/T", "/F"], capture_output=True)
+        if job:
+            import ctypes
+            ctypes.windll.kernel32.TerminateJobObject(ctypes.c_void_p(job), 1)
+        else:
+            subprocess.run(["taskkill", "/PID", str(proc.pid), "/T", "/F"], capture_output=True)
     else:
-        proc.terminate()
+        try:
+            os.killpg(proc.pid, 15)
+        except ProcessLookupError:
+            pass
     try:
         proc.wait(timeout=15)
     except subprocess.TimeoutExpired:
         proc.kill()
+
+
+def run_alive(info: dict) -> bool:
+    """Is the run that wrote this lock still going? Checks this script's PID and the session's tree."""
+    if isinstance(info.get("script"), int) and alive(info["script"]):
+        return True
+    pid = info.get("pid")
+    if not isinstance(pid, int):
+        return False
+    if os.name != "nt":
+        try:
+            os.killpg(pid, 0)  # the session leads its own process group
+            return True
+        except ProcessLookupError:
+            return False
+        except PermissionError:
+            return True
+    # On Windows the Job Object kills the tree when the script dies; a living session PID after that
+    # means the job could not be set up, so still treat it as running.
+    return alive(pid)
 
 
 def recover_stale_lock(panel: Path):
@@ -140,11 +215,12 @@ def recover_stale_lock(panel: Path):
         info = json.loads(lock.read_text(encoding="utf-8"))
     except (OSError, ValueError):
         info = {}
-    pid = info.get("pid")
-    if isinstance(pid, int) and alive(pid):
-        stop = f"taskkill /PID {pid} /T /F" if os.name == "nt" else f"kill {pid}"
+    if run_alive(info):
+        pid = info.get("script") if isinstance(info.get("script"), int) and alive(info["script"]) else info.get("pid")
+        stop = f"taskkill /PID {pid} /T /F" if os.name == "nt" else f"kill -- -{info.get('pid')}"
         print(f"ERROR: an earlier run of this panel seems to be still running (process {pid}, started {info.get('started', '?')}).")
         print(f"Wait for it to end, or stop it ({stop}), then run this script again.")
+        print("(After a restart, the number may belong to another program: then close it or restart again.)")
         return 1
     set_read_only(panel, False)
     lock.unlink()
@@ -241,21 +317,19 @@ def main() -> int:
             # The prompt goes through stdin, never as an argument: on Windows `claude` is often a
             # claude.CMD wrapper, and cmd.exe cuts the command line at the first newline, which
             # dropped the rest of the prompt and the --allowedTools list.
-            proc = subprocess.Popen([claude, "-p", "--allowedTools", TOOLS, "--output-format", "text"],
-                                    cwd=panel, stdin=subprocess.PIPE, stdout=out, stderr=subprocess.STDOUT,
-                                    text=True, encoding="utf-8")
+            proc, job = start_session([claude, "-p", "--allowedTools", TOOLS, "--output-format", "text"], panel, out)
             proc.stdin.write(PROMPT)
             proc.stdin.close()
             # If this script is killed outright, its cleanup below never runs: the lock lets the
             # next run restore permissions, check the hashes and notice a session still alive.
             lock_file(panel).write_text(json.dumps({
-                "pid": proc.pid, "started": datetime.now().isoformat(timespec="seconds"),
+                "pid": proc.pid, "script": os.getpid(), "started": datetime.now().isoformat(timespec="seconds"),
                 "fingerprint": original}), encoding="utf-8")
             try:
                 proc.wait()
             except KeyboardInterrupt:
                 interrupted = True
-                stop_tree(proc)
+                stop_tree(proc, job)
     finally:
         set_read_only(panel, False)
         lock_file(panel).unlink(missing_ok=True)

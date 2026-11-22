@@ -15,7 +15,7 @@ In the questions below, "the project" and "use" must be replaced with the domain
 
 **Evaluation type** (in `config.md`):
 
-- **concept** and **system**: use the questions in this file. For the system type, "would try" means "would keep using or would start using", and experts treat **[divergent]** items as written rules in conflict.
+- **concept** and **system**: use the questions in this file. For the system type, "would try" means "would keep using or would start using", and experts treat **[divergent]** items as written rules in conflict. A **[divergent]** item is already a proven problem in itself (documentation and code disagree). When another rule contradicts **one side** of it, classify by that side: contradicting the code side (what the system really does) is a **proven problem**; contradicting only the documentation side is a **hypothesis**, because the author has not said which side holds. It is the same criterion the change type uses for **[implemented]** against **[documented]**.
 - **change**: use the questions in `method/rounds-change.md`, which replace those in this file; everything else still applies.
 
 ## What each agent receives
@@ -67,6 +67,8 @@ There is no minimum length: if a question does not apply to you, say why in one 
 The last sentence of the format exists because, in the pilot, all answers came out with the same structure and length; short answers where the persona has nothing to say are a useful signal, not a failure.
 
 **Stances, not scores.** Each grid dimension in `config.md` is a question answered with a stance: **yes**, **only if** (with the condition, in one sentence) or **no**, always with the reason before the stance. In a real run with written anchors, every 1-to-5 score fell between 2 and 4, none at 1 or 5, several users answered 3/3/3, and the scores did not measure change between versions. A stance with its condition says what a 3 hides: the condition is the useful data.
+
+**Does not apply.** When a question does not fit a persona's relation to the project (someone who would only be affected or contacted, never use it: a relative who only gets reminders, a supplier who only receives orders), the persona answers **does not apply**, with the reason, instead of inventing a yes or a no. It stays out of the tally, and the other questions are still answered. Write it into the prompt for personas whose relation (`personas.md`) is not "uses": "If a question does not fit your relation to the project, answer 'does not apply' and say why." In a real run, a forced no from a persona who would never use the system pulled the panel's answers down for no real reason.
 
 **Neutral questions.** Every problem-seeking question accepts "none" as a valid answer and says so ("If you find none, say so and say what keeps it coherent"). A question that presupposes the problem ("Which rules contradict each other?") pulls answers toward findings. This complements the rule against inventing criticism to look rigorous.
 
@@ -160,7 +162,7 @@ Write 5 to 8 hypothetical situations in `rounds/v<version>/r3-scenarios-proposed
 - `moderator/author-concerns.md`, rewritten as concrete situations ("The user does X in the first minute and then Y"), without saying they are the author's concerns;
 - contradictions, dominant strategies and gaps that came up in rounds 1 and 2;
 - the author's goals for the evaluation (`config.md`), so the scenarios test what the author needs to decide;
-- **rule variants** proposed by the author or raised by the panel, presented as **anonymous alternatives** ("Consider two versions of rule Z: A… and B…"), without attributing a preference to anyone. In the pilot, this tested two rule changes and returned concrete conditions for adopting them;
+- **rule variants** proposed by the author or raised by the panel, presented as **anonymous alternatives** ("Consider two versions of rule Z: A… and B…"), without attributing a preference to anyone. In the pilot, this tested two rule changes and returned concrete conditions for adopting them. A variant built from **one persona's proposal** keeps that persona as its single origin: record it in `r3-scenarios-proposed.md` ("variant from `(r2.md § <id>)`"), and count the round 3 participants who favor it as confirmations of one origin, never as independent proposals;
 - in a re-evaluation, the earlier problems, as checks against the current text, and a check of each changed section (see "Re-evaluation").
 
 **A scenario describes the situation, never the play or the outcome.** Give the state, the constraints and what the user faces; never describe the line of action the user takes or the result. Before round 3, reread each proposed scenario and rewrite any that contains its own answer; record the rewrite in `r3-scenarios-proposed.md`. In a real run, a scenario described the line of action step by step, and every participant reproduced it instead of reasoning from the rules.
@@ -205,6 +207,8 @@ The contrarian works in **two calls**:
 1. **First call:** the pack and the description. Ask for its findings so far on the five items below, and for the list of answers it wants in full (up to six index numbers), each with the reason.
 2. **Second call:** a new agent (never the first one resumed) that receives the pack, the description, the first call's answer verbatim and the requested answers verbatim, and is asked for the final findings on the five items.
 
+Never shorten the pack, the description or the requested answers in either call, whatever their size: save them once in `prompts/shared/` and point to them with `include:` lines (`run.md`, section 5). In a real run, the second call got a shortened pack, and the contrarian checked the panel against less than it should have.
+
 Items to ask for:
 
 1. Criticisms repeated by several personas without grounding in the description's text (cite the rule that would refute them or the absence of a rule that would support them).
@@ -234,8 +238,13 @@ For each point:
    - **Smallest change:** the smallest change to a rule or decision that would solve the problem in this point, and what is lost with it; or "no change needed", and why. Big redesigns are not what is asked: the aim is the change that costs least for the effect it has.
 3. Collect the smallest changes of the point (the **quick wins** of the consolidation), merging the ones that say the same thing. Run a **second turn** if someone said **changes** or if the point has **two or more different proposals**: the new summary lists the proposals (without saying who made them), and each participant says, in one line each, whether they **support** or **oppose** each proposal, and why, besides keeping, adjusting or changing their position. **Two turns at most.**
 4. Record each participant's final position, who disagreed, and, for each quick win, who proposed it, who supported it and who opposed it. A proposal supported only by the one who made it still goes on record. Agreement is not required.
-5. **Persuasion vs. confirmation.** A change of position (adjusts or changes) with no quoted passage of the text behind it is recorded as **persuasion**, in `r4-debate.md` and in `diversity.md`, not as confirmation, and does not count toward agreement. In a real run, four non-independent convergences all came from one participant's argument read in the same summary: recording them was not enough to stop one source from moving the whole debate.
-6. **Non-independent convergence.** If half or more of a point's participants change position in the same direction after reading the same argument, record it as non-independent convergence, in `r4-debate.md` and in `diversity.md`: it does not count as several independent agreements. The destroyer and the contrarian are never counted among the participants for this rule.
+5. **Independent, verified or persuaded.** Classify every final position on the point in one of three kinds, and record the kind next to it in `r4-debate.md`:
+   - **independent:** the participant held this position before reading anyone's argument (in rounds 1 to 3, with the source). Only independent positions count as separate agreements;
+   - **verified:** the position changed (adjusts or changes) after reading an argument, and the reply quotes a passage of the description or of a scenario that supports it. It counts as **one confirmation of that argument's origin**, not as a new agreement: several verified changes after the same argument are still one origin, checked several times;
+   - **persuaded:** the position changed with no quoted passage behind it. It does not count toward agreement at all.
+
+   The test is the order and the anchor, not the tone of the reply: a position that already existed is independent; a new one is verified only with a quote. In a real run, four convergences all came from one participant's argument read in the same summary, and a rule that only separated "with or without a quote" still left the moderator unsure how to count them.
+6. **Non-independent convergence.** If half or more of a point's participants change position in the same direction after reading the same argument, record it as non-independent convergence, in `r4-debate.md` and in `diversity.md`, naming the argument's origin; whatever the mix of verified and persuaded changes, it is one movement, not several independent agreements. The destroyer and the contrarian are never counted among the participants for this rule.
 7. **Split by model.** If the final positions on a point split exactly along model lines, record it as "split by model" and do not resolve it by majority (see round 3).
 
 Save the replies in `r4-debate-replies.md`, one `## <point> — <id> — turn <n>` section per reply, and the synthesis in `r4-debate.md`.

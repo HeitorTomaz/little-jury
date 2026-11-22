@@ -14,7 +14,7 @@ The jury deliberates; **you decide**. The report never gives a verdict.
 
 **Good at:** contradictions between your own rules, dominant strategies and loopholes, gaps in the specification, audience splits (what attracts one profile and drives away another), the smallest test for your main hypothesis, quick wins (the smallest change that would solve each problem, and what it costs), sentences of your pitch that readers misunderstand, and checking external facts against their sources (store rules, platform docs). Trademark registries often cannot be checked automatically (interactive forms, CAPTCHAs); the report marks them [not verified].
 
-**Not:** telling you whether people will actually like it, predicting market interest, or giving approval percentages. Simulated opinions are not research, and the report says so. That is also why the personas do not rate the project from 1 to 5: each one answers a few questions (would you want to know more, would it be worth it, would you try it) with **yes**, **no** or **only if…**, and the condition behind an "only if" is usually the most useful line in the report.
+**Not:** telling you whether people will actually like it, predicting market interest, or giving approval percentages. Simulated opinions are not research, and the report says so. That is also why the personas do not rate the project from 1 to 5: each one answers a few questions (would you want to know more, would it be worth it, would you try it) with **yes**, **no** or **only if…**, and the condition behind an "only if" is usually the most useful line in the report. A persona the question does not fit (someone who would only get notifications, say) answers **does not apply**, with the reason, and stays out of the count.
 
 ## How it works
 

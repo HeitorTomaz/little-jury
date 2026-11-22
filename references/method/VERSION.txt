@@ -1,4 +1,15 @@
-mock-jury, method 0.6.1 (2026-11-22)
+mock-jury, method 0.7.0 (2026-11-22)
+0.7.0: method fixes from a real run. Prompts save shared text once (prompts/shared/, `include:` lines,
+expanded exactly), so nothing is shortened to save room and all calls of a round go out together; the
+contrarian's pack is never shortened. Final debate positions are independent, verified (changed with a
+quoted passage: one confirmation of the argument's origin) or persuaded (no quote: not counted). A rule
+contradicting the code side of a [divergent] item is a proven problem; the documentation side, a hypothesis.
+Round 3 variants built from one persona's proposal keep one origin. New stance "does not apply" (with its
+reason, out of the tally) for personas who would only be affected or contacted; personas record their
+relation to the project. Prepare does only a light survey before the questions and the full extraction
+after, in the chosen scope. config.md keeps its headings and field names in English. run_panel.py ties the
+session's whole process tree to the script (Job Object on Windows, process group elsewhere) and records the
+script's PID in the lock, so a killed script never leaves a session running behind an unlocked method.
 0.6.1: run fixes from real use on Windows. The prompt goes to claude -p through stdin (cmd.exe cut it at the
 first newline when claude is a .CMD wrapper, which dropped --allowedTools); the run scripts are also allowed
 through the PowerShell tool; a killed run leaves runs/.lock.json, and the next call restores write permission,

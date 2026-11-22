@@ -15,14 +15,19 @@ For the **system** and **change** types. The preparation session is at the repos
 
 ## 1. Defining the scope
 
-- **System:** ask the author whether the panel evaluates the whole system or one area (a module, a flow, a type of user). Large systems described in full produce a description no persona can judge; prefer the areas the author wants to discuss. If the full description is likely to exceed about **5,000 words** (not counting the `[ref: …]` references), include in the interview's question block how it would split into areas and ask whether the author wants to evaluate one at a time. That is why the sweep (section 2) comes before the questions.
+- **System:** ask the author whether the panel evaluates the whole system or one area (a module, a flow, a type of user). Large systems described in full produce a description no persona can judge; prefer the areas the author wants to discuss. If the full description is likely to exceed about **5,000 words** (not counting the `[ref: …]` references), include in the interview's question block how it would split into areas and ask whether the author wants to evaluate one at a time. That is why the light survey (section 2) comes before the questions.
 - **Evaluating the panel skill itself** (or any other system whose code ends up inside `panel/`): the method copied to `panel/method/` is the very system being evaluated, with the justifications you removed. The personas do not receive it, but the moderator does. Tell the author and record it in `config.md`, so it goes in as a limit in `diversity.md`.
 - **Change:** the scope is the part the plan alters **plus its neighborhood**: what calls it, what it calls, what reads or writes the same data, or what appears on the same screen as what changes. List the areas you intend to extract and include them in the question block.
 - Record the source: commit (`git rev-parse --short HEAD`), branch and whether there are uncommitted changes. This goes into `config.md` and makes it possible to know, later, which version of the code the panel gave its opinion on.
 
 ## 2. Sweeping the sources
 
-Use read-only subagents (`Explore` type) in parallel, one per area or per type of source, asking each for a list of **behaviors with file and line references**, not a summary of the code. At this stage there is no isolation to protect: preparation subagents may read the whole repository.
+The sweep has two stages.
+
+1. **Light survey, before the questions:** the folder tree, the README and the index of the documentation, the size of each area (files, lines) and the entry points (routes, screens, commands). No reading of the code itself. It is enough to propose the scope and the split into areas in the question block.
+2. **Full extraction, after the answers:** only in the scope the author chose, as below.
+
+For the full extraction, use read-only subagents (`Explore` type) in parallel, one per area or per type of source, asking each for a list of **behaviors with file and line references**, not a summary of the code. At this stage there is no isolation to protect: preparation subagents may read the whole repository.
 
 | Source | What to extract |
 |---|---|

@@ -28,7 +28,7 @@ This session is open at the project root and can read the concept document, the 
   - **concept:** look for the concept document at the root (and only there; do not sweep the disk). Follow this file.
   - **system:** follow this file and `references/extract-system.md`, which says how to extract what the system does from code, documentation and comments.
   - **change:** the file given with the command is the plan. Follow this file, `references/extract-system.md` and `references/change.md`.
-- **Read all the material before asking.** For system and change, do the sweep in `extract-system.md` (section 2) at this stage: the system's size and areas go into the questions.
+- **Read all the material before asking**, but for system and change only the **light survey** of `extract-system.md` (section 2) at this stage: the folder tree, the README and the index of the documentation, the size of each area and the entry points. That is enough for the system's size and areas to go into the questions. The full extraction comes after the answers, limited to the scope the author chose: sweeping a large repository whole before knowing the scope costs a lot and is mostly thrown away.
 - For system and change, the panel lives **inside the repository**, in `panel/` at the root. Setup generates the configuration that keeps the run from seeing the repository's `CLAUDE.md`, the project rules and the git history (section 6).
 
 ## 2. Questions to the author (the only interaction)
@@ -135,6 +135,8 @@ Produce two files:
 Same format as the domain profile: the general rules for all personas, then each role with its `id`. Each user with perspective, what they usually use, tolerance for complexity, available time, what they look for and what makes them quit. Roles reserved for the full panel at the end.
 
 ### `config.md` (read by the moderator only)
+
+Keep the headings and the field names (`- Language:`, `- Defined:`, `- Checkpoints:`…) **in English**, exactly as below, and write the values in the author's language: the method refers to them by name, so a translated heading would no longer match. It is the same rule as the markers and ids in `SKILL.md`.
 
 ```markdown
 # Panel configuration

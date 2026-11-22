@@ -13,7 +13,9 @@
   3. The page builds itself from that block. The "launch" and "list" sections are optional.
   4. Every UI string comes from the <script id="default-labels"> block (English). When the report
      language is not English, the data carries a "labels" object with every key translated.
-  Each user answers each grid dimension with a stance: "yes", "only if" (with its condition) or "no".
+  Each user answers each grid dimension with a stance: "yes", "only if" (with its condition) or "no";
+  "does not apply" (with its reason) when the question does not fit the persona's relation to the project,
+  and then it stays out of the tally.
   The "who" fields take the ids of users, experts and adversaries.
 -->
 <style>
@@ -88,8 +90,8 @@ h1{font-size:clamp(34px,6vw,54px); letter-spacing:-0.015em; max-width:16ch}
 .seat.adversary circle{fill:var(--paper); stroke:var(--against); stroke-width:2.5; stroke-dasharray:4 3}
 .seat.expert text,.seat.adversary text{fill:var(--ink)}
 .seat:hover circle,.seat:focus circle{stroke:var(--hyp); stroke-width:3.5}
-.s-yes{fill:var(--st-yes)} .s-onlyif{fill:var(--st-if)} .s-no{fill:var(--st-no)} .s-none{fill:var(--paper)}
-.t-yes{fill:var(--st-yes-t)} .t-onlyif{fill:var(--st-if-t)} .t-no{fill:var(--st-no-t)} .t-none{fill:var(--ink)}
+.s-yes{fill:var(--st-yes)} .s-onlyif{fill:var(--st-if)} .s-no{fill:var(--st-no)} .s-na{fill:var(--rule)} .s-none{fill:var(--paper)}
+.t-yes{fill:var(--st-yes-t)} .t-onlyif{fill:var(--st-if-t)} .t-no{fill:var(--st-no-t)} .t-na{fill:var(--ink-2)} .t-none{fill:var(--ink)}
 .round-table figcaption{font-family:var(--sans); font-size:14px; color:var(--ink-2); display:flex; flex-wrap:wrap; gap:6px 16px; justify-content:center; margin-top:8px}
 .key{display:inline-flex; align-items:center; gap:6px}
 .dot{display:inline-block; width:14px; height:14px; border-radius:50%}
@@ -205,7 +207,7 @@ ol.risks h3{font-size:19px}
 .grid .toggle{font-family:var(--sans); font-size:13px; color:var(--hyp)}
 .stance{min-height:44px; border-radius:5px; display:flex; align-items:center; justify-content:center; text-align:center; padding:2px 4px; font-family:var(--sans); font-weight:600; font-size:14.5px; line-height:1.2}
 .stance.yes{background:var(--st-yes); color:var(--st-yes-t)} .stance.onlyif{background:var(--st-if); color:var(--st-if-t)}
-.stance.no{background:var(--st-no); color:var(--st-no-t)} .stance.none{background:transparent; border:1px dashed var(--rule); color:var(--ink-2); font-weight:400}
+.stance.no{background:var(--st-no); color:var(--st-no-t)} .stance.na{background:transparent; border:1px solid var(--rule); color:var(--ink-2); font-weight:400; font-style:italic} .stance.none{background:transparent; border:1px dashed var(--rule); color:var(--ink-2); font-weight:400}
 .grid tr.panel-tally td{padding-top:8px; vertical-align:top}
 .tally-cell{font-family:var(--sans); font-size:13.5px; line-height:1.5}
 .tally-cell span{display:flex; align-items:center; justify-content:center; gap:6px}
@@ -368,6 +370,7 @@ footer{margin-top:56px; padding:20px 0 48px; border-top:1px solid var(--rule); f
   "stance_yes": "yes",
   "stance_onlyif": "only if",
   "stance_no": "no",
+  "stance_na": "does not apply",
   "noStance": "no answer",
   "stanceAria": "{dimension}: {stance}",
   "stanceDetail": "{stance}: {condition}",
@@ -508,7 +511,7 @@ footer{margin-top:56px; padding:20px 0 48px; border-top:1px solid var(--rule); f
       "stances": {
         "curiosity": {"stance": "only if", "condition": "Example condition.", "reason": "Example reason."},
         "value": {"stance": "only if", "condition": "Example condition.", "reason": "Example reason."},
-        "ease": {"stance": "yes", "reason": "Example reason."},
+        "ease": {"stance": "does not apply", "reason": "Example reason: this persona would only be affected, not use it."},
         "would_try": {"stance": "only if", "condition": "Example condition.", "reason": "Example reason."}
       },
       "understood": "Example sentence.",
@@ -772,7 +775,7 @@ footer{margin-top:56px; padding:20px 0 48px; border-top:1px solid var(--rule); f
   function evClass(v){ return EV[v] || 'observation'; }
   function ev(v){ return h('span', 'ev ' + evClass(v), L('evidence_' + evClass(v))); }
   function level(x){ return L('level_' + x); }
-  var STC = {'yes':'yes', 'only if':'onlyif', 'no':'no'};
+  var STC = {'yes':'yes', 'only if':'onlyif', 'no':'no', 'does not apply':'na'};
   function stanceOf(u, dimId){ var v = (u.stances||{})[dimId]; return (v && STC[v.stance]) ? v : null; }
   function stClass(v){ return v ? STC[v.stance] : 'none'; }
   function stWord(v){ return v ? L('stance_' + STC[v.stance]) : L('noStance'); }
@@ -848,7 +851,9 @@ footer{margin-top:56px; padding:20px 0 48px; border-top:1px solid var(--rule); f
     var cap = h('figcaption');
     var k1 = h('span', 'key', L('legendStances', {dimension: lastDim ? lastDim.name : ''}));
     var kst = [k1];
-    [['yes','--st-yes'], ['onlyif','--st-if'], ['no','--st-no']].forEach(function(p){ var k = h('span', 'key'); var sw = h('span', 'swatch'); sw.style.background = 'var(' + p[1] + ')'; add(k, sw); k.appendChild(document.createTextNode(L('stance_' + p[0]))); kst.push(k); });
+    var keys = [['yes','--st-yes'], ['onlyif','--st-if'], ['no','--st-no']];
+    if(seats.some(function(l){ return l.stance && l.stance.stance === 'does not apply'; })) keys.push(['na','--rule']);
+    keys.forEach(function(p){ var k = h('span', 'key'); var sw = h('span', 'swatch'); sw.style.background = 'var(' + p[1] + ')'; add(k, sw); k.appendChild(document.createTextNode(L('stance_' + p[0]))); kst.push(k); });
     var k2 = h('span', 'key'); add(k2, h('span', 'dot exp')); k2.appendChild(document.createTextNode(L('legendExpert')));
     var k3 = h('span', 'key'); add(k3, h('span', 'dot adv')); k3.appendChild(document.createTextNode(L('legendAdversary')));
     kst.forEach(function(k){ add(cap, k); }); add(cap, k2, k3); add(fig, cap);
