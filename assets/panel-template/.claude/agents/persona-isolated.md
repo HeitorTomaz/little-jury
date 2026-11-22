@@ -1,6 +1,6 @@
 ---
 name: persona-isolated
-description: Persona on the mock-jury panel. Receives all material inside its own prompt and answers without tools. Used only by the panel's orchestrator; do not use it for other tasks.
+description: Persona on the little-jury panel. Receives all material inside its own prompt and answers without tools. Used only by the panel's orchestrator; do not use it for other tasks.
 tools: []
 omitClaudeMd: true
 ---

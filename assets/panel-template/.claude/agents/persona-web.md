@@ -1,6 +1,6 @@
 ---
 name: persona-web
-description: Expert on the mock-jury panel with web access, only to verify external facts with a source. Used only by the panel's orchestrator; do not use it for other tasks.
+description: Expert on the little-jury panel with web access, only to verify external facts with a source. Used only by the panel's orchestrator; do not use it for other tasks.
 tools: WebSearch, WebFetch
 omitClaudeMd: true
 ---

@@ -1,6 +1,6 @@
 # Lighthouse co-op game — concept document (v0.2)
 
-This is my working document. Version 0.1 went through the mock jury; I revised the rules based on the
+This is my working document. Version 0.1 went through the little jury; I revised the rules based on the
 report. Honestly I think v0.2 fixes everything that mattered, and it is clearly the best co-op idea I
 have had.
 

@@ -1,4 +1,5 @@
-mock-jury, method 0.10.0 (2026-11-22)
+little-jury, method 0.10.1 (2026-11-22)
+0.10.1: the skill is renamed little-jury (it was mock-jury); the command is /little-jury.
 0.10.0: eleven new field profiles: design-doc, open-source, developer-docs, business-plan, grant-proposal,
 resume, talk, course, screenplay, policy-and-legal and hardware, each with its families, round 3 framing,
 users label, personas or bench, experts (one with web) and grid questions or criteria.
@@ -11,7 +12,7 @@ the destroyer as the harshest reviewer; round 3 puts central claims against obje
 the criteria where the bench split; quick wins are the smallest revisions that change a verdict; no overall
 verdict by majority). Exam answers: one anonymized answer per panel, up to five. Round 3 may test rules,
 claims or questions, as config.md says. Field profiles for software, papers, books, theses and exams.
-0.8.0: one invocation. /mock-jury, with optional free text (what the author wants to find out, a change plan
+0.8.0: one invocation. /little-jury, with optional free text (what the author wants to find out, a change plan
 file, a scope), replaces the prepare and run subcommands; the skill decides by the state of the folder
 whether to prepare, run, resume or offer a re-evaluation. Without stated objectives, the question block
 offers "General evaluation of the project" first.

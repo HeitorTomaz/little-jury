@@ -43,7 +43,7 @@ Ask **a single block of questions**, in the author's language, only about what t
 | Item | Why it matters |
 |---|---|
 | **Who the project is for**, in the author's view (criteria family: **who will judge it, or where it will be submitted**: a journal, a committee, an exam board) | defines the "imagined audience" persona and the user profiles, or the bench of jurors |
-| **What the author wants to find out with this evaluation** (go or no-go, what to cut, what to test first, whether a change is worth the risk…). If the invocation already said it (the text after `/mock-jury`), only confirm it, in your own words. If it did not, offer **"General evaluation of the project"** as the first option, then two or three objectives that fit the material | goes into `config.md` as the objective; the moderator uses it to choose scenarios, the debate agenda and the emphasis of the consolidation. It **never** goes to the personas |
+| **What the author wants to find out with this evaluation** (go or no-go, what to cut, what to test first, whether a change is worth the risk…). If the invocation already said it (the text after `/little-jury`), only confirm it, in your own words. If it did not, offer **"General evaluation of the project"** as the first option, then two or three objectives that fit the material | goes into `config.md` as the objective; the moderator uses it to choose scenarios, the debate agenda and the emphasis of the consolidation. It **never** goes to the personas |
 | **What the author wants to test or fears** (concerns) | becomes `moderator/author-concerns.md` |
 
 If the author has not settled who the project is for, say so in the question block and record `- Defined: no` under `## Audience` in `config.md`: the panel will then record what each group wants instead of tallying together profiles that want opposite things (section 4).
@@ -66,7 +66,7 @@ The other items, when the material does not answer them:
 | Is there a list for the panel to rank? (names, slogans, variants) | turns on the list, the draw and the report section |
 | Which external facts need checking against a source (store rules, regulations, trademarks, platform documentation) | defines the questions for the expert with web access |
 | Size: lean (default) or full | see `composition.md` |
-| **Checkpoints** (optional, off by default): "Do you want to check the run after round 1 (are the voices distinct?) and before the debate (adjust the agenda)?" | at each checkpoint the run saves everything and stops; the author looks, may edit the agenda, and continues with `/mock-jury` |
+| **Checkpoints** (optional, off by default): "Do you want to check the run after round 1 (are the voices distinct?) and before the debate (adjust the agenda)?" | at each checkpoint the run saves everything and stops; the author looks, may edit the agenda, and continues with `/little-jury` |
 | For a re-evaluation: confirm that it is a revised version of the project evaluated in `rounds/v<earlier>/`, and ask what changed if the material does not say | see section 8 |
 
 In the same block, say what happens next: the run takes from tens of minutes to a few hours, makes about 50 to 70 agent calls (35 to 55 for a lean criteria panel) (it may span more than one usage window of the plan) and ends with the report open in the browser (or pauses at the checkpoints, if the author wants them). External evaluations made in another AI tool can be placed in `panel/input/external/` before the author answers; after that there is no way to include them in this run.
@@ -302,9 +302,9 @@ python <skill-folder>/scripts/run_panel.py <project-root>/panel --open
 4. that the `.md` files in `panel/rounds/v<version>/` are for Claude: to continue the conversation about the project in a future session, just point Claude at that folder;
 5. that new ideas the author has during or after the run go in `prep/next-version-notes.md`, never in the panel's inputs: the inputs of a run are not changed while it runs, and the notes feed the next version.
 
-**Paused at a checkpoint** (exit code 4, only when the author asked for checkpoints): tell the author which checkpoint it is, what to look at (`panel/rounds/v<version>/r1.md` after round 1, or `panel/rounds/v<version>/r4-agenda.md` before the debate, which they may edit), and that `/mock-jury` at the project root continues the run.
+**Paused at a checkpoint** (exit code 4, only when the author asked for checkpoints): tell the author which checkpoint it is, what to look at (`panel/rounds/v<version>/r1.md` after round 1, or `panel/rounds/v<version>/r4-agenda.md` before the debate, which they may edit), and that `/little-jury` at the project root continues the run.
 
-**Interrupted:** tell the author at which stage it stopped (from `progress.md`) and how to resume: `/mock-jury` at the project root, after the usage limit resets. The script resumes where it stopped. Say the cause the script printed (usage limit, expired login, Ctrl+C, or a session that ended without a report). If the run was killed outright (terminal closed, tool call stopped), the next call cleans up by itself; `python <skill>/scripts/run_panel.py panel --unlock` does only the cleanup.
+**Interrupted:** tell the author at which stage it stopped (from `progress.md`) and how to resume: `/little-jury` at the project root, after the usage limit resets. The script resumes where it stopped. Say the cause the script printed (usage limit, expired login, Ctrl+C, or a session that ended without a report). If the run was killed outright (terminal closed, tool call stopped), the next call cleans up by itself; `python <skill>/scripts/run_panel.py panel --unlock` does only the cleanup.
 
 ## 8. Re-evaluation of a revised version
 

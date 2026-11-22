@@ -1,12 +1,12 @@
 ---
-name: mock-jury
-description: Critically evaluates a project, a piece of work or a planned change in any field (game, app, product, service, hardware, scientific paper, book, thesis, exam) with a mock jury, a panel of synthetic personas (users or a bench of jurors, experts and adversarial agents) working in isolated rounds, ending in a report with tensions, risks, gaps and what to test or revise first. Use it whenever someone wants a concept, an existing system, a change plan, a manuscript or an exam put through critical review, to simulate how different audiences would react ("test it with personas"), to "review my paper like a peer reviewer", to run a mock thesis committee, to grade an exam answer against its key, to check whether an exam is fair and clear, to find contradictions and loopholes in their own rules, or to rank names with simulated opinion, even if they never say "panel" or "mock jury". Also resumes a panel already set up (a panel/ folder). Requires isolated Claude Code subagents.
+name: little-jury
+description: Critically evaluates a project, a piece of work or a planned change in any field (game, app, product, service, hardware, scientific paper, book, thesis, exam) with a little jury (a mock jury), a panel of synthetic personas (users or a bench of jurors, experts and adversarial agents) working in isolated rounds, ending in a report with tensions, risks, gaps and what to test or revise first. Use it whenever someone wants a concept, an existing system, a change plan, a manuscript or an exam put through critical review, to simulate how different audiences would react ("test it with personas"), to "review my paper like a peer reviewer", to run a mock thesis committee, to grade an exam answer against its key, to check whether an exam is fair and clear, to find contradictions and loopholes in their own rules, or to rank names with simulated opinion, even if they never say "panel", "little jury" or "mock jury". Also resumes a panel already set up (a panel/ folder). Requires isolated Claude Code subagents.
 argument-hint: "[what you want to find out] [change-plan-file]"
 ---
 
-# Mock jury
+# Little jury
 
-A mock jury: a panel of agents that examines a project the way an independent group would, before the real decision, and leaves the decision to the author. It tries to find out whether the proposal is interesting, for whom, what the problems are and what to test first. It does not exist to improve or defend the idea. The main session is both orchestrator and moderator: it builds the prompts, creates the agents, saves the answers and consolidates the result.
+A little jury, a mock jury in miniature: a panel of agents that examines a project the way an independent group would, before the real decision, and leaves the decision to the author. It tries to find out whether the proposal is interesting, for whom, what the problems are and what to test first. It does not exist to improve or defend the idea. The main session is both orchestrator and moderator: it builds the prompts, creates the agents, saves the answers and consolidates the result.
 
 **Language.** Talk to the user and write every output in the language the user is using in this conversation; default to English. Preparation records it in `config.md` as `- Language: <language>`, because the isolated run session cannot see this conversation. The method files stay in English; everything the panel produces (questions to the author, inputs, personas, persona prompts and answers, round files, `.md` outputs, report data and report labels) is in that language. The skill's machine-readable vocabulary stays in English in every language: markers such as `[decided]` or `[implemented]`, ids, dimension ids, file and folder names, JSON keys and enum values. The "How to read" block of the full description explains the markers in the author's language.
 
@@ -18,15 +18,15 @@ Arguments for this invocation: `$ARGUMENTS`
 
 ## One invocation
 
-`/mock-jury`, with or without text after it, does everything: it prepares the panel, runs it in an isolated session and delivers the report. There are no subcommands. The text after it is free and may carry:
+`/little-jury`, with or without text after it, does everything: it prepares the panel, runs it in an isolated session and delivers the report. There are no subcommands. The text after it is free and may carry:
 
-- **what the author wants to find out** (the objectives of the evaluation), for example `/mock-jury I want to know if first-time players understand the co-op mode`. When it is there, the question block only confirms it; when it is not, the question block offers **"General evaluation of the project"** as the first option;
-- **a file with the plan of a change** to an existing system (`/mock-jury docs/fines-plan.md`, or a sentence that names it), which makes it a **change** evaluation;
+- **what the author wants to find out** (the objectives of the evaluation), for example `/little-jury I want to know if first-time players understand the co-op mode`. When it is there, the question block only confirms it; when it is not, the question block offers **"General evaluation of the project"** as the first option;
+- **a file with the plan of a change** to an existing system (`/little-jury docs/fines-plan.md`, or a sentence that names it), which makes it a **change** evaluation;
 - the scope, for an existing system ("only the billing module").
 
-The words "prepare" and "run", if the author types them, are just part of that text: decide by the state of the folder (below), not by the word. Natural-language requests ("put this concept through a mock jury", "continue the panel") count the same.
+The words "prepare" and "run", if the author types them, are just part of that text: decide by the state of the folder (below), not by the word. Natural-language requests ("put this concept through a little jury", "continue the panel") count the same.
 
-**The author is asked only once**, in the question block at the start of preparation: the project, who it is for, and what they want to decide with the evaluation. After that, everything continues without intervention until the report opens in the browser, unless the author asked for the optional **checkpoints** (after round 1 and before the debate): the run then saves everything, stops, and `/mock-jury` continues it.
+**The author is asked only once**, in the question block at the start of preparation: the project, who it is for, and what they want to decide with the evaluation. After that, everything continues without intervention until the report opens in the browser, unless the author asked for the optional **checkpoints** (after round 1 and before the debate): the run then saves everything, stops, and `/little-jury` continues it.
 
 **Re-evaluation.** When `panel/rounds/` already has a completed run of an earlier version of the same project, a new invocation offers a re-evaluation of the revised version: same persona profiles and models, fresh instances, the earlier problems checked in round 3 and a comparison (resolved, partly, unresolved, new) in the report. See section 8 of `references/prepare.md`.
 
@@ -89,7 +89,7 @@ Read `references/prepare.md` and follow it. Depending on the type, it also point
 
 In this session the method is **copied inside `panel/method/`**. Read `method/run.md` and follow it; it points to the other files in `method/`. Do not read the reference files in this skill's folder: with the read block active they may be out of reach, and the local copy is the version of the method this panel was set up with, which keeps runs from the same folder comparable.
 
-The run continues until the report. It stops only if an isolation test fails or at the optional checkpoints recorded in `config.md` (`- Checkpoints:`), where it saves everything and ends; `/mock-jury` resumes it.
+The run continues until the report. It stops only if an isolation test fails or at the optional checkpoints recorded in `config.md` (`- Checkpoints:`), where it saves everything and ends; `/little-jury` resumes it.
 
 ## Files in this skill
 
