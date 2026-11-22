@@ -22,6 +22,7 @@ This session is open at the project root and can read the concept document, the 
 ## 1. Evaluation type and reading the material
 
 - If the current directory is `panel/` or inside it, stop: preparation must run at the root.
+- If `panel/` already holds a run that is **in progress or unfinished**, do not prepare over it: preparing rewrites `input/`, `personas.md` and `config.md`, which that run reads. Signs: `panel/runs/.lock.json` exists (a run is going on now, or one was killed before its cleanup), or a `panel/rounds/<version>/progress.md` has no finished round 5 (it may have a `- Paused:` line). Tell the author what you found and stop, with the options: if a run is going on, wait for it to end; to resume an unfinished or paused run, `/mock-jury run`; if a run was killed, `python <skill>/scripts/run_panel.py panel --unlock` cleans up after it. Only if the author asks to **abandon** the unfinished run and prepare again, move its folder to `panel/rounds/_abandoned-<version>-<date>/` (never delete it) and go on; record it under "Notes for the moderator" in `config.md`.
 - If `panel/` already exists with a completed run of an earlier version of the same project, this is a **re-evaluation**: read `panel/config.md` to learn what was evaluated before, confirm it in the question block and follow section 8 as well.
 - Decide the type with the table in `SKILL.md`:
   - **concept:** look for the concept document at the root (and only there; do not sweep the disk). Follow this file.
@@ -281,7 +282,7 @@ python <skill-folder>/scripts/run_panel.py <project-root>/panel --open
 
 **Paused at a checkpoint** (exit code 4, only when the author asked for checkpoints): tell the author which checkpoint it is, what to look at (`panel/rounds/v<version>/r1.md` after round 1, or `panel/rounds/v<version>/r4-agenda.md` before the debate, which they may edit), and that `/mock-jury run` at the project root continues the run.
 
-**Interrupted:** tell the author at which stage it stopped (from `progress.md`) and how to resume: `/mock-jury run` at the project root, after the usage limit resets. The script resumes where it stopped.
+**Interrupted:** tell the author at which stage it stopped (from `progress.md`) and how to resume: `/mock-jury run` at the project root, after the usage limit resets. The script resumes where it stopped. Say the cause the script printed (usage limit, expired login, Ctrl+C, or a session that ended without a report). If the run was killed outright (terminal closed, tool call stopped), the next call cleans up by itself; `python <skill>/scripts/run_panel.py panel --unlock` does only the cleanup.
 
 ## 8. Re-evaluation of a revised version
 

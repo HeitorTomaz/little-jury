@@ -1,4 +1,10 @@
-mock-jury, method 0.6.0 (2026-11-21)
+mock-jury, method 0.6.1 (2026-11-22)
+0.6.1: run fixes from real use on Windows. The prompt goes to claude -p through stdin (cmd.exe cut it at the
+first newline when claude is a .CMD wrapper, which dropped --allowedTools); the run scripts are also allowed
+through the PowerShell tool; a killed run leaves runs/.lock.json, and the next call restores write permission,
+checks the hashes and refuses to start while the earlier session is alive (--unlock does only that); the
+script names the cause of an interruption (login, usage limit, Ctrl+C); the web isolation test accepts a
+denied permission request; prepare stops when a run is in progress or unfinished.
 0.6.0: stances replace the 1-to-5 scores: each grid dimension is a question answered with yes, only if
 <condition> or no, reason first; the report shows a tally and the conditions instead of an average.
 Rating anchors were tried in a real run and had no effect, so they were not adopted. A change of position
